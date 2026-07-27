@@ -253,7 +253,7 @@ static auto BuildDestroyWitness(
     return SemIR::InstId::None;
   }
   auto* class_decl = dyn_cast<clang::CXXRecordDecl>(tag_decl);
-  if (!class_decl) {
+  if (!class_decl) {  // || class_decl->hasTrivialDestructor()) {
     return BuildTrivialDestroyWitness(context, loc_id, query_self_const_id,
                                       query_specific_interface_id);
   }
@@ -600,7 +600,7 @@ auto LookupCppImpl(Context& context, SemIR::LocId loc_id,
     case SemIR::CoreInterface::Default:
       return BuildDefaultWitness(context, loc_id, query_self_const_id,
                                  query_specific_interface_id);
-    case SemIR::CoreInterface::Destroy:
+    case SemIR::CoreInterface::SubobjectDestroy:
       return BuildDestroyWitness(context, loc_id, query_self_const_id,
                                  query_specific_interface_id);
 

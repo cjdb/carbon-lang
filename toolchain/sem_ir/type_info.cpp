@@ -40,7 +40,8 @@ auto ValueRepr::Print(llvm::raw_ostream& out) const -> void {
 auto CompleteTypeInfo::Print(llvm::raw_ostream& out) const -> void {
   out << "{value_rep: " << value_repr
       << ", layout: {size: " << object_layout.size
-      << ", align: " << object_layout.alignment << "}}";
+      << ", align: " << object_layout.alignment << "}"
+      << ", destruction_info: " << destruction_info << "}";
 }
 
 auto ObjectSize::Print(llvm::raw_ostream& out) const -> void {
@@ -50,6 +51,16 @@ auto ObjectSize::Print(llvm::raw_ostream& out) const -> void {
   if (bits != 0) {
     out << ":" << bits;
   }
+}
+
+auto DestructionInfo::Print(llvm::raw_ostream& out) const -> void {
+  if (!is_known_) {
+    out << "{unknown}";
+    return;
+  }
+
+  out << "{is_trivial: " << static_cast<bool>(is_trivial_)
+      << ", is_dynamic:" << static_cast<bool>(is_dynamic_) << "}";
 }
 
 auto ValueRepr::ForType(const File& file, TypeId type_id) -> ValueRepr {

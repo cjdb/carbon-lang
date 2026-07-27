@@ -4,6 +4,7 @@
 //
 // INCLUDE-FILE: toolchain/testing/testdata/min_prelude/parts/as.carbon
 // INCLUDE-FILE: toolchain/testing/testdata/min_prelude/parts/copy.carbon
+// INCLUDE-FILE: toolchain/testing/testdata/min_prelude/parts/destroy.carbon
 // EXTRA-ARGS: --custom-core --exclude-dump-file-prefix=min_prelude/
 
 // --- min_prelude/convert.carbon
@@ -13,3 +14,4 @@ package Core library "prelude";
 
 export import library "prelude/parts/as";
 export import library "prelude/parts/copy";
+export import library "prelude/parts/destroy";

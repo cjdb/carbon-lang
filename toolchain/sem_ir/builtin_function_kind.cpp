@@ -407,6 +407,10 @@ constexpr BuiltinInfo PrimitiveCopy = {
     "primitive_copy",
     ValidateSignature<auto(PrimitiveCopyParamT)->PrimitiveCopyParamT>};
 
+// Destroys an object's subobjects.
+constexpr BuiltinInfo SubobjectDestroy = {
+    "destroy.subobjects", ValidateSignature<auto(ByRef<AnyType>)->NoReturn>};
+
 // Prints a single character.
 constexpr BuiltinInfo PrintChar = {
     "print.char", ValidateSignature<auto(AnySizedInt)->AnySizedInt>};

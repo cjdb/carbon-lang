@@ -213,6 +213,52 @@ struct ObjectLayout {
   auto has_value() const -> bool { return alignment != ObjectSize::Zero(); }
 };
 
+// Describes how a type behaves during destruction.
+//
+// TODO: handle non-destructible objects.
+class DestructionInfo : public Printable<DestructionInfo> {
+ public:
+  enum class Trivial : uint8_t {
+    No,
+    Yes,
+  };
+
+  enum class Dynamic : uint8_t {
+    No,
+    Yes,
+  };
+
+  // Used when creating type info before learning how a type handles
+  // destruction.
+  static constexpr auto Unknown() -> DestructionInfo { return {}; }
+
+  // Used when creating or adjusting type info after learning how a type handles
+  // destruction.
+  static constexpr auto Known(Trivial is_trivial, Dynamic is_dynamic)
+      -> DestructionInfo {
+    return DestructionInfo(is_trivial, is_dynamic);
+  }
+
+  constexpr auto IsKnown() const -> bool { return is_known_; }
+
+  constexpr auto IsTrivial() const -> bool { return is_known_ && is_trivial_; }
+
+  constexpr auto IsDynamic() const -> bool { return is_known_ && is_dynamic_; }
+
+  auto Print(llvm::raw_ostream& out) const -> void;
+
+ private:
+  uint8_t is_known_ : 1 = 0;
+  uint8_t is_trivial_ : 1 = 0;
+  uint8_t is_dynamic_ : 1 = 0;
+
+  DestructionInfo() = default;
+  constexpr DestructionInfo(Trivial is_trivial, Dynamic is_dynamic)
+      : is_known_(true),
+        is_trivial_(is_trivial == Trivial::Yes),
+        is_dynamic_(is_dynamic == Dynamic::Yes) {}
+};
+
 // Information stored about a TypeId corresponding to a complete type.
 struct CompleteTypeInfo : public Printable<CompleteTypeInfo> {
   auto Print(llvm::raw_ostream& out) const -> void;
@@ -227,6 +273,12 @@ struct CompleteTypeInfo : public Printable<CompleteTypeInfo> {
 
   // If this type is abstract, this is id of an abstract class it uses.
   ClassId abstract_class_id = ClassId::None;
+
+  // Identifies which of the following interfaces the type implements:
+  // * `Core.Destroy`
+  // * `Core.TrivialDestroy`
+  // * `Core.DynamicDestroy`
+  DestructionInfo destruction_info = DestructionInfo::Unknown();
 
   // Returns whether the type is abstract.
   //

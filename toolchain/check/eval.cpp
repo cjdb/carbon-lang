@@ -2295,6 +2295,36 @@ static auto ArgToFacetTypeId(Context& context, SemIR::LocId loc_id,
   return SemIR::DeclaredFacetTypeId::None;
 }
 
+// Returns a constant if the object's type is known to have trivial destruction,
+// and non-constant otherwise.
+static auto ConstantIfHasTrivialDestruction(
+    EvalContext& eval_context, llvm::ArrayRef<SemIR::InstId> arg_ids)
+    -> SemIR::ConstantId {
+  Phase phase = Phase::Concrete;
+  auto object_id = GetConstantValue(eval_context, arg_ids[0], &phase);
+
+  // TODO: in which cases is this false?
+  if (phase != Phase::Concrete) {
+    return MakeNonConstantResult(phase);
+  }
+
+  auto type_id =
+      eval_context.insts().GetAs<SemIR::ValueParam>(object_id).type_id;
+  auto destruction_info =
+      eval_context.types().GetCompleteTypeInfo(type_id).destruction_info;
+  CARBON_CHECK(destruction_info.IsKnown(),
+               "Phase::Concrete implies that the destruction info is known");
+
+  if (destruction_info.IsTrivial()) {
+    // An object with trivial destruction can always exit as a no-op without
+    // checking its subobjects.
+    return MakeEmptyTupleResult(eval_context);
+  }
+
+  // All other cases need to do some amount of work.
+  CARBON_FATAL("TODO: custom destruction not implemented yet");
+}
+
 // Returns a constant for a call to a builtin function.
 static auto MakeConstantForBuiltinCall(EvalContext& eval_context,
                                        SemIR::LocId loc_id, SemIR::Call call,
@@ -2367,7 +2397,9 @@ static auto MakeConstantForBuiltinCall(EvalContext& eval_context,
       return MakeIntResult(eval_context.context(), call.type_id,
                            /*is_signed=*/false, llvm::APInt(32, char_value));
     }
-
+    case SemIR::BuiltinFunctionKind::SubobjectDestroy: {
+      return ConstantIfHasTrivialDestruction(eval_context, arg_ids);
+    }
     case SemIR::BuiltinFunctionKind::MakeUninitialized:
     case SemIR::BuiltinFunctionKind::PrintChar:
     case SemIR::BuiltinFunctionKind::PrintInt:

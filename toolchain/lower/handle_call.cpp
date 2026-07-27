@@ -340,6 +340,10 @@ static auto HandleBuiltinCall(FunctionContext& context, SemIR::InstId inst_id,
       context.SetLocal(inst_id, context.GetValue(arg_ids[0]));
       return;
 
+    case SemIR::BuiltinFunctionKind::SubobjectDestroy: {
+      CARBON_FATAL("TODO: destroy objects that don't have trivial destruction");
+    }
+
     case SemIR::BuiltinFunctionKind::PrintChar: {
       auto* i32_type = llvm::IntegerType::getInt32Ty(context.llvm_context());
       llvm::Value* arg_value = context.builder().CreateSExtOrTrunc(

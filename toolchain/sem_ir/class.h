@@ -77,6 +77,9 @@ struct ClassFields {
   // inherited) virtual functions.
   InstId vtable_decl_id = InstId::None;
 
+  // An index of subobjects with non-trivial destruction.
+  std::vector<TypeId> subobjects_with_nontrivial_destruction;
+
   auto PrintClassFields(llvm::raw_ostream& out) const -> void {
     out << "self_type_id: " << self_type_id << ", inheritance_kind: ";
     switch (inheritance_kind) {
@@ -94,7 +97,18 @@ struct ClassFields {
         << ", body_block_id: " << body_block_id << ", adapt_id: " << adapt_id
         << ", base_id: " << base_id
         << ", complete_type_witness_id: " << complete_type_witness_id
-        << ", vtable_decl_id: " << vtable_decl_id << "}";
+        << ", vtable_decl_id: " << vtable_decl_id
+        << ", subobjects_with_nontrivial_destruction: {";
+    if (!subobjects_with_nontrivial_destruction.empty()) {
+      auto count = subobjects_with_nontrivial_destruction.size() - 1;
+      for (auto i = size_t{0}; i < count; ++i) {
+        out << subobjects_with_nontrivial_destruction[i] << ", ";
+      }
+
+      out << subobjects_with_nontrivial_destruction.back();
+    }
+
+    out << "}}";
   }
 };
 
