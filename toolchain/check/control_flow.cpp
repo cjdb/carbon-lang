@@ -9,6 +9,7 @@
 #include "toolchain/base/kind_switch.h"
 #include "toolchain/check/call.h"
 #include "toolchain/check/inst.h"
+#include "toolchain/check/member_access.h"
 #include "toolchain/check/name_lookup.h"
 #include "toolchain/check/operator.h"
 #include "toolchain/check/scope_stack.h"
@@ -155,9 +156,16 @@ static auto AddCleanups(Context& context, ScopeStack::CleanupScopeDepth depth)
     // TODO: This does the `Destroy` lookup and call at every cleanup block.
     // Control flow can lead to the same variable being destroyed by multiple
     // cleanup blocks, so we'll want to avoid this in the future.
-    BuildUnaryOperator(
-        context, context.insts().GetLocIdForDesugaring(destroy_id),
-        {.interface_name = CoreIdentifier::SelfDestruct}, destroy_id);
+    auto loc_id = context.insts().GetLocIdForDesugaring(destroy_id);
+    auto interface_id =
+        LookupNameInCore(context, loc_id, CoreIdentifier::Destroy);
+    auto op_name_id =
+        context.core_identifiers().AddNameId(CoreIdentifier::SelfDestruct);
+    auto op_fn_id =
+        PerformMemberAccess(context, loc_id, interface_id, op_name_id);
+    auto bound_op_id =
+        PerformCompoundMemberAccess(context, loc_id, destroy_id, op_fn_id);
+    PerformCall(context, loc_id, bound_op_id, {}, true);
   }
 }
 

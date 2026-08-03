@@ -36,13 +36,15 @@ static auto GetClangOperatorKind(Context& context, SemIR::LocId loc_id,
     -> std::optional<clang::OverloadedOperatorKind> {
   switch (interface_name) {
       // Unary operators.
+    case CoreIdentifier::Destroy:
     case CoreIdentifier::SubobjectDestroy:
+    case CoreIdentifier::SelfDestruct:
     case CoreIdentifier::As:
     case CoreIdentifier::ImplicitAs:
     case CoreIdentifier::Iterate:
     case CoreIdentifier::UnsafeAs:
     case CoreIdentifier::Copy: {
-      // TODO: Support destructors and conversions.
+      // TODO: Support conversions.
       return std::nullopt;
     }
 
