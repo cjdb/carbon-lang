@@ -13,9 +13,8 @@ interface BitAndWith(Other: type) {
 impl type as BitAndWith(type) {
   fn Op(self, other: Self) -> Self = "type.and";
 }
-
-// interface Destroy;
-// fn SelfDestruct[T: Destroy](ref x: T);
+interface Destroy;
+interface TrivialDestroy;
 
 // A toolchain-implemented interface used to destroy an object's subobjects.
 //
@@ -30,8 +29,14 @@ private interface SubobjectDestroy {
   fn Op(ref self);
 }
 
-final impl forall [T: type] T as SubobjectDestroy {
-  fn Op(ref self) = "destroy.subobjects";
+final match_first {
+  impl forall [T: TrivialDestroy] T as SubobjectDestroy {
+    fn Op(self) = "no_op";
+  }
+
+  impl forall [T: Destroy] T as SubobjectDestroy {
+    fn Op(ref self) = "destroy.subobjects";
+  }
 }
 
 // Describes how an object is destroyed for any implementing type.
@@ -65,10 +70,11 @@ interface Destroy {
 impl forall [T: type] T as Destroy {
   fn Op(ref self: Self) = "no_op";
 
-  fn SelfDestruct(ref self) {
-    self.(Destroy.Op)();
-    self.(SubobjectDestroy.Op)();
-  }
+  fn SelfDestruct(ref self) = "no_op";
+  // {
+  //   self.(Destroy.Op)();
+  //   self.(SubobjectDestroy.Op)();
+  // }
 }
 
 // Represents types that have _trivial destruction_.
@@ -82,6 +88,7 @@ impl forall [T: type] T as Destroy {
 // Types with trivial destruction automatically implement this interface. Users
 // must not manually implement `TrivialDestroy`.
 interface TrivialDestroy {
+  require impls Destroy;
 }
 
 final impl forall [T: TrivialDestroy] T as Destroy {

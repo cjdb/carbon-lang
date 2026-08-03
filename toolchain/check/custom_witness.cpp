@@ -649,6 +649,22 @@ auto BuildTrivialDestroyWitness(
                                       DestroyFormat::Trivial);
 }
 
+static auto LookupTrivialDestroyWitness(
+    Context& context, SemIR::LocId loc_id,
+    SemIR::ConstantId query_self_const_id,
+    SemIR::SpecificInterfaceId query_specific_interface_id, bool build_witness)
+    -> SemIR::InstId {
+  auto format = CanDestroyType(context, loc_id, query_self_const_id,
+                               query_specific_interface_id);
+  if (!build_witness || query_self_const_id.is_symbolic() ||
+      format != DestroyFormat::Trivial) {
+    return SemIR::InstId::None;
+  }
+
+  return BuildTrivialDestroyWitness(context, loc_id, query_self_const_id,
+                                    query_specific_interface_id);
+}
+
 static auto MakeIntFitsInWitness(
     Context& context, SemIR::LocId loc_id,
     SemIR::ConstantId query_self_const_id,
@@ -830,6 +846,10 @@ auto LookupCustomWitness(Context& context, SemIR::LocId loc_id,
       return LookupSubobjectDestroyWitness(context, loc_id, query_self_const_id,
                                            query_specific_interface_id,
                                            build_witness);
+    case SemIR::CoreInterface::TrivialDestroy:
+      return LookupTrivialDestroyWitness(context, loc_id, query_self_const_id,
+                                         query_specific_interface_id,
+                                         build_witness);
     case SemIR::CoreInterface::FloatFitsIn:
       return MakeFloatFitsInWitness(context, loc_id, query_self_const_id,
                                     query_specific_interface_id, build_witness);
