@@ -38,7 +38,7 @@ auto MakeBuiltinOperatorFunction(
     -> SemIR::InstId;
 
 // Builds a witness that the given type is trivially destroyable.
-auto BuildTrivialDestroyWitness(
+auto BuildTrivialSubobjectDestroyWitness(
     Context& context, SemIR::LocId loc_id,
     SemIR::ConstantId query_self_const_id,
     SemIR::SpecificInterfaceId query_specific_interface_id) -> SemIR::InstId;

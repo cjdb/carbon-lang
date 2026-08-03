@@ -254,8 +254,8 @@ static auto BuildDestroyWitness(
   }
   auto* class_decl = dyn_cast<clang::CXXRecordDecl>(tag_decl);
   if (!class_decl) {  // || class_decl->hasTrivialDestructor()) {
-    return BuildTrivialDestroyWitness(context, loc_id, query_self_const_id,
-                                      query_specific_interface_id);
+    return BuildTrivialSubobjectDestroyWitness(context, loc_id, query_self_const_id,
+                                               query_specific_interface_id);
   }
   SemIR::ClangDeclSignatureId signature_id = MakeSignature(context, {});
 
@@ -601,7 +601,6 @@ auto LookupCppImpl(Context& context, SemIR::LocId loc_id,
       return BuildDefaultWitness(context, loc_id, query_self_const_id,
                                  query_specific_interface_id);
     case SemIR::CoreInterface::SubobjectDestroy:
-      // case SemIR::CoreInterface::TrivialDestroy:
       return BuildDestroyWitness(context, loc_id, query_self_const_id,
                                  query_specific_interface_id);
 

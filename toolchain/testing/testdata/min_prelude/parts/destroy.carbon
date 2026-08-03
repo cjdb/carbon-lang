@@ -20,15 +20,11 @@ impl type as BitAndWith(type) {
 // -   are abstract and not partial; or
 // -   have a subobject that cannot be destroyed; or
 // -   have explicitly opted out from being destructible.
-private interface SubobjectDestroy {
+interface SubobjectDestroy {
   // friend fn SelfDestruct(ref x: Self);
 
   // TODO: make private
   fn Op(ref self);
-}
-
-impl forall [T: type] T as SubobjectDestroy {
-  fn Op(ref self) = "destroy.subobjects";
 }
 
 // Describes how an object is destroyed for any implementing type.
@@ -52,21 +48,6 @@ impl forall [T: type] T as Destroy {
   fn Op(ref self: Self) = "no_op";
 }
 
-// Represents types that have _trivial destruction_.
-//
-// A type has trivial destruction if, and only if, the type and all of its
-// subobjects use the default implementation for `Destroy`. Types with trivial
-// destruction do not need to call `SelfDestruct` at the end of their lifetime.
-// The toolchain does not automatically call `SelfDestruct` for types with
-// trivial destruction.
-//
-// Types with trivial destruction automatically implement this interface. Users
-// must not manually implement `TrivialDestroy`.
-interface TrivialDestroy {
-}
-
-impl forall [T: Destroy] T as TrivialDestroy {}
-
 // See `SelfDestruct` alias below.
 interface SelfDestructible {
   // TODO: make unsafe
@@ -74,11 +55,7 @@ interface SelfDestructible {
 }
 
 final match_first {
-  impl forall [T: TrivialDestroy] T as SelfDestructible {
-    fn Op(ref self) = "no_op";
-  }
-
-  impl forall [T: Destroy] T as SelfDestructible {
+  impl forall [T: SubobjectDestroy & Destroy] T as SelfDestructible {
     fn Op(ref self) {
       self.(Destroy.Op)();
       self.(SubobjectDestroy.Op)();

@@ -640,7 +640,7 @@ static auto LookupSubobjectDestroyWitness(
                                       query_specific_interface_id, format);
 }
 
-auto BuildTrivialDestroyWitness(
+auto BuildTrivialSubobjectDestroyWitness(
     Context& context, SemIR::LocId loc_id,
     SemIR::ConstantId query_self_const_id,
     SemIR::SpecificInterfaceId query_specific_interface_id) -> SemIR::InstId {
@@ -648,6 +648,14 @@ auto BuildTrivialDestroyWitness(
                                       query_specific_interface_id,
                                       DestroyFormat::Trivial);
 }
+// static auto BuildTrivialDestroyWitness(
+//     Context& context, SemIR::LocId loc_id,
+//     SemIR::ConstantId query_self_const_id,
+//     SemIR::SpecificInterfaceId query_specific_interface_id) -> SemIR::InstId
+//     {
+//   return BuildCustomWitness(context, loc_id, query_self_const_id,
+//                             query_specific_interface_id, {});
+// }
 
 // static auto LookupTrivialDestroyWitness
 //     (Context& context, SemIR::LocId loc_id,
