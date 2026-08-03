@@ -38,7 +38,8 @@ static auto GetClangOperatorKind(Context& context, SemIR::LocId loc_id,
       // Unary operators.
     case CoreIdentifier::Destroy:
     case CoreIdentifier::SubobjectDestroy:
-    case CoreIdentifier::SelfDestruct:
+    case CoreIdentifier::SelfDestructible:
+    // case CoreIdentifier::TrivialDestroy:
     case CoreIdentifier::As:
     case CoreIdentifier::ImplicitAs:
     case CoreIdentifier::Iterate:

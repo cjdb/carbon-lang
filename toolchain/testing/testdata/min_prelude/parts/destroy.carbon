@@ -13,8 +13,6 @@ interface BitAndWith(Other: type) {
 impl type as BitAndWith(type) {
   fn Op(self, other: Self) -> Self = "type.and";
 }
-interface Destroy;
-interface TrivialDestroy;
 
 // A toolchain-implemented interface used to destroy an object's subobjects.
 //
@@ -29,14 +27,8 @@ private interface SubobjectDestroy {
   fn Op(ref self);
 }
 
-final match_first {
-  impl forall [T: TrivialDestroy] T as SubobjectDestroy {
-    fn Op(self) = "no_op";
-  }
-
-  impl forall [T: Destroy] T as SubobjectDestroy {
-    fn Op(ref self) = "destroy.subobjects";
-  }
+impl forall [T: type] T as SubobjectDestroy {
+  fn Op(ref self) = "destroy.subobjects";
 }
 
 // Describes how an object is destroyed for any implementing type.
@@ -54,27 +46,10 @@ interface Destroy {
   //
   // TODO: make private
   fn Op(ref self: Self) = "no_op";
-
-  // Destroys a complete object, including all subobjects, and ends their
-  // lifetimes.
-  //
-  // The toolchain automatically calls `SelfDestruct` on all destructible objects
-  // at the end of the scope they were defined in. Users may manually call
-  // `SelfDestruct`. Users should only manually call `SelfDestruct` when explicit
-  // lifetime management is necessary.
-  //
-  // TODO: make unsafe
-  fn SelfDestruct(ref self);
 }
 
 impl forall [T: type] T as Destroy {
   fn Op(ref self: Self) = "no_op";
-
-  fn SelfDestruct(ref self) = "no_op";
-  // {
-  //   self.(Destroy.Op)();
-  //   self.(SubobjectDestroy.Op)();
-  // }
 }
 
 // Represents types that have _trivial destruction_.
@@ -88,13 +63,34 @@ impl forall [T: type] T as Destroy {
 // Types with trivial destruction automatically implement this interface. Users
 // must not manually implement `TrivialDestroy`.
 interface TrivialDestroy {
-  require impls Destroy;
 }
 
-final impl forall [T: TrivialDestroy] T as Destroy {
-  fn Op(ref self) = "no_op";
-  fn SelfDestruct(ref self) = "no_op";
+impl forall [T: Destroy] T as TrivialDestroy {}
+
+// See `SelfDestruct` alias below.
+interface SelfDestructible {
+  // TODO: make unsafe
+  fn Op(ref self);
 }
 
-// TODO: enable once generic specializations are available
-// unsafe fn SelfDestruct[T: TrivialDestroy](ref x: T) = "no_op";
+final match_first {
+  impl forall [T: TrivialDestroy] T as SelfDestructible {
+    fn Op(ref self) = "no_op";
+  }
+
+  impl forall [T: Destroy] T as SelfDestructible {
+    fn Op(ref self) {
+      self.(Destroy.Op)();
+      self.(SubobjectDestroy.Op)();
+    }
+  }
+}
+
+// Destroys a complete object, including all subobjects, and ends their
+// lifetimes.
+//
+// The toolchain automatically calls `SelfDestruct` on all destructible objects
+// at the end of the scope they were defined in. Users may manually call
+// `SelfDestruct`. Users should only manually call `SelfDestruct` when explicit
+// lifetime management is necessary.
+alias SelfDestruct = SelfDestructible.Op;
