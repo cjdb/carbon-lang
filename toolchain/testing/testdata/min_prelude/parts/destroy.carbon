@@ -1,10 +1,14 @@
 // Part of the Carbon Language project, under the Apache License v2.0 with LLVM
 // Exceptions. See /LICENSE for license information.
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+//
+// INCLUDE-FILE: toolchain/testing/testdata/min_prelude/parts/bit_and_with.carbon
 
 // --- min_prelude/parts/destroy.carbon
 
 package Core library "prelude/parts/destroy";
+
+export import library "prelude/parts/bit_and_with";
 
 interface SubobjectDestroy {
   // TODO: annotate `Op` with `private`.
