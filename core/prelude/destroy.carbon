@@ -32,3 +32,22 @@ impl forall [T: SubobjectDestroy] T as Destroy {
   // TODO: change to `alias Op = T.Op;` when `T as Destroy` becomes `partial T as Destroy`.
   fn Op(unused ref self) {}
 }
+
+// TODO: make private
+interface SelfDestructible {
+  require impls SubobjectDestroy;
+  require impls Destroy;
+
+  // TODO: annotate with `private`.
+  // TODO: annotate with `unsafe`.
+  fn Op(ref self: Self);
+}
+
+impl forall [T: SubobjectDestroy & Destroy] T as SelfDestructible {
+  fn Op(ref self) {
+    self.(Destroy.Op)();
+    self.(SubobjectDestroy.Op)();
+  }
+}
+
+alias SelfDestruct = SelfDestructible.Op;
