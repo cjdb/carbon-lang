@@ -840,6 +840,12 @@ constexpr BuiltinInfo CppStdInitializerListMake = {
     "cpp.std.initializer_list.make",
     ValidateSignature<auto(AnyArray)->StdInitializerList>};
 
+// Destroy an object's subobjects.
+// TODO: wire up to `Core.SubobjectDestroy`.
+[[maybe_unused]] constexpr BuiltinInfo TypeDestroySubobjects = {
+    "type.destroy.subobjects",
+    ValidateSignature<auto(ByRef<AnyType>)->NoReturn>};
+
 }  // namespace BuiltinFunctionInfo
 
 CARBON_DEFINE_ENUM_CLASS_NAMES(BuiltinFunctionKind) {
