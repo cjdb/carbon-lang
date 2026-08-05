@@ -2689,6 +2689,10 @@ static auto MakeConstantForBuiltinCall(EvalContext& eval_context,
       return PerformBuiltinBoolComparison(context, builtin_kind, arg_ids[0],
                                           arg_ids[1], call.type_id);
     }
+
+    case SemIR::BuiltinFunctionKind::TypeDestroySubobjects: {
+      CARBON_FATAL("TODO: implement `\"type.destroy.subobjects\"");
+    }
   }
 
   return SemIR::ConstantId::NotConstant;

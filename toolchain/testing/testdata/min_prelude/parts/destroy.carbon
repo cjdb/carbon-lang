@@ -6,14 +6,23 @@
 
 package Core library "prelude/parts/destroy";
 
-// TODO: Add `Destructor`, as in:
-// interface Destructor {
-//   private fn Op(ref self);
-// }
+interface SubobjectDestroy {
+  // TODO: annotate `Op` with `private`.
+  // TODO: annotate `Op` with `final`.
+  // TODO: implement as `"type.destroy.subobjects"`.
+  fn Op(unused ref self) {}
+}
 
-// Destroys objects. This will invoke `Destructor` impls recursively on members;
-// it does not deallocate memory.
 interface Destroy {
-  // TODO: This should be `final fn Op(ref self) = "type.destroy"`.
-  fn Op(ref self);
+  require impls SubobjectDestroy;
+
+  // TODO: change `Self` to `partial Self`.
+  fn Op(ref self: Self);
+}
+
+// TODO: make `final`.
+// TODO: change `T` to `partial T` and document why.
+impl forall [T: SubobjectDestroy] T as Destroy {
+  // TODO: change to `alias Op = T.Op;` when `T as Destroy` becomes `partial T as Destroy`.
+  fn Op(unused ref self) {}
 }

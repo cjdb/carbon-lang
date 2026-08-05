@@ -624,6 +624,10 @@ static auto HandleBuiltinCall(FunctionContext& context, SemIR::InstId inst_id,
       context.SetLocal(inst_id, context.GetValue(arg_ids[1]));
       return;
     }
+
+    case SemIR::BuiltinFunctionKind::TypeDestroySubobjects: {
+      CARBON_FATAL("TODO: implement `\"type.destroy.subobjects\"`");
+    }
   }
 
   CARBON_FATAL("Unsupported builtin call.");

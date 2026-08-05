@@ -242,7 +242,7 @@ static auto BuildDefaultWitness(
                             query_specific_interface_id, {fn_id});
 }
 
-static auto BuildDestroyWitness(
+static auto BuildSubobjectDestroyWitness(
     Context& context, SemIR::LocId loc_id,
     SemIR::ConstantId query_self_const_id,
     SemIR::SpecificInterfaceId query_specific_interface_id) -> SemIR::InstId {
@@ -600,9 +600,6 @@ auto LookupCppImpl(Context& context, SemIR::LocId loc_id,
     case SemIR::CoreInterface::Default:
       return BuildDefaultWitness(context, loc_id, query_self_const_id,
                                  query_specific_interface_id);
-    case SemIR::CoreInterface::Destroy:
-      return BuildDestroyWitness(context, loc_id, query_self_const_id,
-                                 query_specific_interface_id);
 
     case SemIR::CoreInterface::CppRangeForIterate:
       return BuildCppRangeForIterateWitness(
@@ -613,6 +610,9 @@ auto LookupCppImpl(Context& context, SemIR::LocId loc_id,
     case SemIR::CoreInterface::FloatFitsIn:
       return SemIR::InstId::None;
 
+    case SemIR::CoreInterface::SubobjectDestroy:
+      return BuildSubobjectDestroyWitness(context, loc_id, query_self_const_id,
+                                          query_specific_interface_id);
     case SemIR::CoreInterface::Unknown:
       CARBON_FATAL("unexpected CoreInterface `{0}`", core_interface);
   }

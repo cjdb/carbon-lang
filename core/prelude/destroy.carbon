@@ -4,13 +4,31 @@
 
 package Core library "prelude/destroy";
 
-// TODO: Add `Destructor`, as in:
-// interface Destructor {
-//   private fn Op(ref self);
-// }
+import library "prelude/operators/bitwise";
 
-// Destroys objects. This will invoke `Destructor` impls recursively on members;
-// it does not deallocate memory.
+// A toolchain-implemented interface used to destroy an object's subobjects.
+//
+// Types automatically implement `SubobjectDestroy` unless they:
+// -   are abstract and not partial; or
+// -   have a subobject that cannot be destroyed; or
+// -   have explicitly opted out from being destructible.
+interface SubobjectDestroy {
+  // TODO: annotate `Op` with `private`.
+  // TODO: annotate `Op` with `final`.
+  // TODO: implement as `"type.destroy.subobjects"`.
+  fn Op(unused ref self) {}
+}
+
 interface Destroy {
-  fn Op(ref self);
+  require impls SubobjectDestroy;
+
+  // TODO: change `Self` to `partial Self`.
+  fn Op(ref self: Self);
+}
+
+// TODO: make `final`.
+// TODO: change `T` to `partial T` and document why.
+impl forall [T: SubobjectDestroy] T as Destroy {
+  // TODO: change to `alias Op = T.Op;` when `T as Destroy` becomes `partial T as Destroy`.
+  fn Op(unused ref self) {}
 }

@@ -158,4 +158,7 @@ CARBON_SEM_IR_BUILTIN_FUNCTION_KIND(TypeAnd)
 // C++ interop builtins.
 CARBON_SEM_IR_BUILTIN_FUNCTION_KIND(CppStdInitializerListMake)
 
+// Destruction.
+CARBON_SEM_IR_BUILTIN_FUNCTION_KIND(TypeDestroySubobjects)
+
 #undef CARBON_SEM_IR_BUILTIN_FUNCTION_KIND
