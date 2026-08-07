@@ -840,7 +840,6 @@ auto LookupCustomWitness(Context& context, SemIR::LocId loc_id,
     case SemIR::CoreInterface::CppUnsafeDeref:
     case SemIR::CoreInterface::Dec:
     case SemIR::CoreInterface::Default:
-    case SemIR::CoreInterface::Destroy:
     case SemIR::CoreInterface::DivAssignWith:
     case SemIR::CoreInterface::DivWith:
     case SemIR::CoreInterface::EqWith:
