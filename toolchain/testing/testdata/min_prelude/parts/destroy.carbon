@@ -17,17 +17,15 @@ interface SubobjectDestroy {
   fn Op(ref self);
 }
 
-// TODO: delete when toolchain provides a blanket impl.
-impl forall [T: type] T as SubobjectDestroy {
-  fn Op(unused ref self) {}
-}
-
 interface Destroy {
   // TODO: uncomment when `require impls` adds a witness table entry.
   // require impls SubobjectDestroy;
 
   // TODO: change `Self` to `partial Self`.
   fn Op(ref self: Self);
+
+  // TODO: remove when `require impls` adds a witness table entry.
+  fn CallSubobjectDestroyOp(ref self);
 }
 
 // TODO: make `final`.
@@ -35,6 +33,11 @@ interface Destroy {
 impl forall [T: SubobjectDestroy] T as Destroy {
   // TODO: change to `alias Op = T.Op;` when `T as Destroy` becomes `partial T as Destroy`.
   fn Op(unused ref self) {}
+
+  // TODO: remove when `require impls` adds a witness table entry.
+  fn CallSubobjectDestroyOp(ref self) {
+    self.(SubobjectDestroy.Op)();
+  }
 }
 
 // TODO: make private
@@ -47,10 +50,12 @@ interface SelfDestructible {
   fn Op(ref self: Self);
 }
 
-impl forall [T: SubobjectDestroy & Destroy] T as SelfDestructible {
+impl forall [T: Destroy] T as SelfDestructible {
   fn Op(ref self) {
     self.(Destroy.Op)();
-    self.(SubobjectDestroy.Op)();
+
+    // TODO: replace with `self.(SubobjectDestroy.Op)()` when `require impls` adds a witness table entry.
+    self.(Destroy.CallSubobjectDestroyOp)();
   }
 }
 

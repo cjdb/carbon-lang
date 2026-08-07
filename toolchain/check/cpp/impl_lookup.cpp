@@ -626,9 +626,7 @@ auto LookupCppImpl(Context& context, SemIR::LocId loc_id,
     // *FitsIn are implemented only by Carbon primitive types.
     case SemIR::CoreInterface::IntFitsIn:
     case SemIR::CoreInterface::FloatFitsIn:
-    // `Destroy` and `SelfDestructible` are implemented in code and called by
-    // the toolchain.
-    case SemIR::CoreInterface::Destroy:
+    // `SelfDestructible` is implemented in code and called by the toolchain.
     case SemIR::CoreInterface::SelfDestructible:
       return SemIR::InstId::None;
 
