@@ -157,7 +157,7 @@ static auto AddCleanups(Context& context, ScopeStack::CleanupScopeDepth depth)
     // cleanup blocks, so we'll want to avoid this in the future.
     BuildUnaryOperator(
         context, context.insts().GetLocIdForDesugaring(destroy_id),
-        {.interface_name = CoreIdentifier::SubobjectDestroy}, destroy_id);
+        {.interface_name = CoreIdentifier::SelfDestructible}, destroy_id);
   }
 }
 
