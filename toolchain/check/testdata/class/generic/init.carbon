@@ -25,6 +25,20 @@ fn InitFromStructGeneric(generic T: Core.Copy & Core.Destroy, x: T) -> T {
 }
 
 fn InitFromStructSpecific(x: i32) -> i32 {
+  // CHECK:STDERR: from_struct.carbon:[[@LINE+14]]:10: error: semantics TODO: `Unsupported definition of interface Destroy` [SemanticsTodo]
+  // CHECK:STDERR:   var v: Class(i32) = {.k = x};
+  // CHECK:STDERR:          ^~~~~~~~~~
+  // CHECK:STDERR: from_struct.carbon:[[@LINE-14]]:13: note: initializing generic parameter `T` declared here [InitializingGenericParam]
+  // CHECK:STDERR: class Class(T: Core.Destroy) {
+  // CHECK:STDERR:             ^~~~~~~~~~~~~~~
+  // CHECK:STDERR:
+  // CHECK:STDERR: from_struct.carbon:[[@LINE+7]]:10: error: semantics TODO: `Unsupported definition of interface Destroy` [SemanticsTodo]
+  // CHECK:STDERR:   var v: Class(i32) = {.k = x};
+  // CHECK:STDERR:          ^~~~~~~~~~
+  // CHECK:STDERR: from_struct.carbon:[[@LINE-21]]:13: note: initializing generic parameter `T` declared here [InitializingGenericParam]
+  // CHECK:STDERR: class Class(T: Core.Destroy) {
+  // CHECK:STDERR:             ^~~~~~~~~~~~~~~
+  // CHECK:STDERR:
   var v: Class(i32) = {.k = x};
   return v.k;
 }
@@ -83,10 +97,6 @@ fn InitFromAdaptedSpecific(x: i32) -> i32 {
 // CHECK:STDOUT:   %InitFromStructGeneric.type: type = fn_type @InitFromStructGeneric [concrete]
 // CHECK:STDOUT:   %InitFromStructGeneric: %InitFromStructGeneric.type = struct_value () [concrete]
 // CHECK:STDOUT:   %require_complete.44d: <witness> = require_complete_type %T.as_type.74b [symbolic]
-// CHECK:STDOUT:   %SubobjectDestroy.type: type = facet_type <@SubobjectDestroy> [concrete]
-// CHECK:STDOUT:   %T.09f: %SubobjectDestroy.type = symbolic_binding T, 0 [symbolic]
-// CHECK:STDOUT:   %T.as_type.as.Destroy.impl.Op.type.47a: type = fn_type @T.as_type.as.Destroy.impl.Op, @T.as_type.as.Destroy.impl(%T.09f) [symbolic]
-// CHECK:STDOUT:   %T.as_type.as.Destroy.impl.Op.274: %T.as_type.as.Destroy.impl.Op.type.47a = struct_value () [symbolic]
 // CHECK:STDOUT:   %Destroy.lookup_impl_witness.28a: <witness> = lookup_impl_witness %T.283, @Destroy [symbolic]
 // CHECK:STDOUT:   %Destroy.facet.16e: %Destroy.type = facet_value %T.as_type.74b, (%Destroy.lookup_impl_witness.28a) [symbolic]
 // CHECK:STDOUT:   %Class.55b: type = class_type @Class, @Class(%Destroy.facet.16e) [symbolic]
@@ -94,12 +104,12 @@ fn InitFromAdaptedSpecific(x: i32) -> i32 {
 // CHECK:STDOUT:   %struct_type.k.aa4: type = struct_type {.k: %T.as_type.74b} [symbolic]
 // CHECK:STDOUT:   %require_complete.ff5: <witness> = require_complete_type %Class.55b [symbolic]
 // CHECK:STDOUT:   %pattern_type.0b6: type = pattern_type %Class.55b [symbolic]
-// CHECK:STDOUT:   %v.patt.ef6: %pattern_type.0b6 = ref_binding_pattern v [symbolic]
-// CHECK:STDOUT:   %v.var_patt.8cf: %pattern_type.0b6 = var_pattern %v.patt.ef6 [symbolic]
+// CHECK:STDOUT:   %v.patt: %pattern_type.0b6 = ref_binding_pattern v [symbolic]
+// CHECK:STDOUT:   %v.var_patt: %pattern_type.0b6 = var_pattern %v.patt [symbolic]
 // CHECK:STDOUT:   %Copy.lookup_impl_witness.4df: <witness> = lookup_impl_witness %T.283, @Copy [symbolic]
-// CHECK:STDOUT:   %Copy.facet.3f0: %Copy.type = facet_value %T.as_type.74b, (%Copy.lookup_impl_witness.4df) [symbolic]
-// CHECK:STDOUT:   %Copy.WithSelf.Op.type.090: type = fn_type @Copy.WithSelf.Op, @Copy.WithSelf(%Copy.facet.3f0) [symbolic]
-// CHECK:STDOUT:   %.018: type = fn_type_with_self_type %Copy.WithSelf.Op.type.090, %Copy.facet.3f0 [symbolic]
+// CHECK:STDOUT:   %Copy.facet: %Copy.type = facet_value %T.as_type.74b, (%Copy.lookup_impl_witness.4df) [symbolic]
+// CHECK:STDOUT:   %Copy.WithSelf.Op.type.090: type = fn_type @Copy.WithSelf.Op, @Copy.WithSelf(%Copy.facet) [symbolic]
+// CHECK:STDOUT:   %.018: type = fn_type_with_self_type %Copy.WithSelf.Op.type.090, %Copy.facet [symbolic]
 // CHECK:STDOUT:   %impl.elem0.170: %.018 = impl_witness_access %Copy.lookup_impl_witness.4df, element0 [symbolic]
 // CHECK:STDOUT:   %specific_impl_fn.be5: <specific function> = specific_impl_function %impl.elem0.170, @Copy.WithSelf.Op(%Copy.facet.3f0) [symbolic]
 // CHECK:STDOUT:   %Destroy.lookup_impl_witness.62e: <witness> = lookup_impl_witness %Class.55b, @Destroy [symbolic]
@@ -111,7 +121,6 @@ fn InitFromAdaptedSpecific(x: i32) -> i32 {
 // CHECK:STDOUT:   %int_32: Core.IntLiteral = int_value 32 [concrete]
 // CHECK:STDOUT:   %Int.type: type = generic_class_type @Int [concrete]
 // CHECK:STDOUT:   %Int.generic: %Int.type = struct_value () [concrete]
-// CHECK:STDOUT:   %N: Core.IntLiteral = symbolic_binding N, 0 [symbolic]
 // CHECK:STDOUT:   %i32: type = class_type @Int, @Int(%int_32) [concrete]
 // CHECK:STDOUT:   %pattern_type.6b6: type = pattern_type %i32 [concrete]
 // CHECK:STDOUT:   %x.param_patt.cee: %pattern_type.6b6 = value_param_pattern [concrete]
@@ -160,8 +169,6 @@ fn InitFromAdaptedSpecific(x: i32) -> i32 {
 // CHECK:STDOUT:   %Core.import_ref.9c3: %type.as.BitAndWith.impl.Op.type = import_ref Core//prelude/parts/bit_and_with, loc{{\d+_\d+}}, loaded [concrete = constants.%type.as.BitAndWith.impl.Op]
 // CHECK:STDOUT:   %BitAndWith.impl_witness_table = impl_witness_table (%Core.import_ref.9c3), @type.as.BitAndWith.impl [concrete]
 // CHECK:STDOUT:   %Core.Int: %Int.type = import_ref Core//prelude/parts/int, Int, loaded [concrete = constants.%Int.generic]
-// CHECK:STDOUT:   %Core.import_ref.cd6: @Int.as.Copy.impl.%Int.as.Copy.impl.Op.type (%Int.as.Copy.impl.Op.type.ac8) = import_ref Core//prelude/parts/int, loc{{\d+_\d+}}, loaded [symbolic = @Int.as.Copy.impl.%Int.as.Copy.impl.Op (constants.%Int.as.Copy.impl.Op.5e0)]
-// CHECK:STDOUT:   %Copy.impl_witness_table.8d2 = impl_witness_table (%Core.import_ref.cd6), @Int.as.Copy.impl [concrete]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: file {

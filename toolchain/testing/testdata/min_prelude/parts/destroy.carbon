@@ -10,13 +10,6 @@ package Core library "prelude/parts/destroy";
 
 export import library "prelude/parts/bit_and_with";
 
-interface SubobjectDestroy {
-  // TODO: annotate `Op` with `private`.
-  // TODO: annotate `Op` with `final`.
-  // TODO: implement as `"type.destroy.subobjects"`.
-  fn Op(ref self);
-}
-
 interface Destroy {
   // TODO: uncomment when `require impls` adds a witness table entry.
   // require impls SubobjectDestroy;
@@ -24,19 +17,10 @@ interface Destroy {
   // TODO: change `Self` to `partial Self`.
   fn Op(ref self: Self);
 
-  // TODO: change to `final` when `require impls` adds a witness table entry.
-  default fn SelfDestruct(unused ref self) {}
-}
+  final fn SubobjectDestroy(unused ref self) = "no_op";
 
-// TODO: make `final`.
-// TODO: change `T` to `partial T` and document why.
-impl forall [T: SubobjectDestroy] T as Destroy {
-  // TODO: change to `alias Op = T.Op;` when `T as Destroy` becomes `partial T as Destroy`.
-  fn Op(unused ref self) {}
-
-  // TODO: move body into interface when `Destroy.SelfDestruct` becomes final.
-  fn SelfDestruct(ref self) {
-    self.(Destroy.Op)();
-    self.(SubobjectDestroy.Op)();
+  final fn SelfDestruct(ref self) {
+    self.Op();
+    self.SubobjectDestroy();
   }
 }

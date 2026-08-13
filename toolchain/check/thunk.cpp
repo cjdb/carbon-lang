@@ -551,7 +551,7 @@ auto BuildDestroyThunk(Context& context, SemIR::LocId loc_id,
   auto params = context.inst_blocks().Get(thunk_function.call_params_id);
   auto self_inst_id = params[0];
 
-  // Build the function body. This calls `x.(SubobjectDestroy.Op)()`.
+  // Build the function body. This calls `x.(Destroy.SelfDestruct)()`.
   auto destroy_inst_id = BuildUnaryOperator(
       context, loc_id, {.interface_name = CoreIdentifier::Destroy},
       self_inst_id);

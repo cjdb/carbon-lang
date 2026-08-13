@@ -242,7 +242,7 @@ static auto BuildDefaultWitness(
                             query_specific_interface_id, {fn_id});
 }
 
-static auto BuildSubobjectDestroyWitness(
+static auto BuildDestroyWitness(
     Context& context, SemIR::LocId loc_id,
     SemIR::ConstantId query_self_const_id,
     SemIR::SpecificInterfaceId query_specific_interface_id) -> SemIR::InstId {
@@ -626,13 +626,11 @@ auto LookupCppImpl(Context& context, SemIR::LocId loc_id,
     // *FitsIn are implemented only by Carbon primitive types.
     case SemIR::CoreInterface::IntFitsIn:
     case SemIR::CoreInterface::FloatFitsIn:
-    // `Destroy` is implemented in code and called by the toolchain.
-    case SemIR::CoreInterface::Destroy:
       return SemIR::InstId::None;
 
-    case SemIR::CoreInterface::SubobjectDestroy:
-      return BuildSubobjectDestroyWitness(context, loc_id, query_self_const_id,
-                                          query_specific_interface_id);
+    case SemIR::CoreInterface::Destroy:
+      return BuildDestroyWitness(context, loc_id, query_self_const_id,
+                                 query_specific_interface_id);
     case SemIR::CoreInterface::Unknown:
       CARBON_FATAL("unexpected CoreInterface `{0}`", core_interface);
   }
