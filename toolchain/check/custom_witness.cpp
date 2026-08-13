@@ -845,6 +845,7 @@ auto LookupCustomWitness(Context& context, SemIR::LocId loc_id,
     case SemIR::CoreInterface::CppUnsafeDeref:
     case SemIR::CoreInterface::Dec:
     case SemIR::CoreInterface::Default:
+    case SemIR::CoreInterface::Destroy:
     case SemIR::CoreInterface::DivAssignWith:
     case SemIR::CoreInterface::DivWith:
     case SemIR::CoreInterface::EqWith:
@@ -855,7 +856,6 @@ auto LookupCustomWitness(Context& context, SemIR::LocId loc_id,
     case SemIR::CoreInterface::MulWith:
     case SemIR::CoreInterface::Negate:
     case SemIR::CoreInterface::OrderedWith:
-    case SemIR::CoreInterface::SelfDestructible:
     case SemIR::CoreInterface::SubAssignWith:
     case SemIR::CoreInterface::SubWith:
     case SemIR::CoreInterface::Unknown:

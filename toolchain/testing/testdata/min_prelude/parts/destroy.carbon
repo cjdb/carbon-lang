@@ -24,27 +24,9 @@ interface Destroy {
   // TODO: change `Self` to `partial Self`.
   fn Op(ref self: Self);
 
-  // TODO: remove when `require impls` adds a witness table entry.
-  final fn SelfDestruct(unused ref self) {}
+  // TODO: change to `final` when `require impls` adds a witness table entry.
+  default fn SelfDestruct(unused ref self) {}
 }
-
-// TODO: make private
-interface SelfDestructible {
-  // TODO: uncomment when `require impls` adds a witness table entry.
-  // require impls Destroy;
-
-  // TODO: annotate with `private`.
-  // TODO: annotate with `unsafe`.
-  fn Op(ref self: Self);
-}
-
-impl forall [T: Destroy] T as SelfDestructible {
-  fn Op(ref self) {
-    self.(Destroy.Op)();
-  }
-}
-
-alias SelfDestruct = SelfDestructible.Op;
 
 // TODO: make `final`.
 // TODO: change `T` to `partial T` and document why.
@@ -52,7 +34,7 @@ impl forall [T: SubobjectDestroy] T as Destroy {
   // TODO: change to `alias Op = T.Op;` when `T as Destroy` becomes `partial T as Destroy`.
   fn Op(unused ref self) {}
 
-  // TODO: remove when `require impls` adds a witness table entry.
+  // TODO: move body into interface when `Destroy.SelfDestruct` becomes final.
   fn SelfDestruct(ref self) {
     self.(Destroy.Op)();
     self.(SubobjectDestroy.Op)();
