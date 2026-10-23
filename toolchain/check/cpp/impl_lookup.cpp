@@ -248,6 +248,34 @@ static auto BuildDefaultWitness(
                             query_specific_interface, {fn_id});
 }
 
+static auto BuildCppDynamicDestroyWitness(
+    Context& context, SemIR::LocId loc_id,
+    SemIR::ConstantId query_self_const_id,
+    SemIR::SpecificInterface query_specific_interface) -> SemIR::InstId {
+  auto& clang_sema = context.clang_sema();
+
+  auto* tag_decl = TypeAsTagDecl(context, query_self_const_id);
+  if (!tag_decl) {
+    return SemIR::InstId::None;
+  }
+
+  auto* class_decl = dyn_cast<clang::CXXRecordDecl>(tag_decl);
+  if (!class_decl) {
+    // TODO: build a non-dispatching `DynamicDestroy.Op`.
+    return BuildCustomWitness(context, loc_id, query_self_const_id,
+                              query_specific_interface, {});
+  }
+
+  auto* decl = clang_sema.LookupDestructor(class_decl);
+  if (!decl || !decl->isVirtual()) {
+    return SemIR::InstId::None;
+  }
+
+  // TODO: build a dispatching `DynamicDestroy.Op`.
+  return BuildCustomWitness(context, loc_id, query_self_const_id,
+                            query_specific_interface, {});
+}
+
 static auto BuildCppSubobjectDestroyWitness(
     Context& context, SemIR::LocId loc_id,
     SemIR::ConstantId query_self_const_id,
@@ -616,6 +644,9 @@ auto LookupCppImpl(Context& context, SemIR::LocId loc_id,
     case SemIR::CoreInterface::Default:
       return BuildDefaultWitness(context, loc_id, query_self_const_id,
                                  query_specific_interface);
+    case SemIR::CoreInterface::DynamicDestroyImpl:
+      return BuildCppDynamicDestroyWitness(context, loc_id, query_self_const_id,
+                                           query_specific_interface);
     case SemIR::CoreInterface::SubobjectDestroy:
       return BuildCppSubobjectDestroyWitness(
           context, loc_id, query_self_const_id, query_specific_interface);

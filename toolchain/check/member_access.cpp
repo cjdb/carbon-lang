@@ -254,9 +254,9 @@ static auto GetWitnessFromSingleImplLookupResult(
 
 // Looks up the witness that `type_const_id` implements `specific_interface`.
 // Returns `None` if it doesn't, and `ErrorInst::InstId` on error.
-static auto LookupSingleImplWitness(Context& context, SemIR::LocId loc_id,
-                                    SemIR::ConstantId type_const_id,
-                                    SemIR::SpecificInterface specific_interface)
+auto LookupSingleImplWitness(Context& context, SemIR::LocId loc_id,
+                             SemIR::ConstantId type_const_id,
+                             SemIR::SpecificInterface specific_interface)
     -> SemIR::InstId {
   // TODO: Avoid forming and then immediately decomposing a `FacetType` here.
   auto interface_type_id = GetInterfaceType(

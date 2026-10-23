@@ -48,6 +48,13 @@ auto GetAssociatedValue(Context& context, SemIR::LocId loc_id,
                         SemIR::ConstantId assoc_entity_const_id,
                         SemIR::SpecificInterface interface) -> SemIR::InstId;
 
+// Looks up the witness that `type_const_id` implements `specific_interface`.
+// Returns `None` if it doesn't, and `ErrorInst::InstId` on error.
+auto LookupSingleImplWitness(Context& context, SemIR::LocId loc_id,
+                             SemIR::ConstantId type_const_id,
+                             SemIR::SpecificInterface specific_interface)
+    -> SemIR::InstId;
+
 // Returns the function that `type_inst_id` uses for the associated function
 // named `assoc_fn_name_id` in `specific_interface`.
 //
