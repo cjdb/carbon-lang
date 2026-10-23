@@ -37,3 +37,11 @@ fn SelfDestruct[T: Destroy](ref t: T) {
     t.(DestroyImpl.Op)();
     t.(SubobjectDestroy.Op)();
 }
+
+// TODO: rename to `DynamicDestroy` when `require impls` adds a witness table entry.
+interface DynamicDestroyImpl {
+}
+
+constraint DynamicDestroy {
+  extend require impls Destroy & DynamicDestroyImpl;
+}
