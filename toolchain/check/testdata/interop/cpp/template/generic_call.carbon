@@ -111,13 +111,13 @@ fn G() {
 // CHECK:STDOUT:   %DefaultOrUnformed.facet.dd9: %DefaultOrUnformed.type = facet_value %S, (%DefaultOrUnformed.impl_witness.4c0) [concrete]
 // CHECK:STDOUT:   %DefaultOrUnformed.WithSelf.Op.type.2e6: type = fn_type @DefaultOrUnformed.WithSelf.Op, @DefaultOrUnformed.WithSelf(%DefaultOrUnformed.facet.dd9) [concrete]
 // CHECK:STDOUT:   %DefaultOrUnformed.assoc_type: type = assoc_entity_type @DefaultOrUnformed [concrete]
-// CHECK:STDOUT:   %assoc0: %DefaultOrUnformed.assoc_type = assoc_entity element0, imports.%Core.import_ref.c82 [concrete]
+// CHECK:STDOUT:   %assoc0.fd1: %DefaultOrUnformed.assoc_type = assoc_entity element0, imports.%Core.import_ref.c82 [concrete]
 // CHECK:STDOUT:   %.e57: type = fn_type_with_self_type %DefaultOrUnformed.WithSelf.Op.type.2e6, %DefaultOrUnformed.facet.dd9 [concrete]
 // CHECK:STDOUT:   %inst.splice_block.426619.3: <instruction> = inst_value [concrete] {
 // CHECK:STDOUT:     %.9dd: %.e57 = splice_block %impl.elem0.ef9 [concrete = %T.as_type.as.DefaultOrUnformed.impl.Op.89b] {
 // CHECK:STDOUT:       %as_type: type = facet_access_type %DefaultOrUnformed.facet.dd9 [concrete = %S]
 // CHECK:STDOUT:       %.371: type = converted %DefaultOrUnformed.facet.dd9, %as_type [concrete = %S]
-// CHECK:STDOUT:       %Op.ref: %DefaultOrUnformed.assoc_type = name_ref Op, imports.%Core.import_ref.654 [concrete = %assoc0]
+// CHECK:STDOUT:       %Op.ref: %DefaultOrUnformed.assoc_type = name_ref Op, imports.%Core.import_ref.654 [concrete = %assoc0.fd1]
 // CHECK:STDOUT:       %impl.elem0.ef9: %.e57 = impl_witness_access %DefaultOrUnformed.impl_witness.4c0, element0 [concrete = %T.as_type.as.DefaultOrUnformed.impl.Op.89b]
 // CHECK:STDOUT:     }
 // CHECK:STDOUT:   }
@@ -158,7 +158,7 @@ fn G() {
 // CHECK:STDOUT:     import Cpp//...
 // CHECK:STDOUT:   }
 // CHECK:STDOUT:   %S.template: %S.type = struct_value () [concrete = constants.%S.template]
-// CHECK:STDOUT:   %Core.import_ref.654: %DefaultOrUnformed.assoc_type = import_ref Core//prelude/parts/default, loc{{\d+_\d+}}, loaded [concrete = constants.%assoc0]
+// CHECK:STDOUT:   %Core.import_ref.654: %DefaultOrUnformed.assoc_type = import_ref Core//prelude/parts/default, loc{{\d+_\d+}}, loaded [concrete = constants.%assoc0.fd1]
 // CHECK:STDOUT:   %Core.import_ref.288: @T.as_type.as.DefaultOrUnformed.impl.%T.as_type.as.DefaultOrUnformed.impl.Op.type (%T.as_type.as.DefaultOrUnformed.impl.Op.type.4da) = import_ref Core//prelude/parts/default, loc{{\d+_\d+}}, loaded [symbolic = @T.as_type.as.DefaultOrUnformed.impl.%T.as_type.as.DefaultOrUnformed.impl.Op (constants.%T.as_type.as.DefaultOrUnformed.impl.Op.79f)]
 // CHECK:STDOUT:   %DefaultOrUnformed.impl_witness_table.162 = impl_witness_table (%Core.import_ref.288), @T.as_type.as.DefaultOrUnformed.impl [concrete]
 // CHECK:STDOUT:   %X.decl: type = class_decl @X [concrete = constants.%X] {} {}

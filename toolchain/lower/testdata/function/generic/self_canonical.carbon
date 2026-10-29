@@ -94,7 +94,7 @@ fn Main_method_no_template () {
 // CHECK:STDOUT:   store ptr poison, ptr %local1.var, align 8, !dbg !19
 // CHECK:STDOUT:   %.loc82 = load ptr, ptr %local1.var, align 8, !dbg !21
 // CHECK:STDOUT:   call void @_Cfirst_function.Main.ee57965601b4d646(ptr %.loc82), !dbg !22
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.7b2216d4f1f76a3b(ptr %local1.var), !dbg !19
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.57ee6abce06fd8e9(ptr %local1.var), !dbg !19
 // CHECK:STDOUT:   ret void, !dbg !26
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -102,22 +102,22 @@ fn Main_method_no_template () {
 // CHECK:STDOUT: declare void @llvm.lifetime.start.p0(ptr captures(none)) #1
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.7b2216d4f1f76a3b(ptr %t) #0 !dbg !42 {
+// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.57ee6abce06fd8e9(ptr %t) #0 !dbg !42 {
 // CHECK:STDOUT:   ret void, !dbg !47
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.10464ace51a7759b(ptr %t) #0 !dbg !72 {
+// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.6591b80b41efd301(ptr %t) #0 !dbg !72 {
 // CHECK:STDOUT:   ret void, !dbg !77
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.4190739a553c9c95(ptr %t) #0 !dbg !79 {
+// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.3a24b9ba85627883(ptr %t) #0 !dbg !79 {
 // CHECK:STDOUT:   ret void, !dbg !84
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.95c75c16d627cdea(ptr %t) #0 !dbg !128 {
+// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.64213ab64f5ecc10(ptr %t) #0 !dbg !128 {
 // CHECK:STDOUT:   ret void, !dbg !133
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -134,8 +134,8 @@ fn Main_method_no_template () {
 // CHECK:STDOUT:   call void @_Cfirst_function.Main.ee57965601b4d646(ptr %.loc53), !dbg !204
 // CHECK:STDOUT:   %.loc54 = load ptr, ptr %local2.var, align 8, !dbg !205
 // CHECK:STDOUT:   call void @_Cfirst_function.Main.ee57965601b4d646(ptr %.loc54), !dbg !206
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.1fce18cf3d70dc46(ptr %local2.var), !dbg !201
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.a113e72770ff09ec(ptr %local1.var), !dbg !199
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.8d1db6ba4a6bd952(ptr %local2.var), !dbg !201
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.f3efea30f9670fe3(ptr %local1.var), !dbg !199
 // CHECK:STDOUT:   ret void, !dbg !207
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -151,18 +151,18 @@ fn Main_method_no_template () {
 // CHECK:STDOUT:   %.loc61_19 = load ptr, ptr %local2.var, align 8, !dbg !254
 // CHECK:STDOUT:   %.loc61_27 = load ptr, ptr %local1.var, align 8, !dbg !255
 // CHECK:STDOUT:   call void @_Csecond_function.Main.efd9fcdf727c9de5(ptr %.loc61_19, ptr %.loc61_27, ptr %arg), !dbg !257
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.10464ace51a7759b(ptr %local2.var), !dbg !252
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.4190739a553c9c95(ptr %local1.var), !dbg !250
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.6591b80b41efd301(ptr %local2.var), !dbg !252
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.3a24b9ba85627883(ptr %local1.var), !dbg !250
 // CHECK:STDOUT:   ret void, !dbg !258
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.1fce18cf3d70dc46(ptr %t) #0 !dbg !273 {
+// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.8d1db6ba4a6bd952(ptr %t) #0 !dbg !273 {
 // CHECK:STDOUT:   ret void, !dbg !278
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.a113e72770ff09ec(ptr %t) #0 !dbg !280 {
+// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.f3efea30f9670fe3(ptr %t) #0 !dbg !280 {
 // CHECK:STDOUT:   ret void, !dbg !285
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -183,9 +183,9 @@ fn Main_method_no_template () {
 // CHECK:STDOUT:   call void @_Csecond_function.Main.efd9fcdf727c9de5(ptr %arg3, ptr %.loc75_25, ptr %.loc75_33), !dbg !303
 // CHECK:STDOUT:   %.loc76 = load ptr, ptr %local1.var, align 8, !dbg !304
 // CHECK:STDOUT:   call void @_Cthird_function.Main.1c39a3b349bf66b6(ptr %.loc76, ptr %arg3, ptr %arg1), !dbg !307
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.95c75c16d627cdea(ptr %local3.var), !dbg !298
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.4190739a553c9c95(ptr %local2.var), !dbg !296
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.10464ace51a7759b(ptr %local1.var), !dbg !294
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.64213ab64f5ecc10(ptr %local3.var), !dbg !298
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.3a24b9ba85627883(ptr %local2.var), !dbg !296
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.6591b80b41efd301(ptr %local1.var), !dbg !294
 // CHECK:STDOUT:   ret void, !dbg !308
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -202,8 +202,8 @@ fn Main_method_no_template () {
 // CHECK:STDOUT:   call void @_Cthird_function.Main.1c39a3b349bf66b6(ptr %arg1, ptr %arg2, ptr %.loc39), !dbg !370
 // CHECK:STDOUT:   %.loc40 = load ptr, ptr %local1.var, align 8, !dbg !371
 // CHECK:STDOUT:   call void @_Cfourth_function.Main.4da09b2222fc2513(ptr %.loc40), !dbg !372
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.95c75c16d627cdea(ptr %local2.var), !dbg !365
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.95c75c16d627cdea(ptr %local1.var), !dbg !363
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.64213ab64f5ecc10(ptr %local2.var), !dbg !365
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.64213ab64f5ecc10(ptr %local1.var), !dbg !363
 // CHECK:STDOUT:   ret void, !dbg !373
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -233,19 +233,19 @@ fn Main_method_no_template () {
 // CHECK:STDOUT: !26 = !DILocation(line: 79, column: 1, scope: !18)
 // CHECK:STDOUT: !38 = !{null, !23, !23, !23}
 // CHECK:STDOUT: !39 = !DISubroutineType(types: !38)
-// CHECK:STDOUT: !42 = distinct !DISubprogram(name: "SelfDestruct", linkageName: "_CSelfDestruct.Core.7b2216d4f1f76a3b", scope: null, file: !6, line: 32, type: !25, spFlags: DISPFlagDefinition, unit: !15, retainedNodes: !48)
+// CHECK:STDOUT: !42 = distinct !DISubprogram(name: "SelfDestruct", linkageName: "_CSelfDestruct.Core.57ee6abce06fd8e9", scope: null, file: !6, line: 32, type: !25, spFlags: DISPFlagDefinition, unit: !15, retainedNodes: !48)
 // CHECK:STDOUT: !43 = !DILocalVariable(arg: 1, scope: !42, type: !23)
 // CHECK:STDOUT: !47 = !DILocation(line: 32, column: 1, scope: !42)
 // CHECK:STDOUT: !48 = !{!43}
-// CHECK:STDOUT: !72 = distinct !DISubprogram(name: "SelfDestruct", linkageName: "_CSelfDestruct.Core.10464ace51a7759b", scope: null, file: !6, line: 32, type: !25, spFlags: DISPFlagDefinition, unit: !15, retainedNodes: !78)
+// CHECK:STDOUT: !72 = distinct !DISubprogram(name: "SelfDestruct", linkageName: "_CSelfDestruct.Core.6591b80b41efd301", scope: null, file: !6, line: 32, type: !25, spFlags: DISPFlagDefinition, unit: !15, retainedNodes: !78)
 // CHECK:STDOUT: !73 = !DILocalVariable(arg: 1, scope: !72, type: !23)
 // CHECK:STDOUT: !77 = !DILocation(line: 32, column: 1, scope: !72)
 // CHECK:STDOUT: !78 = !{!73}
-// CHECK:STDOUT: !79 = distinct !DISubprogram(name: "SelfDestruct", linkageName: "_CSelfDestruct.Core.4190739a553c9c95", scope: null, file: !6, line: 32, type: !25, spFlags: DISPFlagDefinition, unit: !15, retainedNodes: !85)
+// CHECK:STDOUT: !79 = distinct !DISubprogram(name: "SelfDestruct", linkageName: "_CSelfDestruct.Core.3a24b9ba85627883", scope: null, file: !6, line: 32, type: !25, spFlags: DISPFlagDefinition, unit: !15, retainedNodes: !85)
 // CHECK:STDOUT: !80 = !DILocalVariable(arg: 1, scope: !79, type: !23)
 // CHECK:STDOUT: !84 = !DILocation(line: 32, column: 1, scope: !79)
 // CHECK:STDOUT: !85 = !{!80}
-// CHECK:STDOUT: !128 = distinct !DISubprogram(name: "SelfDestruct", linkageName: "_CSelfDestruct.Core.95c75c16d627cdea", scope: null, file: !6, line: 32, type: !25, spFlags: DISPFlagDefinition, unit: !15, retainedNodes: !134)
+// CHECK:STDOUT: !128 = distinct !DISubprogram(name: "SelfDestruct", linkageName: "_CSelfDestruct.Core.64213ab64f5ecc10", scope: null, file: !6, line: 32, type: !25, spFlags: DISPFlagDefinition, unit: !15, retainedNodes: !134)
 // CHECK:STDOUT: !129 = !DILocalVariable(arg: 1, scope: !128, type: !23)
 // CHECK:STDOUT: !133 = !DILocation(line: 32, column: 1, scope: !128)
 // CHECK:STDOUT: !134 = !{!129}
@@ -268,11 +268,11 @@ fn Main_method_no_template () {
 // CHECK:STDOUT: !257 = !DILocation(line: 61, column: 3, scope: !247)
 // CHECK:STDOUT: !258 = !DILocation(line: 57, column: 1, scope: !247)
 // CHECK:STDOUT: !259 = !{!248}
-// CHECK:STDOUT: !273 = distinct !DISubprogram(name: "SelfDestruct", linkageName: "_CSelfDestruct.Core.1fce18cf3d70dc46", scope: null, file: !6, line: 32, type: !25, spFlags: DISPFlagDefinition, unit: !15, retainedNodes: !279)
+// CHECK:STDOUT: !273 = distinct !DISubprogram(name: "SelfDestruct", linkageName: "_CSelfDestruct.Core.8d1db6ba4a6bd952", scope: null, file: !6, line: 32, type: !25, spFlags: DISPFlagDefinition, unit: !15, retainedNodes: !279)
 // CHECK:STDOUT: !274 = !DILocalVariable(arg: 1, scope: !273, type: !23)
 // CHECK:STDOUT: !278 = !DILocation(line: 32, column: 1, scope: !273)
 // CHECK:STDOUT: !279 = !{!274}
-// CHECK:STDOUT: !280 = distinct !DISubprogram(name: "SelfDestruct", linkageName: "_CSelfDestruct.Core.a113e72770ff09ec", scope: null, file: !6, line: 32, type: !25, spFlags: DISPFlagDefinition, unit: !15, retainedNodes: !286)
+// CHECK:STDOUT: !280 = distinct !DISubprogram(name: "SelfDestruct", linkageName: "_CSelfDestruct.Core.f3efea30f9670fe3", scope: null, file: !6, line: 32, type: !25, spFlags: DISPFlagDefinition, unit: !15, retainedNodes: !286)
 // CHECK:STDOUT: !281 = !DILocalVariable(arg: 1, scope: !280, type: !23)
 // CHECK:STDOUT: !285 = !DILocation(line: 32, column: 1, scope: !280)
 // CHECK:STDOUT: !286 = !{!281}

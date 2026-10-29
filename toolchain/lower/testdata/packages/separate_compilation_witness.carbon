@@ -183,7 +183,7 @@ fn CallGeneric() {
 // CHECK:STDOUT:   call void @llvm.lifetime.start.p0(ptr %.loc5_18.1.temp), !dbg !46
 // CHECK:STDOUT:   call void @"_COp.Vector.OwningPackage:MulWith.55456748a8a2eb70.Core"(ptr %.loc5_18.1.temp, ptr %v2, i32 2), !dbg !46
 // CHECK:STDOUT:   call void @"_COp.Vector.OwningPackage:AddWith.f941828044620367.Core"(ptr %return, ptr %v1, ptr %.loc5_18.1.temp), !dbg !45
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.7e1cc1683e7a3817(ptr %.loc5_18.1.temp), !dbg !46
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.f55e23c9a066f82c(ptr %.loc5_18.1.temp), !dbg !46
 // CHECK:STDOUT:   ret void, !dbg !49
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -195,7 +195,7 @@ fn CallGeneric() {
 // CHECK:STDOUT: declare void @llvm.lifetime.start.p0(ptr captures(none)) #1
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.7e1cc1683e7a3817(ptr %t) #0 !dbg !52 {
+// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.f55e23c9a066f82c(ptr %t) #0 !dbg !52 {
 // CHECK:STDOUT:   ret void, !dbg !57
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -238,7 +238,7 @@ fn CallGeneric() {
 // CHECK:STDOUT:   call void @llvm.lifetime.start.p0(ptr %.loc7_18.1.temp), !dbg !69
 // CHECK:STDOUT:   call void @"_COp.Vector.OwningPackage:MulWith.55456748a8a2eb70.Core"(ptr %.loc7_18.1.temp, ptr %v2, i32 2), !dbg !69
 // CHECK:STDOUT:   call void @"_COp.Vector.OwningPackage:AddWith.f941828044620367.Core"(ptr %return, ptr %v1, ptr %.loc7_18.1.temp), !dbg !68
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.7e1cc1683e7a3817(ptr %.loc7_18.1.temp), !dbg !69
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.f55e23c9a066f82c(ptr %.loc7_18.1.temp), !dbg !69
 // CHECK:STDOUT:   ret void, !dbg !70
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -250,7 +250,7 @@ fn CallGeneric() {
 // CHECK:STDOUT: declare void @llvm.lifetime.start.p0(ptr captures(none)) #1
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.7e1cc1683e7a3817(ptr %t) #0 !dbg !72 {
+// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.f55e23c9a066f82c(ptr %t) #0 !dbg !72 {
 // CHECK:STDOUT:   ret void, !dbg !77
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -316,9 +316,9 @@ fn CallGeneric() {
 // CHECK:STDOUT:   call void @_CMake.OwningPackage(ptr %.loc7_28.1.temp), !dbg !89
 // CHECK:STDOUT:   call void @llvm.lifetime.start.p0(ptr %.loc7_29.2.temp), !dbg !90
 // CHECK:STDOUT:   call void @_CGeneric.OwningPackage.e43630e9a6c38c3f(ptr %.loc7_29.2.temp, ptr %.loc7_20.1.temp, ptr %.loc7_28.1.temp), !dbg !90
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.7e1cc1683e7a3817(ptr %.loc7_29.2.temp), !dbg !90
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.7e1cc1683e7a3817(ptr %.loc7_28.1.temp), !dbg !89
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.7e1cc1683e7a3817(ptr %.loc7_20.1.temp), !dbg !88
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.f55e23c9a066f82c(ptr %.loc7_29.2.temp), !dbg !90
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.f55e23c9a066f82c(ptr %.loc7_28.1.temp), !dbg !89
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.f55e23c9a066f82c(ptr %.loc7_20.1.temp), !dbg !88
 // CHECK:STDOUT:   ret void, !dbg !91
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -333,12 +333,12 @@ fn CallGeneric() {
 // CHECK:STDOUT:   call void @llvm.lifetime.start.p0(ptr %temp), !dbg !100
 // CHECK:STDOUT:   call void @"_COp.Vector.OwningPackage:MulWith.55456748a8a2eb70.Core"(ptr %temp, ptr %v2, i32 2), !dbg !100
 // CHECK:STDOUT:   call void @"_COp.Vector.OwningPackage:AddWith.f941828044620367.Core"(ptr %return, ptr %v1, ptr %temp), !dbg !99
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.7e1cc1683e7a3817(ptr %temp), !dbg !100
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.f55e23c9a066f82c(ptr %temp), !dbg !100
 // CHECK:STDOUT:   ret void, !dbg !101
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.7e1cc1683e7a3817(ptr %t) #0 !dbg !103 {
+// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.f55e23c9a066f82c(ptr %t) #0 !dbg !103 {
 // CHECK:STDOUT:   ret void, !dbg !108
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -349,7 +349,7 @@ fn CallGeneric() {
 // CHECK:STDOUT: ; uselistorder directives
 // CHECK:STDOUT: uselistorder ptr @_CMake.OwningPackage, { 1, 0 }
 // CHECK:STDOUT: uselistorder ptr @llvm.lifetime.start.p0, { 0, 3, 2, 1 }
-// CHECK:STDOUT: uselistorder ptr @_CSelfDestruct.Core.7e1cc1683e7a3817, { 3, 2, 1, 0 }
+// CHECK:STDOUT: uselistorder ptr @_CSelfDestruct.Core.f55e23c9a066f82c, { 3, 2, 1, 0 }
 // CHECK:STDOUT:
 // CHECK:STDOUT: attributes #0 = { nounwind }
 // CHECK:STDOUT: attributes #1 = { nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -398,7 +398,7 @@ fn CallGeneric() {
 // CHECK:STDOUT:   call void @llvm.lifetime.start.p0(ptr %.loc7_18.1.temp), !dbg !120
 // CHECK:STDOUT:   call void @"_COp.Vector.OwningPackage:MulWith.55456748a8a2eb70.Core"(ptr %.loc7_18.1.temp, ptr %v2, i32 2), !dbg !120
 // CHECK:STDOUT:   call void @"_COp.Vector.OwningPackage:AddWith.f941828044620367.Core"(ptr %return, ptr %v1, ptr %.loc7_18.1.temp), !dbg !119
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.7e1cc1683e7a3817(ptr %.loc7_18.1.temp), !dbg !120
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.f55e23c9a066f82c(ptr %.loc7_18.1.temp), !dbg !120
 // CHECK:STDOUT:   ret void, !dbg !121
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -410,7 +410,7 @@ fn CallGeneric() {
 // CHECK:STDOUT: declare void @llvm.lifetime.start.p0(ptr captures(none)) #1
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.7e1cc1683e7a3817(ptr %t) #0 !dbg !123 {
+// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.f55e23c9a066f82c(ptr %t) #0 !dbg !123 {
 // CHECK:STDOUT:   ret void, !dbg !128
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -458,9 +458,9 @@ fn CallGeneric() {
 // CHECK:STDOUT:   call void @_CMake.OwningPackage(ptr %.loc7_70.1.temp), !dbg !134
 // CHECK:STDOUT:   call void @llvm.lifetime.start.p0(ptr %.loc7_71.2.temp), !dbg !135
 // CHECK:STDOUT:   call void @_CGeneric.OwningPackage.e43630e9a6c38c3f(ptr %.loc7_71.2.temp, ptr %.loc7_48.1.temp, ptr %.loc7_70.1.temp), !dbg !135
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.7e1cc1683e7a3817(ptr %.loc7_71.2.temp), !dbg !135
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.7e1cc1683e7a3817(ptr %.loc7_70.1.temp), !dbg !134
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.7e1cc1683e7a3817(ptr %.loc7_48.1.temp), !dbg !133
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.f55e23c9a066f82c(ptr %.loc7_71.2.temp), !dbg !135
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.f55e23c9a066f82c(ptr %.loc7_70.1.temp), !dbg !134
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.f55e23c9a066f82c(ptr %.loc7_48.1.temp), !dbg !133
 // CHECK:STDOUT:   ret void, !dbg !136
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -475,12 +475,12 @@ fn CallGeneric() {
 // CHECK:STDOUT:   call void @llvm.lifetime.start.p0(ptr %temp), !dbg !145
 // CHECK:STDOUT:   call void @"_COp.Vector.OwningPackage:MulWith.55456748a8a2eb70.Core"(ptr %temp, ptr %v2, i32 2), !dbg !145
 // CHECK:STDOUT:   call void @"_COp.Vector.OwningPackage:AddWith.f941828044620367.Core"(ptr %return, ptr %v1, ptr %temp), !dbg !144
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.7e1cc1683e7a3817(ptr %temp), !dbg !145
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.f55e23c9a066f82c(ptr %temp), !dbg !145
 // CHECK:STDOUT:   ret void, !dbg !146
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.7e1cc1683e7a3817(ptr %t) #0 !dbg !148 {
+// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.f55e23c9a066f82c(ptr %t) #0 !dbg !148 {
 // CHECK:STDOUT:   ret void, !dbg !153
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -491,7 +491,7 @@ fn CallGeneric() {
 // CHECK:STDOUT: ; uselistorder directives
 // CHECK:STDOUT: uselistorder ptr @_CMake.OwningPackage, { 1, 0 }
 // CHECK:STDOUT: uselistorder ptr @llvm.lifetime.start.p0, { 0, 3, 2, 1 }
-// CHECK:STDOUT: uselistorder ptr @_CSelfDestruct.Core.7e1cc1683e7a3817, { 3, 2, 1, 0 }
+// CHECK:STDOUT: uselistorder ptr @_CSelfDestruct.Core.f55e23c9a066f82c, { 3, 2, 1, 0 }
 // CHECK:STDOUT:
 // CHECK:STDOUT: attributes #0 = { nounwind }
 // CHECK:STDOUT: attributes #1 = { nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -563,9 +563,9 @@ fn CallGeneric() {
 // CHECK:STDOUT:   call void @_CMake.OtherPackage(ptr %.loc7_28.1.temp), !dbg !161
 // CHECK:STDOUT:   call void @llvm.lifetime.start.p0(ptr %.loc7_29.2.temp), !dbg !162
 // CHECK:STDOUT:   call void @_CGeneric.OtherPackage.e43630e9a6c38c3f(ptr %.loc7_29.2.temp, ptr %.loc7_20.1.temp, ptr %.loc7_28.1.temp), !dbg !162
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.7e1cc1683e7a3817(ptr %.loc7_29.2.temp), !dbg !162
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.7e1cc1683e7a3817(ptr %.loc7_28.1.temp), !dbg !161
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.7e1cc1683e7a3817(ptr %.loc7_20.1.temp), !dbg !160
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.f55e23c9a066f82c(ptr %.loc7_29.2.temp), !dbg !162
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.f55e23c9a066f82c(ptr %.loc7_28.1.temp), !dbg !161
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.f55e23c9a066f82c(ptr %.loc7_20.1.temp), !dbg !160
 // CHECK:STDOUT:   ret void, !dbg !163
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -580,12 +580,12 @@ fn CallGeneric() {
 // CHECK:STDOUT:   call void @llvm.lifetime.start.p0(ptr %temp), !dbg !172
 // CHECK:STDOUT:   call void @"_COp.Vector.OwningPackage:MulWith.55456748a8a2eb70.Core"(ptr %temp, ptr %v2, i32 2), !dbg !172
 // CHECK:STDOUT:   call void @"_COp.Vector.OwningPackage:AddWith.f941828044620367.Core"(ptr %return, ptr %v1, ptr %temp), !dbg !171
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.7e1cc1683e7a3817(ptr %temp), !dbg !172
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.f55e23c9a066f82c(ptr %temp), !dbg !172
 // CHECK:STDOUT:   ret void, !dbg !173
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.7e1cc1683e7a3817(ptr %t) #0 !dbg !175 {
+// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.f55e23c9a066f82c(ptr %t) #0 !dbg !175 {
 // CHECK:STDOUT:   ret void, !dbg !180
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -596,7 +596,7 @@ fn CallGeneric() {
 // CHECK:STDOUT: ; uselistorder directives
 // CHECK:STDOUT: uselistorder ptr @_CMake.OtherPackage, { 1, 0 }
 // CHECK:STDOUT: uselistorder ptr @llvm.lifetime.start.p0, { 0, 3, 2, 1 }
-// CHECK:STDOUT: uselistorder ptr @_CSelfDestruct.Core.7e1cc1683e7a3817, { 3, 2, 1, 0 }
+// CHECK:STDOUT: uselistorder ptr @_CSelfDestruct.Core.f55e23c9a066f82c, { 3, 2, 1, 0 }
 // CHECK:STDOUT:
 // CHECK:STDOUT: attributes #0 = { nounwind }
 // CHECK:STDOUT: attributes #1 = { nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }

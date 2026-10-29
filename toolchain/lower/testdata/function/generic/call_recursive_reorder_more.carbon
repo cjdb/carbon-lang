@@ -136,15 +136,15 @@ fn M() {
 // CHECK:STDOUT:   %.loc52_15 = load ptr, ptr %ptr_bool.var, align 8, !dbg !92
 // CHECK:STDOUT:   %.loc52_25 = load ptr, ptr %ptr_bool.var, align 8, !dbg !93
 // CHECK:STDOUT:   %F.call.loc52 = call i32 @_CF.Main.1a6874a49ac98b64(ptr %.loc52_5, ptr %.loc52_15, ptr %.loc52_25, i32 0), !dbg !94
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.393ac80c0c8a44df(ptr %ptr_bool.var), !dbg !34
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.ca462fb0865f0b4d(ptr %ptr_i64.var), !dbg !30
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.4f29d15a20894e9b(ptr %ptr_i32.var), !dbg !26
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.a2001b647b825e99(ptr %ptr_i16.var), !dbg !22
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.29e6aa423646b61a(ptr %val_bool.var), !dbg !20
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.2b38c2ca9f7f1a94(ptr %val_f64.var), !dbg !18
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.7e9df21fc3951ad1(ptr %val_i64.var), !dbg !16
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.f127f30143696d51(ptr %val_i32.var), !dbg !14
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.e43967308dd20a9f(ptr %val_i16.var), !dbg !12
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.ed7020e49ab63d91(ptr %ptr_bool.var), !dbg !34
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.bef84a45ef5282c4(ptr %ptr_i64.var), !dbg !30
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.5da679f5f4cb5255(ptr %ptr_i32.var), !dbg !26
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.a03d47b18a8f5ca6(ptr %ptr_i16.var), !dbg !22
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.8242e48f93ef210e(ptr %val_bool.var), !dbg !20
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.a589b24ebbe3a809(ptr %val_f64.var), !dbg !18
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.a666593c198d3006(ptr %val_i64.var), !dbg !16
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.9a03059f269926ed(ptr %val_i32.var), !dbg !14
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.7342bde3dcdf92a6(ptr %val_i16.var), !dbg !12
 // CHECK:STDOUT:   ret void, !dbg !103
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -242,47 +242,47 @@ fn M() {
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.393ac80c0c8a44df(ptr %t) #0 !dbg !369 {
+// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.ed7020e49ab63d91(ptr %t) #0 !dbg !369 {
 // CHECK:STDOUT:   ret void, !dbg !374
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.ca462fb0865f0b4d(ptr %t) #0 !dbg !376 {
+// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.bef84a45ef5282c4(ptr %t) #0 !dbg !376 {
 // CHECK:STDOUT:   ret void, !dbg !381
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.4f29d15a20894e9b(ptr %t) #0 !dbg !383 {
+// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.5da679f5f4cb5255(ptr %t) #0 !dbg !383 {
 // CHECK:STDOUT:   ret void, !dbg !388
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.a2001b647b825e99(ptr %t) #0 !dbg !390 {
+// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.a03d47b18a8f5ca6(ptr %t) #0 !dbg !390 {
 // CHECK:STDOUT:   ret void, !dbg !395
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.29e6aa423646b61a(ptr %t) #0 !dbg !397 {
+// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.8242e48f93ef210e(ptr %t) #0 !dbg !397 {
 // CHECK:STDOUT:   ret void, !dbg !402
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.2b38c2ca9f7f1a94(ptr %t) #0 !dbg !404 {
+// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.a589b24ebbe3a809(ptr %t) #0 !dbg !404 {
 // CHECK:STDOUT:   ret void, !dbg !409
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.7e9df21fc3951ad1(ptr %t) #0 !dbg !411 {
+// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.a666593c198d3006(ptr %t) #0 !dbg !411 {
 // CHECK:STDOUT:   ret void, !dbg !416
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.f127f30143696d51(ptr %t) #0 !dbg !418 {
+// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.9a03059f269926ed(ptr %t) #0 !dbg !418 {
 // CHECK:STDOUT:   ret void, !dbg !423
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.e43967308dd20a9f(ptr %t) #0 !dbg !425 {
+// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.7342bde3dcdf92a6(ptr %t) #0 !dbg !425 {
 // CHECK:STDOUT:   ret void, !dbg !430
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

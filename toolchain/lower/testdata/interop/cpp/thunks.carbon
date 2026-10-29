@@ -244,10 +244,10 @@ fn Call(a: Cpp.Collide, b: Cpp.AnonCollide) {
 // CHECK:STDOUT: entry:
 // CHECK:STDOUT:   %.addr = alloca ptr, align 8
 // CHECK:STDOUT:   %return.addr = alloca ptr, align 8
-// CHECK:STDOUT:   store ptr %0, ptr %.addr, align 8, !tbaa !118
-// CHECK:STDOUT:   store ptr %return, ptr %return.addr, align 8, !tbaa !118
-// CHECK:STDOUT:   %1 = load ptr, ptr %return.addr, align 8, !tbaa !118
-// CHECK:STDOUT:   %2 = load ptr, ptr %.addr, align 8, !tbaa !118
+// CHECK:STDOUT:   store ptr %0, ptr %.addr, align 8, !tbaa !104
+// CHECK:STDOUT:   store ptr %return, ptr %return.addr, align 8, !tbaa !104
+// CHECK:STDOUT:   %1 = load ptr, ptr %return.addr, align 8, !tbaa !104
+// CHECK:STDOUT:   %2 = load ptr, ptr %.addr, align 8, !tbaa !104
 // CHECK:STDOUT:   call void @_ZN3BoxI1BEC1ERKS1_(ptr noundef nonnull align 1 dereferenceable(1) %1, ptr noundef nonnull align 1 dereferenceable(1) %2)
 // CHECK:STDOUT:   ret void
 // CHECK:STDOUT: }
@@ -267,18 +267,6 @@ fn Call(a: Cpp.Collide, b: Cpp.AnonCollide) {
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
 // CHECK:STDOUT: declare void @llvm.lifetime.start.p0(ptr captures(none)) #4
-// CHECK:STDOUT:
-// CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.d1e44ef097900801(ptr %t) #0 !dbg !99 {
-// CHECK:STDOUT:   call void @_ZN3BoxI1BED1Ev(ptr %t), !dbg !103
-// CHECK:STDOUT:   ret void, !dbg !104
-// CHECK:STDOUT: }
-// CHECK:STDOUT:
-// CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.5fbb58cefed751bc(ptr %t) #0 !dbg !106 {
-// CHECK:STDOUT:   call void @_ZN3BoxI1AED1Ev(ptr %t), !dbg !110
-// CHECK:STDOUT:   ret void, !dbg !111
-// CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: declare void @_ZN3BoxI1AEC1ERKS1_(ptr noundef nonnull align 1 dereferenceable(1), ptr noundef nonnull align 1 dereferenceable(1)) unnamed_addr #5
 // CHECK:STDOUT:
@@ -300,10 +288,7 @@ fn Call(a: Cpp.Collide, b: Cpp.AnonCollide) {
 // CHECK:STDOUT:
 // CHECK:STDOUT: !2 = !{i32 7, !"Dwarf Version", i32 5}
 // CHECK:STDOUT: !3 = !{i32 2, !"Debug Info Version", i32 3}
-// CHECK:STDOUT: !26 = !DIFile(filename: "min_prelude/parts/destroy.carbon", directory: "")
 // CHECK:STDOUT: !36 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: null, size: 64)
-// CHECK:STDOUT: !37 = !{null, !36}
-// CHECK:STDOUT: !38 = !DISubroutineType(types: !37)
 // CHECK:STDOUT: !39 = !{null, !36, !36}
 // CHECK:STDOUT: !40 = !DISubroutineType(types: !39)
 // CHECK:STDOUT: !41 = !{!36, !36}
@@ -337,20 +322,10 @@ fn Call(a: Cpp.Collide, b: Cpp.AnonCollide) {
 // CHECK:STDOUT: !96 = !DILocalVariable(arg: 1, scope: !95, type: !36)
 // CHECK:STDOUT: !97 = !DILocation(line: 8, column: 3, scope: !95)
 // CHECK:STDOUT: !98 = !{!96}
-// CHECK:STDOUT: !99 = distinct !DISubprogram(name: "SelfDestruct", linkageName: "_CSelfDestruct.Core.d1e44ef097900801", scope: null, file: !26, line: 32, type: !38, spFlags: DISPFlagDefinition, unit: !76, retainedNodes: !105)
-// CHECK:STDOUT: !100 = !DILocalVariable(arg: 1, scope: !99, type: !36)
-// CHECK:STDOUT: !103 = !DILocation(line: 34, column: 5, scope: !99)
-// CHECK:STDOUT: !104 = !DILocation(line: 32, column: 1, scope: !99)
-// CHECK:STDOUT: !105 = !{!100}
-// CHECK:STDOUT: !106 = distinct !DISubprogram(name: "SelfDestruct", linkageName: "_CSelfDestruct.Core.5fbb58cefed751bc", scope: null, file: !26, line: 32, type: !38, spFlags: DISPFlagDefinition, unit: !76, retainedNodes: !112)
-// CHECK:STDOUT: !107 = !DILocalVariable(arg: 1, scope: !106, type: !36)
-// CHECK:STDOUT: !110 = !DILocation(line: 34, column: 5, scope: !106)
-// CHECK:STDOUT: !111 = !DILocation(line: 32, column: 1, scope: !106)
-// CHECK:STDOUT: !112 = !{!107}
-// CHECK:STDOUT: !113 = !{!"p1 _ZTS3BoxI1AE", !65, i64 0}
-// CHECK:STDOUT: !114 = !{!113, !113, i64 0}
-// CHECK:STDOUT: !117 = !{!"p1 _ZTS3BoxI1BE", !65, i64 0}
-// CHECK:STDOUT: !118 = !{!117, !117, i64 0}
+// CHECK:STDOUT: !99 = !{!"p1 _ZTS3BoxI1AE", !65, i64 0}
+// CHECK:STDOUT: !100 = !{!99, !99, i64 0}
+// CHECK:STDOUT: !103 = !{!"p1 _ZTS3BoxI1BE", !65, i64 0}
+// CHECK:STDOUT: !104 = !{!103, !103, i64 0}
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; ---
 // CHECK:STDOUT: ; ModuleID = 'thunks_for_anonymous_namespace_collision.carbon'
@@ -441,18 +416,6 @@ fn Call(a: Cpp.Collide, b: Cpp.AnonCollide) {
 // CHECK:STDOUT: ; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
 // CHECK:STDOUT: declare void @llvm.lifetime.start.p0(ptr captures(none)) #4
 // CHECK:STDOUT:
-// CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.c89f00da2163eb95(ptr %t) #0 !dbg !145 {
-// CHECK:STDOUT:   call void @_ZN12_GLOBAL__N_17CollideD2Ev(ptr %t), !dbg !149
-// CHECK:STDOUT:   ret void, !dbg !150
-// CHECK:STDOUT: }
-// CHECK:STDOUT:
-// CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.0b81af486af557dc(ptr %t) #0 !dbg !152 {
-// CHECK:STDOUT:   call void @_ZN7CollideD2Ev(ptr %t), !dbg !156
-// CHECK:STDOUT:   ret void, !dbg !157
-// CHECK:STDOUT: }
-// CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: mustprogress nounwind uwtable
 // CHECK:STDOUT: define linkonce_odr dso_local void @_ZN7CollideC2ERKS_(ptr noundef nonnull align 1 dereferenceable(1) %this, ptr noundef nonnull align 1 dereferenceable(1) %0) unnamed_addr #3 comdat align 2 {
 // CHECK:STDOUT: entry:
@@ -490,10 +453,7 @@ fn Call(a: Cpp.Collide, b: Cpp.AnonCollide) {
 // CHECK:STDOUT:
 // CHECK:STDOUT: !2 = !{i32 7, !"Dwarf Version", i32 5}
 // CHECK:STDOUT: !3 = !{i32 2, !"Debug Info Version", i32 3}
-// CHECK:STDOUT: !26 = !DIFile(filename: "min_prelude/parts/destroy.carbon", directory: "")
 // CHECK:STDOUT: !36 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: null, size: 64)
-// CHECK:STDOUT: !37 = !{null, !36}
-// CHECK:STDOUT: !38 = !DISubroutineType(types: !37)
 // CHECK:STDOUT: !39 = !{null, !36, !36}
 // CHECK:STDOUT: !40 = !DISubroutineType(types: !39)
 // CHECK:STDOUT: !41 = !{!36, !36}
@@ -511,34 +471,14 @@ fn Call(a: Cpp.Collide, b: Cpp.AnonCollide) {
 // CHECK:STDOUT: !122 = distinct !DICompileUnit(language: DW_LANG_C_plus_plus, file: !121, producer: "carbon", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug)
 // CHECK:STDOUT: !123 = distinct !DISubprogram(name: "Call", linkageName: "_CCall.Main", scope: null, file: !121, line: 11, type: !40, spFlags: DISPFlagDefinition, unit: !122, retainedNodes: !135)
 // CHECK:STDOUT: !124 = !DILocalVariable(arg: 1, scope: !123, type: !36)
-// CHECK:STDOUT: !125 = !DILocalVariable(arg: 2, scope: !123, type: !36)
-// CHECK:STDOUT: !128 = !DILocation(line: 12, column: 3, scope: !123)
-// CHECK:STDOUT: !129 = !DILocation(line: 12, column: 32, scope: !123)
-// CHECK:STDOUT: !131 = !DILocation(line: 13, column: 3, scope: !123)
-// CHECK:STDOUT: !132 = !DILocation(line: 13, column: 36, scope: !123)
-// CHECK:STDOUT: !134 = !DILocation(line: 11, column: 1, scope: !123)
-// CHECK:STDOUT: !135 = !{!124, !125}
-// CHECK:STDOUT: !136 = !DIFile(filename: "./anonymous_namespace_collision.h", directory: "")
-// CHECK:STDOUT: !137 = distinct !DISubprogram(name: "Op", linkageName: "_COp:thunk:Copy.9e522bb4dbf82e5c.Core:Collide.Cpp", scope: null, file: !136, line: 17, type: !42, spFlags: DISPFlagDefinition, unit: !122, retainedNodes: !140)
-// CHECK:STDOUT: !138 = !DILocalVariable(arg: 1, scope: !137, type: !36)
-// CHECK:STDOUT: !139 = !DILocation(line: 17, column: 3, scope: !137)
-// CHECK:STDOUT: !140 = !{!138}
-// CHECK:STDOUT: !141 = distinct !DISubprogram(name: "Op", linkageName: "_COp:thunk:Copy.d1fe27f3241437fa.Core:Collide..Cpp", scope: null, file: !136, line: 8, type: !42, spFlags: DISPFlagDefinition, unit: !122, retainedNodes: !144)
-// CHECK:STDOUT: !142 = !DILocalVariable(arg: 1, scope: !141, type: !36)
-// CHECK:STDOUT: !143 = !DILocation(line: 8, column: 3, scope: !141)
-// CHECK:STDOUT: !144 = !{!142}
-// CHECK:STDOUT: !145 = distinct !DISubprogram(name: "SelfDestruct", linkageName: "_CSelfDestruct.Core.c89f00da2163eb95", scope: null, file: !26, line: 32, type: !38, spFlags: DISPFlagDefinition, unit: !122, retainedNodes: !151)
-// CHECK:STDOUT: !146 = !DILocalVariable(arg: 1, scope: !145, type: !36)
-// CHECK:STDOUT: !149 = !DILocation(line: 34, column: 5, scope: !145)
-// CHECK:STDOUT: !150 = !DILocation(line: 32, column: 1, scope: !145)
-// CHECK:STDOUT: !151 = !{!146}
-// CHECK:STDOUT: !152 = distinct !DISubprogram(name: "SelfDestruct", linkageName: "_CSelfDestruct.Core.0b81af486af557dc", scope: null, file: !26, line: 32, type: !38, spFlags: DISPFlagDefinition, unit: !122, retainedNodes: !158)
-// CHECK:STDOUT: !153 = !DILocalVariable(arg: 1, scope: !152, type: !36)
-// CHECK:STDOUT: !156 = !DILocation(line: 34, column: 5, scope: !152)
-// CHECK:STDOUT: !157 = !DILocation(line: 32, column: 1, scope: !152)
-// CHECK:STDOUT: !158 = !{!153}
-// CHECK:STDOUT: !159 = !{!"p1 _ZTS7Collide", !65, i64 0}
-// CHECK:STDOUT: !160 = !{!159, !159, i64 0}
-// CHECK:STDOUT: !162 = !{!"p1 _ZTSN12_GLOBAL__N_17CollideE", !65, i64 0}
-// CHECK:STDOUT: !163 = !{!162, !162, i64 0}
+// CHECK:STDOUT: !125 = !DILocation(line: 17, column: 3, scope: !123)
+// CHECK:STDOUT: !126 = !{!124}
+// CHECK:STDOUT: !127 = distinct !DISubprogram(name: "Op", linkageName: "_COp:thunk:Copy.d1fe27f3241437fa.Core:Collide..Cpp", scope: null, file: !122, line: 8, type: !42, spFlags: DISPFlagDefinition, unit: !108, retainedNodes: !130)
+// CHECK:STDOUT: !128 = !DILocalVariable(arg: 1, scope: !127, type: !36)
+// CHECK:STDOUT: !129 = !DILocation(line: 8, column: 3, scope: !127)
+// CHECK:STDOUT: !130 = !{!128}
+// CHECK:STDOUT: !131 = !{!"p1 _ZTS7Collide", !65, i64 0}
+// CHECK:STDOUT: !132 = !{!131, !131, i64 0}
+// CHECK:STDOUT: !134 = !{!"p1 _ZTSN12_GLOBAL__N_17CollideE", !65, i64 0}
+// CHECK:STDOUT: !135 = !{!134, !134, i64 0}
 // CHECK:STDOUT:

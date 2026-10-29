@@ -658,13 +658,6 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:   %T.09f: %SubobjectDestroy.type = symbolic_binding T, 0 [symbolic]
 // CHECK:STDOUT:   %T.as_type.as.DestroyImpl.impl.Op.type.dea: type = fn_type @T.as_type.as.DestroyImpl.impl.Op, @T.as_type.as.DestroyImpl.impl(%T.09f) [symbolic]
 // CHECK:STDOUT:   %T.as_type.as.DestroyImpl.impl.Op.6e5: %T.as_type.as.DestroyImpl.impl.Op.type.dea = struct_value () [symbolic]
-// CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.type.6870fd.2: type = fn_type @SubobjectDestroy.WithSelf.Op.loc13_22.2 [concrete]
-// CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.30f1ee.2: %SubobjectDestroy.WithSelf.Op.type.6870fd.2 = struct_value () [concrete]
-// CHECK:STDOUT:   %custom_witness.b80ef6.2: <witness> = custom_witness (%SubobjectDestroy.WithSelf.Op.30f1ee.2), @SubobjectDestroy [concrete]
-// CHECK:STDOUT:   %DestroyImpl.impl_witness.906: <witness> = impl_witness imports.%DestroyImpl.impl_witness_table.9a5 [concrete]
-// CHECK:STDOUT:   %ImplsDestroy.as.DestroyImpl.impl.Op.type: type = fn_type @ImplsDestroy.as.DestroyImpl.impl.Op [concrete]
-// CHECK:STDOUT:   %ImplsDestroy.as.DestroyImpl.impl.Op: %ImplsDestroy.as.DestroyImpl.impl.Op.type = struct_value () [concrete]
-// CHECK:STDOUT:   %Destroy.facet.c9e: %Destroy.type = facet_value %ImplsDestroy, (%custom_witness.b80ef6.2, %DestroyImpl.impl_witness.906) [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.type.6870fd.4: type = fn_type @SubobjectDestroy.WithSelf.Op.loc13_22.4 [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.30f1ee.4: %SubobjectDestroy.WithSelf.Op.type.6870fd.4 = struct_value () [concrete]
 // CHECK:STDOUT:   %custom_witness.b80ef6.4: <witness> = custom_witness (%SubobjectDestroy.WithSelf.Op.30f1ee.4), @SubobjectDestroy [concrete]
@@ -688,8 +681,6 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:   %Main.CheckImplsDestroy: %CheckImplsDestroy.type = import_ref Main//check_destroy_format, CheckImplsDestroy, loaded [concrete = constants.%CheckImplsDestroy]
 // CHECK:STDOUT:   %Core.import_ref.74d: @T.as_type.as.DestroyImpl.impl.%T.as_type.as.DestroyImpl.impl.Op.type (%T.as_type.as.DestroyImpl.impl.Op.type.dea) = import_ref Core//prelude/parts/destroy, loc{{\d+_\d+}}, loaded [symbolic = @T.as_type.as.DestroyImpl.impl.%T.as_type.as.DestroyImpl.impl.Op (constants.%T.as_type.as.DestroyImpl.impl.Op.6e5)]
 // CHECK:STDOUT:   %DestroyImpl.impl_witness_table.a5e = impl_witness_table (%Core.import_ref.74d), @T.as_type.as.DestroyImpl.impl [concrete]
-// CHECK:STDOUT:   %Main.import_ref.a07: %ImplsDestroy.as.DestroyImpl.impl.Op.type = import_ref Main//types, loc10_24, loaded [concrete = constants.%ImplsDestroy.as.DestroyImpl.impl.Op]
-// CHECK:STDOUT:   %DestroyImpl.impl_witness_table.9a5 = impl_witness_table (%Main.import_ref.a07), @ImplsDestroy.as.DestroyImpl.impl [concrete]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @TestContainsNonTrivialMember(%x.param: %HasNonTrivialMember) {
@@ -711,26 +702,14 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @SubobjectDestroy.WithSelf.Op.loc13_22.3(%self.param: ref %struct_type.n.81f) {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %.loc13_22.1: ref %ImplsDestroy = struct_access %self.param, element0
-// CHECK:STDOUT:   %Destroy.facet.loc13_22.1: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc13_22.2: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc13_22.1 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %Destroy.facet.loc13_22.2: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc13_22.3: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc13_22.2 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call: init %empty_tuple.type = call %SelfDestruct.specific_fn(%.loc13_22.1)
+// CHECK:STDOUT:   %.loc13: ref %ImplsDestroy = struct_access %self.param, element0
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @SubobjectDestroy.WithSelf.Op.loc13_22.4(%self.param: ref %HasNonTrivialMember) {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %n.ref: %HasNonTrivialMember.elem = name_ref n, @HasNonTrivialMember.%field_decl [concrete = @HasNonTrivialMember.%field_decl]
-// CHECK:STDOUT:   %.loc13_22.1: ref %ImplsDestroy = class_element_access %self.param, element0
-// CHECK:STDOUT:   %Destroy.facet.loc13_22.1: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc13_22.2: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc13_22.1 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %Destroy.facet.loc13_22.2: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc13_22.3: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc13_22.2 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call: init %empty_tuple.type = call %SelfDestruct.specific_fn(%.loc13_22.1)
+// CHECK:STDOUT:   %.loc13: ref %ImplsDestroy = class_element_access %self.param, element0
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -749,26 +728,14 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @SubobjectDestroy.WithSelf.Op.loc26_22.1(%self.param: ref %struct_type.inner.975) {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %.loc26_22.1: ref %HasNonTrivialMember = struct_access %self.param, element0
-// CHECK:STDOUT:   %Destroy.facet.loc26_22.1: %Destroy.type = facet_value constants.%HasNonTrivialMember, (constants.%custom_witness.b80ef6.4, constants.%DestroyImpl.impl_witness.9da) [concrete = constants.%Destroy.facet.e80]
-// CHECK:STDOUT:   %.loc26_22.2: %Destroy.type = converted constants.%HasNonTrivialMember, %Destroy.facet.loc26_22.1 [concrete = constants.%Destroy.facet.e80]
-// CHECK:STDOUT:   %Destroy.facet.loc26_22.2: %Destroy.type = facet_value constants.%HasNonTrivialMember, (constants.%custom_witness.b80ef6.4, constants.%DestroyImpl.impl_witness.9da) [concrete = constants.%Destroy.facet.e80]
-// CHECK:STDOUT:   %.loc26_22.3: %Destroy.type = converted constants.%HasNonTrivialMember, %Destroy.facet.loc26_22.2 [concrete = constants.%Destroy.facet.e80]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call: init %empty_tuple.type = call %SelfDestruct.specific_fn(%.loc26_22.1)
+// CHECK:STDOUT:   %.loc26: ref %HasNonTrivialMember = struct_access %self.param, element0
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @SubobjectDestroy.WithSelf.Op.loc26_22.2(%self.param: ref %NestedNonTrivialMember) {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %inner.ref: %NestedNonTrivialMember.elem = name_ref inner, @NestedNonTrivialMember.%field_decl [concrete = @NestedNonTrivialMember.%field_decl]
-// CHECK:STDOUT:   %.loc26_22.1: ref %HasNonTrivialMember = class_element_access %self.param, element0
-// CHECK:STDOUT:   %Destroy.facet.loc26_22.1: %Destroy.type = facet_value constants.%HasNonTrivialMember, (constants.%custom_witness.b80ef6.4, constants.%DestroyImpl.impl_witness.9da) [concrete = constants.%Destroy.facet.e80]
-// CHECK:STDOUT:   %.loc26_22.2: %Destroy.type = converted constants.%HasNonTrivialMember, %Destroy.facet.loc26_22.1 [concrete = constants.%Destroy.facet.e80]
-// CHECK:STDOUT:   %Destroy.facet.loc26_22.2: %Destroy.type = facet_value constants.%HasNonTrivialMember, (constants.%custom_witness.b80ef6.4, constants.%DestroyImpl.impl_witness.9da) [concrete = constants.%Destroy.facet.e80]
-// CHECK:STDOUT:   %.loc26_22.3: %Destroy.type = converted constants.%HasNonTrivialMember, %Destroy.facet.loc26_22.2 [concrete = constants.%Destroy.facet.e80]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call: init %empty_tuple.type = call %SelfDestruct.specific_fn(%.loc26_22.1)
+// CHECK:STDOUT:   %.loc26: ref %HasNonTrivialMember = class_element_access %self.param, element0
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -789,13 +756,6 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:   %T.09f: %SubobjectDestroy.type = symbolic_binding T, 0 [symbolic]
 // CHECK:STDOUT:   %T.as_type.as.DestroyImpl.impl.Op.type.dea: type = fn_type @T.as_type.as.DestroyImpl.impl.Op, @T.as_type.as.DestroyImpl.impl(%T.09f) [symbolic]
 // CHECK:STDOUT:   %T.as_type.as.DestroyImpl.impl.Op.6e5: %T.as_type.as.DestroyImpl.impl.Op.type.dea = struct_value () [symbolic]
-// CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.type.6870fd.2: type = fn_type @SubobjectDestroy.WithSelf.Op.loc13_22.2 [concrete]
-// CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.30f1ee.2: %SubobjectDestroy.WithSelf.Op.type.6870fd.2 = struct_value () [concrete]
-// CHECK:STDOUT:   %custom_witness.b80ef6.2: <witness> = custom_witness (%SubobjectDestroy.WithSelf.Op.30f1ee.2), @SubobjectDestroy [concrete]
-// CHECK:STDOUT:   %DestroyImpl.impl_witness.6d9: <witness> = impl_witness imports.%DestroyImpl.impl_witness_table.6e0 [concrete]
-// CHECK:STDOUT:   %NonTrivialBase.as.DestroyImpl.impl.Op.type: type = fn_type @NonTrivialBase.as.DestroyImpl.impl.Op [concrete]
-// CHECK:STDOUT:   %NonTrivialBase.as.DestroyImpl.impl.Op: %NonTrivialBase.as.DestroyImpl.impl.Op.type = struct_value () [concrete]
-// CHECK:STDOUT:   %Destroy.facet.9e6: %Destroy.type = facet_value %NonTrivialBase, (%custom_witness.b80ef6.2, %DestroyImpl.impl_witness.6d9) [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.type.6870fd.4: type = fn_type @SubobjectDestroy.WithSelf.Op.loc13_22.4 [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.30f1ee.4: %SubobjectDestroy.WithSelf.Op.type.6870fd.4 = struct_value () [concrete]
 // CHECK:STDOUT:   %custom_witness.b80ef6.4: <witness> = custom_witness (%SubobjectDestroy.WithSelf.Op.30f1ee.4), @SubobjectDestroy [concrete]
@@ -819,8 +779,6 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:   %Main.CheckImplsDestroy: %CheckImplsDestroy.type = import_ref Main//check_destroy_format, CheckImplsDestroy, loaded [concrete = constants.%CheckImplsDestroy]
 // CHECK:STDOUT:   %Core.import_ref.74d: @T.as_type.as.DestroyImpl.impl.%T.as_type.as.DestroyImpl.impl.Op.type (%T.as_type.as.DestroyImpl.impl.Op.type.dea) = import_ref Core//prelude/parts/destroy, loc{{\d+_\d+}}, loaded [symbolic = @T.as_type.as.DestroyImpl.impl.%T.as_type.as.DestroyImpl.impl.Op (constants.%T.as_type.as.DestroyImpl.impl.Op.6e5)]
 // CHECK:STDOUT:   %DestroyImpl.impl_witness_table.a5e = impl_witness_table (%Core.import_ref.74d), @T.as_type.as.DestroyImpl.impl [concrete]
-// CHECK:STDOUT:   %Main.import_ref.9c2: %NonTrivialBase.as.DestroyImpl.impl.Op.type = import_ref Main//types, loc16_24, loaded [concrete = constants.%NonTrivialBase.as.DestroyImpl.impl.Op]
-// CHECK:STDOUT:   %DestroyImpl.impl_witness_table.6e0 = impl_witness_table (%Main.import_ref.9c2), @NonTrivialBase.as.DestroyImpl.impl [concrete]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @TestDerivedFromNonTrivialBase(%x.param: %DerivedFromNonTrivialBase) {
@@ -842,26 +800,14 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @SubobjectDestroy.WithSelf.Op.loc13_22.3(%self.param: ref %struct_type.base.25c) {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %.loc13_22.1: ref %NonTrivialBase = struct_access %self.param, element0
-// CHECK:STDOUT:   %Destroy.facet.loc13_22.1: %Destroy.type = facet_value constants.%NonTrivialBase, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.6d9) [concrete = constants.%Destroy.facet.9e6]
-// CHECK:STDOUT:   %.loc13_22.2: %Destroy.type = converted constants.%NonTrivialBase, %Destroy.facet.loc13_22.1 [concrete = constants.%Destroy.facet.9e6]
-// CHECK:STDOUT:   %Destroy.facet.loc13_22.2: %Destroy.type = facet_value constants.%NonTrivialBase, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.6d9) [concrete = constants.%Destroy.facet.9e6]
-// CHECK:STDOUT:   %.loc13_22.3: %Destroy.type = converted constants.%NonTrivialBase, %Destroy.facet.loc13_22.2 [concrete = constants.%Destroy.facet.9e6]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call: init %empty_tuple.type = call %SelfDestruct.specific_fn(%.loc13_22.1)
+// CHECK:STDOUT:   %.loc13: ref %NonTrivialBase = struct_access %self.param, element0
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @SubobjectDestroy.WithSelf.Op.loc13_22.4(%self.param: ref %DerivedFromNonTrivialBase) {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %base.ref: %DerivedFromNonTrivialBase.elem = name_ref base, @DerivedFromNonTrivialBase.%.loc8 [concrete = @DerivedFromNonTrivialBase.%.loc8]
-// CHECK:STDOUT:   %.loc13_22.1: ref %NonTrivialBase = class_element_access %self.param, element0
-// CHECK:STDOUT:   %Destroy.facet.loc13_22.1: %Destroy.type = facet_value constants.%NonTrivialBase, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.6d9) [concrete = constants.%Destroy.facet.9e6]
-// CHECK:STDOUT:   %.loc13_22.2: %Destroy.type = converted constants.%NonTrivialBase, %Destroy.facet.loc13_22.1 [concrete = constants.%Destroy.facet.9e6]
-// CHECK:STDOUT:   %Destroy.facet.loc13_22.2: %Destroy.type = facet_value constants.%NonTrivialBase, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.6d9) [concrete = constants.%Destroy.facet.9e6]
-// CHECK:STDOUT:   %.loc13_22.3: %Destroy.type = converted constants.%NonTrivialBase, %Destroy.facet.loc13_22.2 [concrete = constants.%Destroy.facet.9e6]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call: init %empty_tuple.type = call %SelfDestruct.specific_fn(%.loc13_22.1)
+// CHECK:STDOUT:   %.loc13: ref %NonTrivialBase = class_element_access %self.param, element0
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -880,26 +826,14 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @SubobjectDestroy.WithSelf.Op.loc27_22.1(%self.param: ref %struct_type.base.3eb) {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %.loc27_22.1: ref %DerivedFromNonTrivialBase = struct_access %self.param, element0
-// CHECK:STDOUT:   %Destroy.facet.loc27_22.1: %Destroy.type = facet_value constants.%DerivedFromNonTrivialBase, (constants.%custom_witness.b80ef6.4, constants.%DestroyImpl.impl_witness.7a2) [concrete = constants.%Destroy.facet.6f5]
-// CHECK:STDOUT:   %.loc27_22.2: %Destroy.type = converted constants.%DerivedFromNonTrivialBase, %Destroy.facet.loc27_22.1 [concrete = constants.%Destroy.facet.6f5]
-// CHECK:STDOUT:   %Destroy.facet.loc27_22.2: %Destroy.type = facet_value constants.%DerivedFromNonTrivialBase, (constants.%custom_witness.b80ef6.4, constants.%DestroyImpl.impl_witness.7a2) [concrete = constants.%Destroy.facet.6f5]
-// CHECK:STDOUT:   %.loc27_22.3: %Destroy.type = converted constants.%DerivedFromNonTrivialBase, %Destroy.facet.loc27_22.2 [concrete = constants.%Destroy.facet.6f5]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call: init %empty_tuple.type = call %SelfDestruct.specific_fn(%.loc27_22.1)
+// CHECK:STDOUT:   %.loc27: ref %DerivedFromNonTrivialBase = struct_access %self.param, element0
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @SubobjectDestroy.WithSelf.Op.loc27_22.2(%self.param: ref %NonTrivialGrandparent) {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %base.ref: %NonTrivialGrandparent.elem = name_ref base, @NonTrivialGrandparent.%.loc22 [concrete = @NonTrivialGrandparent.%.loc22]
-// CHECK:STDOUT:   %.loc27_22.1: ref %DerivedFromNonTrivialBase = class_element_access %self.param, element0
-// CHECK:STDOUT:   %Destroy.facet.loc27_22.1: %Destroy.type = facet_value constants.%DerivedFromNonTrivialBase, (constants.%custom_witness.b80ef6.4, constants.%DestroyImpl.impl_witness.7a2) [concrete = constants.%Destroy.facet.6f5]
-// CHECK:STDOUT:   %.loc27_22.2: %Destroy.type = converted constants.%DerivedFromNonTrivialBase, %Destroy.facet.loc27_22.1 [concrete = constants.%Destroy.facet.6f5]
-// CHECK:STDOUT:   %Destroy.facet.loc27_22.2: %Destroy.type = facet_value constants.%DerivedFromNonTrivialBase, (constants.%custom_witness.b80ef6.4, constants.%DestroyImpl.impl_witness.7a2) [concrete = constants.%Destroy.facet.6f5]
-// CHECK:STDOUT:   %.loc27_22.3: %Destroy.type = converted constants.%DerivedFromNonTrivialBase, %Destroy.facet.loc27_22.2 [concrete = constants.%Destroy.facet.6f5]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call: init %empty_tuple.type = call %SelfDestruct.specific_fn(%.loc27_22.1)
+// CHECK:STDOUT:   %.loc27: ref %DerivedFromNonTrivialBase = class_element_access %self.param, element0
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -1010,26 +944,14 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @SubobjectDestroy.WithSelf.Op.loc9_22.1(%self.param: ref %struct_type.t.1ce) {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %.loc9_22.1: ref %ImplsDestroy = struct_access %self.param, element0
-// CHECK:STDOUT:   %Destroy.facet.loc9_22.1: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc9_22.2: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc9_22.1 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %Destroy.facet.loc9_22.2: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc9_22.3: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc9_22.2 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call: init %empty_tuple.type = call %SelfDestruct.specific_fn(%.loc9_22.1)
+// CHECK:STDOUT:   %.loc9: ref %ImplsDestroy = struct_access %self.param, element0
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @SubobjectDestroy.WithSelf.Op.loc9_22.2(%self.param: ref %GenericClass.62d) {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %t.ref: %GenericClass.elem.e29 = name_ref t, imports.%Main.import_ref.f7a [concrete = imports.%field_decl]
-// CHECK:STDOUT:   %.loc9_22.1: ref %ImplsDestroy = class_element_access %self.param, element0
-// CHECK:STDOUT:   %Destroy.facet.loc9_22.1: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc9_22.2: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc9_22.1 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %Destroy.facet.loc9_22.2: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc9_22.3: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc9_22.2 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call: init %empty_tuple.type = call %SelfDestruct.specific_fn(%.loc9_22.1)
+// CHECK:STDOUT:   %.loc9: ref %ImplsDestroy = class_element_access %self.param, element0
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -1052,19 +974,12 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:   %T.09f: %SubobjectDestroy.type = symbolic_binding T, 0 [symbolic]
 // CHECK:STDOUT:   %T.as_type.as.DestroyImpl.impl.Op.type.dea: type = fn_type @T.as_type.as.DestroyImpl.impl.Op, @T.as_type.as.DestroyImpl.impl(%T.09f) [symbolic]
 // CHECK:STDOUT:   %T.as_type.as.DestroyImpl.impl.Op.6e5: %T.as_type.as.DestroyImpl.impl.Op.type.dea = struct_value () [symbolic]
-// CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.type.6870fd.2: type = fn_type @SubobjectDestroy.WithSelf.Op.loc14_22.2 [concrete]
-// CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.30f1ee.2: %SubobjectDestroy.WithSelf.Op.type.6870fd.2 = struct_value () [concrete]
-// CHECK:STDOUT:   %custom_witness.b80ef6.2: <witness> = custom_witness (%SubobjectDestroy.WithSelf.Op.30f1ee.2), @SubobjectDestroy [concrete]
-// CHECK:STDOUT:   %DestroyImpl.impl_witness.906: <witness> = impl_witness imports.%DestroyImpl.impl_witness_table.9a5 [concrete]
-// CHECK:STDOUT:   %ImplsDestroy.as.DestroyImpl.impl.Op.type: type = fn_type @ImplsDestroy.as.DestroyImpl.impl.Op [concrete]
-// CHECK:STDOUT:   %ImplsDestroy.as.DestroyImpl.impl.Op: %ImplsDestroy.as.DestroyImpl.impl.Op.type = struct_value () [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.type.6870fd.3: type = fn_type @SubobjectDestroy.WithSelf.Op.loc14_22.3 [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.30f1ee.3: %SubobjectDestroy.WithSelf.Op.type.6870fd.3 = struct_value () [concrete]
 // CHECK:STDOUT:   %custom_witness.b80ef6.3: <witness> = custom_witness (%SubobjectDestroy.WithSelf.Op.30f1ee.3), @SubobjectDestroy [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.facet.5bc: %SubobjectDestroy.type = facet_value %HasTrivialDestruction, (%custom_witness.b80ef6.3) [concrete]
 // CHECK:STDOUT:   %DestroyImpl.impl_witness.4ca: <witness> = impl_witness imports.%DestroyImpl.impl_witness_table.a5e, @T.as_type.as.DestroyImpl.impl(%SubobjectDestroy.facet.5bc) [concrete]
 // CHECK:STDOUT:   %Destroy.facet.b89: %Destroy.type = facet_value %HasTrivialDestruction, (%custom_witness.b80ef6.3, %DestroyImpl.impl_witness.4ca) [concrete]
-// CHECK:STDOUT:   %Destroy.facet.c9e: %Destroy.type = facet_value %ImplsDestroy, (%custom_witness.b80ef6.2, %DestroyImpl.impl_witness.906) [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.type.6870fd.5: type = fn_type @SubobjectDestroy.WithSelf.Op.loc14_22.5 [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.30f1ee.5: %SubobjectDestroy.WithSelf.Op.type.6870fd.5 = struct_value () [concrete]
 // CHECK:STDOUT:   %custom_witness.b80ef6.5: <witness> = custom_witness (%SubobjectDestroy.WithSelf.Op.30f1ee.5), @SubobjectDestroy [concrete]
@@ -1089,8 +1004,6 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:   %Main.CheckImplsDestroy: %CheckImplsDestroy.type = import_ref Main//check_destroy_format, CheckImplsDestroy, loaded [concrete = constants.%CheckImplsDestroy]
 // CHECK:STDOUT:   %Core.import_ref.74d: @T.as_type.as.DestroyImpl.impl.%T.as_type.as.DestroyImpl.impl.Op.type (%T.as_type.as.DestroyImpl.impl.Op.type.dea) = import_ref Core//prelude/parts/destroy, loc{{\d+_\d+}}, loaded [symbolic = @T.as_type.as.DestroyImpl.impl.%T.as_type.as.DestroyImpl.impl.Op (constants.%T.as_type.as.DestroyImpl.impl.Op.6e5)]
 // CHECK:STDOUT:   %DestroyImpl.impl_witness_table.a5e = impl_witness_table (%Core.import_ref.74d), @T.as_type.as.DestroyImpl.impl [concrete]
-// CHECK:STDOUT:   %Main.import_ref.a07: %ImplsDestroy.as.DestroyImpl.impl.Op.type = import_ref Main//types, loc10_24, loaded [concrete = constants.%ImplsDestroy.as.DestroyImpl.impl.Op]
-// CHECK:STDOUT:   %DestroyImpl.impl_witness_table.9a5 = impl_witness_table (%Main.import_ref.a07), @ImplsDestroy.as.DestroyImpl.impl [concrete]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @TestNonTrivialAndTrivialMembers(%x.param: %NonTrivialMemberFirst) {
@@ -1120,14 +1033,8 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:   %Destroy.facet.loc14_22.2: %Destroy.type = facet_value constants.%HasTrivialDestruction, (constants.%custom_witness.b80ef6.3, constants.%DestroyImpl.impl_witness.4ca) [concrete = constants.%Destroy.facet.b89]
 // CHECK:STDOUT:   %.loc14_22.3: %Destroy.type = converted constants.%HasTrivialDestruction, %Destroy.facet.loc14_22.2 [concrete = constants.%Destroy.facet.b89]
 // CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call.loc14_22.1: init %empty_tuple.type = call %SelfDestruct.specific_fn.1(%.loc14_22.1)
+// CHECK:STDOUT:   %SelfDestruct.call: init %empty_tuple.type = call %SelfDestruct.specific_fn(%.loc14_22.1)
 // CHECK:STDOUT:   %.loc14_22.4: ref %ImplsDestroy = struct_access %self.param, element0
-// CHECK:STDOUT:   %Destroy.facet.loc14_22.3: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc14_22.5: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc14_22.3 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %Destroy.facet.loc14_22.4: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc14_22.6: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc14_22.4 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call.loc14_22.2: init %empty_tuple.type = call %SelfDestruct.specific_fn.2(%.loc14_22.4)
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -1140,15 +1047,9 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:   %Destroy.facet.loc14_22.2: %Destroy.type = facet_value constants.%HasTrivialDestruction, (constants.%custom_witness.b80ef6.3, constants.%DestroyImpl.impl_witness.4ca) [concrete = constants.%Destroy.facet.b89]
 // CHECK:STDOUT:   %.loc14_22.3: %Destroy.type = converted constants.%HasTrivialDestruction, %Destroy.facet.loc14_22.2 [concrete = constants.%Destroy.facet.b89]
 // CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call.loc14_22.1: init %empty_tuple.type = call %SelfDestruct.specific_fn.1(%.loc14_22.1)
+// CHECK:STDOUT:   %SelfDestruct.call: init %empty_tuple.type = call %SelfDestruct.specific_fn(%.loc14_22.1)
 // CHECK:STDOUT:   %x.ref: %NonTrivialMemberFirst.elem.c66 = name_ref x, @NonTrivialMemberFirst.%field_decl.loc8 [concrete = @NonTrivialMemberFirst.%field_decl.loc8]
 // CHECK:STDOUT:   %.loc14_22.4: ref %ImplsDestroy = class_element_access %self.param, element0
-// CHECK:STDOUT:   %Destroy.facet.loc14_22.3: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc14_22.5: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc14_22.3 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %Destroy.facet.loc14_22.4: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc14_22.6: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc14_22.4 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call.loc14_22.2: init %empty_tuple.type = call %SelfDestruct.specific_fn.2(%.loc14_22.4)
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -1168,19 +1069,13 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT: fn @SubobjectDestroy.WithSelf.Op.loc28_22.1(%self.param: ref %struct_type.x.y.8df) {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %.loc28_22.1: ref %ImplsDestroy = struct_access %self.param, element1
-// CHECK:STDOUT:   %Destroy.facet.loc28_22.1: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc28_22.2: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc28_22.1 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %Destroy.facet.loc28_22.2: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc28_22.3: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc28_22.2 [concrete = constants.%Destroy.facet.c9e]
+// CHECK:STDOUT:   %.loc28_22.2: ref %HasTrivialDestruction = struct_access %self.param, element0
+// CHECK:STDOUT:   %Destroy.facet.loc28_22.1: %Destroy.type = facet_value constants.%HasTrivialDestruction, (constants.%custom_witness.b80ef6.3, constants.%DestroyImpl.impl_witness.4ca) [concrete = constants.%Destroy.facet.b89]
+// CHECK:STDOUT:   %.loc28_22.3: %Destroy.type = converted constants.%HasTrivialDestruction, %Destroy.facet.loc28_22.1 [concrete = constants.%Destroy.facet.b89]
+// CHECK:STDOUT:   %Destroy.facet.loc28_22.2: %Destroy.type = facet_value constants.%HasTrivialDestruction, (constants.%custom_witness.b80ef6.3, constants.%DestroyImpl.impl_witness.4ca) [concrete = constants.%Destroy.facet.b89]
+// CHECK:STDOUT:   %.loc28_22.4: %Destroy.type = converted constants.%HasTrivialDestruction, %Destroy.facet.loc28_22.2 [concrete = constants.%Destroy.facet.b89]
 // CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call.loc28_22.1: init %empty_tuple.type = call %SelfDestruct.specific_fn.1(%.loc28_22.1)
-// CHECK:STDOUT:   %.loc28_22.4: ref %HasTrivialDestruction = struct_access %self.param, element0
-// CHECK:STDOUT:   %Destroy.facet.loc28_22.3: %Destroy.type = facet_value constants.%HasTrivialDestruction, (constants.%custom_witness.b80ef6.3, constants.%DestroyImpl.impl_witness.4ca) [concrete = constants.%Destroy.facet.b89]
-// CHECK:STDOUT:   %.loc28_22.5: %Destroy.type = converted constants.%HasTrivialDestruction, %Destroy.facet.loc28_22.3 [concrete = constants.%Destroy.facet.b89]
-// CHECK:STDOUT:   %Destroy.facet.loc28_22.4: %Destroy.type = facet_value constants.%HasTrivialDestruction, (constants.%custom_witness.b80ef6.3, constants.%DestroyImpl.impl_witness.4ca) [concrete = constants.%Destroy.facet.b89]
-// CHECK:STDOUT:   %.loc28_22.6: %Destroy.type = converted constants.%HasTrivialDestruction, %Destroy.facet.loc28_22.4 [concrete = constants.%Destroy.facet.b89]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call.loc28_22.2: init %empty_tuple.type = call %SelfDestruct.specific_fn.2(%.loc28_22.4)
+// CHECK:STDOUT:   %SelfDestruct.call: init %empty_tuple.type = call %SelfDestruct.specific_fn(%.loc28_22.2)
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -1188,20 +1083,14 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %y.ref: %NonTrivialMemberSecond.elem.e20 = name_ref y, @NonTrivialMemberSecond.%field_decl.loc23 [concrete = @NonTrivialMemberSecond.%field_decl.loc23]
 // CHECK:STDOUT:   %.loc28_22.1: ref %ImplsDestroy = class_element_access %self.param, element1
-// CHECK:STDOUT:   %Destroy.facet.loc28_22.1: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc28_22.2: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc28_22.1 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %Destroy.facet.loc28_22.2: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc28_22.3: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc28_22.2 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call.loc28_22.1: init %empty_tuple.type = call %SelfDestruct.specific_fn.1(%.loc28_22.1)
 // CHECK:STDOUT:   %x.ref: %NonTrivialMemberSecond.elem.1a5 = name_ref x, @NonTrivialMemberSecond.%field_decl.loc22 [concrete = @NonTrivialMemberSecond.%field_decl.loc22]
-// CHECK:STDOUT:   %.loc28_22.4: ref %HasTrivialDestruction = class_element_access %self.param, element0
-// CHECK:STDOUT:   %Destroy.facet.loc28_22.3: %Destroy.type = facet_value constants.%HasTrivialDestruction, (constants.%custom_witness.b80ef6.3, constants.%DestroyImpl.impl_witness.4ca) [concrete = constants.%Destroy.facet.b89]
-// CHECK:STDOUT:   %.loc28_22.5: %Destroy.type = converted constants.%HasTrivialDestruction, %Destroy.facet.loc28_22.3 [concrete = constants.%Destroy.facet.b89]
-// CHECK:STDOUT:   %Destroy.facet.loc28_22.4: %Destroy.type = facet_value constants.%HasTrivialDestruction, (constants.%custom_witness.b80ef6.3, constants.%DestroyImpl.impl_witness.4ca) [concrete = constants.%Destroy.facet.b89]
-// CHECK:STDOUT:   %.loc28_22.6: %Destroy.type = converted constants.%HasTrivialDestruction, %Destroy.facet.loc28_22.4 [concrete = constants.%Destroy.facet.b89]
+// CHECK:STDOUT:   %.loc28_22.2: ref %HasTrivialDestruction = class_element_access %self.param, element0
+// CHECK:STDOUT:   %Destroy.facet.loc28_22.1: %Destroy.type = facet_value constants.%HasTrivialDestruction, (constants.%custom_witness.b80ef6.3, constants.%DestroyImpl.impl_witness.4ca) [concrete = constants.%Destroy.facet.b89]
+// CHECK:STDOUT:   %.loc28_22.3: %Destroy.type = converted constants.%HasTrivialDestruction, %Destroy.facet.loc28_22.1 [concrete = constants.%Destroy.facet.b89]
+// CHECK:STDOUT:   %Destroy.facet.loc28_22.2: %Destroy.type = facet_value constants.%HasTrivialDestruction, (constants.%custom_witness.b80ef6.3, constants.%DestroyImpl.impl_witness.4ca) [concrete = constants.%Destroy.facet.b89]
+// CHECK:STDOUT:   %.loc28_22.4: %Destroy.type = converted constants.%HasTrivialDestruction, %Destroy.facet.loc28_22.2 [concrete = constants.%Destroy.facet.b89]
 // CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call.loc28_22.2: init %empty_tuple.type = call %SelfDestruct.specific_fn.2(%.loc28_22.4)
+// CHECK:STDOUT:   %SelfDestruct.call: init %empty_tuple.type = call %SelfDestruct.specific_fn(%.loc28_22.2)
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -1224,19 +1113,12 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:   %T.09f: %SubobjectDestroy.type = symbolic_binding T, 0 [symbolic]
 // CHECK:STDOUT:   %T.as_type.as.DestroyImpl.impl.Op.type.dea: type = fn_type @T.as_type.as.DestroyImpl.impl.Op, @T.as_type.as.DestroyImpl.impl(%T.09f) [symbolic]
 // CHECK:STDOUT:   %T.as_type.as.DestroyImpl.impl.Op.6e5: %T.as_type.as.DestroyImpl.impl.Op.type.dea = struct_value () [symbolic]
-// CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.type.6870fd.2: type = fn_type @SubobjectDestroy.WithSelf.Op.loc14_22.2 [concrete]
-// CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.30f1ee.2: %SubobjectDestroy.WithSelf.Op.type.6870fd.2 = struct_value () [concrete]
-// CHECK:STDOUT:   %custom_witness.b80ef6.2: <witness> = custom_witness (%SubobjectDestroy.WithSelf.Op.30f1ee.2), @SubobjectDestroy [concrete]
-// CHECK:STDOUT:   %DestroyImpl.impl_witness.6d9: <witness> = impl_witness imports.%DestroyImpl.impl_witness_table.6e0 [concrete]
-// CHECK:STDOUT:   %NonTrivialBase.as.DestroyImpl.impl.Op.type: type = fn_type @NonTrivialBase.as.DestroyImpl.impl.Op [concrete]
-// CHECK:STDOUT:   %NonTrivialBase.as.DestroyImpl.impl.Op: %NonTrivialBase.as.DestroyImpl.impl.Op.type = struct_value () [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.type.6870fd.3: type = fn_type @SubobjectDestroy.WithSelf.Op.loc14_22.3 [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.30f1ee.3: %SubobjectDestroy.WithSelf.Op.type.6870fd.3 = struct_value () [concrete]
 // CHECK:STDOUT:   %custom_witness.b80ef6.3: <witness> = custom_witness (%SubobjectDestroy.WithSelf.Op.30f1ee.3), @SubobjectDestroy [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.facet.5bc: %SubobjectDestroy.type = facet_value %HasTrivialDestruction, (%custom_witness.b80ef6.3) [concrete]
 // CHECK:STDOUT:   %DestroyImpl.impl_witness.4ca: <witness> = impl_witness imports.%DestroyImpl.impl_witness_table.a5e, @T.as_type.as.DestroyImpl.impl(%SubobjectDestroy.facet.5bc) [concrete]
 // CHECK:STDOUT:   %Destroy.facet.b89: %Destroy.type = facet_value %HasTrivialDestruction, (%custom_witness.b80ef6.3, %DestroyImpl.impl_witness.4ca) [concrete]
-// CHECK:STDOUT:   %Destroy.facet.9e6: %Destroy.type = facet_value %NonTrivialBase, (%custom_witness.b80ef6.2, %DestroyImpl.impl_witness.6d9) [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.type.6870fd.5: type = fn_type @SubobjectDestroy.WithSelf.Op.loc14_22.5 [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.30f1ee.5: %SubobjectDestroy.WithSelf.Op.type.6870fd.5 = struct_value () [concrete]
 // CHECK:STDOUT:   %custom_witness.b80ef6.5: <witness> = custom_witness (%SubobjectDestroy.WithSelf.Op.30f1ee.5), @SubobjectDestroy [concrete]
@@ -1250,8 +1132,6 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:   %Main.CheckImplsDestroy: %CheckImplsDestroy.type = import_ref Main//check_destroy_format, CheckImplsDestroy, loaded [concrete = constants.%CheckImplsDestroy]
 // CHECK:STDOUT:   %Core.import_ref.74d: @T.as_type.as.DestroyImpl.impl.%T.as_type.as.DestroyImpl.impl.Op.type (%T.as_type.as.DestroyImpl.impl.Op.type.dea) = import_ref Core//prelude/parts/destroy, loc{{\d+_\d+}}, loaded [symbolic = @T.as_type.as.DestroyImpl.impl.%T.as_type.as.DestroyImpl.impl.Op (constants.%T.as_type.as.DestroyImpl.impl.Op.6e5)]
 // CHECK:STDOUT:   %DestroyImpl.impl_witness_table.a5e = impl_witness_table (%Core.import_ref.74d), @T.as_type.as.DestroyImpl.impl [concrete]
-// CHECK:STDOUT:   %Main.import_ref.9c2: %NonTrivialBase.as.DestroyImpl.impl.Op.type = import_ref Main//types, loc16_24, loaded [concrete = constants.%NonTrivialBase.as.DestroyImpl.impl.Op]
-// CHECK:STDOUT:   %DestroyImpl.impl_witness_table.6e0 = impl_witness_table (%Main.import_ref.9c2), @NonTrivialBase.as.DestroyImpl.impl [concrete]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @TestNonTrivialBaseAndTrivialMember(%x.param: %NonTrivialBaseAndTrivialMember) {
@@ -1281,14 +1161,8 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:   %Destroy.facet.loc14_22.2: %Destroy.type = facet_value constants.%HasTrivialDestruction, (constants.%custom_witness.b80ef6.3, constants.%DestroyImpl.impl_witness.4ca) [concrete = constants.%Destroy.facet.b89]
 // CHECK:STDOUT:   %.loc14_22.3: %Destroy.type = converted constants.%HasTrivialDestruction, %Destroy.facet.loc14_22.2 [concrete = constants.%Destroy.facet.b89]
 // CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call.loc14_22.1: init %empty_tuple.type = call %SelfDestruct.specific_fn.1(%.loc14_22.1)
+// CHECK:STDOUT:   %SelfDestruct.call: init %empty_tuple.type = call %SelfDestruct.specific_fn(%.loc14_22.1)
 // CHECK:STDOUT:   %.loc14_22.4: ref %NonTrivialBase = struct_access %self.param, element0
-// CHECK:STDOUT:   %Destroy.facet.loc14_22.3: %Destroy.type = facet_value constants.%NonTrivialBase, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.6d9) [concrete = constants.%Destroy.facet.9e6]
-// CHECK:STDOUT:   %.loc14_22.5: %Destroy.type = converted constants.%NonTrivialBase, %Destroy.facet.loc14_22.3 [concrete = constants.%Destroy.facet.9e6]
-// CHECK:STDOUT:   %Destroy.facet.loc14_22.4: %Destroy.type = facet_value constants.%NonTrivialBase, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.6d9) [concrete = constants.%Destroy.facet.9e6]
-// CHECK:STDOUT:   %.loc14_22.6: %Destroy.type = converted constants.%NonTrivialBase, %Destroy.facet.loc14_22.4 [concrete = constants.%Destroy.facet.9e6]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call.loc14_22.2: init %empty_tuple.type = call %SelfDestruct.specific_fn.2(%.loc14_22.4)
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -1301,15 +1175,9 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:   %Destroy.facet.loc14_22.2: %Destroy.type = facet_value constants.%HasTrivialDestruction, (constants.%custom_witness.b80ef6.3, constants.%DestroyImpl.impl_witness.4ca) [concrete = constants.%Destroy.facet.b89]
 // CHECK:STDOUT:   %.loc14_22.3: %Destroy.type = converted constants.%HasTrivialDestruction, %Destroy.facet.loc14_22.2 [concrete = constants.%Destroy.facet.b89]
 // CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call.loc14_22.1: init %empty_tuple.type = call %SelfDestruct.specific_fn.1(%.loc14_22.1)
+// CHECK:STDOUT:   %SelfDestruct.call: init %empty_tuple.type = call %SelfDestruct.specific_fn(%.loc14_22.1)
 // CHECK:STDOUT:   %base.ref: %NonTrivialBaseAndTrivialMember.elem.e27 = name_ref base, @NonTrivialBaseAndTrivialMember.%.loc8 [concrete = @NonTrivialBaseAndTrivialMember.%.loc8]
 // CHECK:STDOUT:   %.loc14_22.4: ref %NonTrivialBase = class_element_access %self.param, element0
-// CHECK:STDOUT:   %Destroy.facet.loc14_22.3: %Destroy.type = facet_value constants.%NonTrivialBase, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.6d9) [concrete = constants.%Destroy.facet.9e6]
-// CHECK:STDOUT:   %.loc14_22.5: %Destroy.type = converted constants.%NonTrivialBase, %Destroy.facet.loc14_22.3 [concrete = constants.%Destroy.facet.9e6]
-// CHECK:STDOUT:   %Destroy.facet.loc14_22.4: %Destroy.type = facet_value constants.%NonTrivialBase, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.6d9) [concrete = constants.%Destroy.facet.9e6]
-// CHECK:STDOUT:   %.loc14_22.6: %Destroy.type = converted constants.%NonTrivialBase, %Destroy.facet.loc14_22.4 [concrete = constants.%Destroy.facet.9e6]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call.loc14_22.2: init %empty_tuple.type = call %SelfDestruct.specific_fn.2(%.loc14_22.4)
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -1337,13 +1205,6 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:   %custom_witness.b80ef6.2: <witness> = custom_witness (%SubobjectDestroy.WithSelf.Op.30f1ee.2), @SubobjectDestroy [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.facet.23e: %SubobjectDestroy.type = facet_value %TrivialBase, (%custom_witness.b80ef6.2) [concrete]
 // CHECK:STDOUT:   %DestroyImpl.impl_witness.7c0: <witness> = impl_witness imports.%DestroyImpl.impl_witness_table.a5e, @T.as_type.as.DestroyImpl.impl(%SubobjectDestroy.facet.23e) [concrete]
-// CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.type.6870fd.3: type = fn_type @SubobjectDestroy.WithSelf.Op.loc14_22.3 [concrete]
-// CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.30f1ee.3: %SubobjectDestroy.WithSelf.Op.type.6870fd.3 = struct_value () [concrete]
-// CHECK:STDOUT:   %custom_witness.b80ef6.3: <witness> = custom_witness (%SubobjectDestroy.WithSelf.Op.30f1ee.3), @SubobjectDestroy [concrete]
-// CHECK:STDOUT:   %DestroyImpl.impl_witness.906: <witness> = impl_witness imports.%DestroyImpl.impl_witness_table.9a5 [concrete]
-// CHECK:STDOUT:   %ImplsDestroy.as.DestroyImpl.impl.Op.type: type = fn_type @ImplsDestroy.as.DestroyImpl.impl.Op [concrete]
-// CHECK:STDOUT:   %ImplsDestroy.as.DestroyImpl.impl.Op: %ImplsDestroy.as.DestroyImpl.impl.Op.type = struct_value () [concrete]
-// CHECK:STDOUT:   %Destroy.facet.c9e: %Destroy.type = facet_value %ImplsDestroy, (%custom_witness.b80ef6.3, %DestroyImpl.impl_witness.906) [concrete]
 // CHECK:STDOUT:   %Destroy.facet.033: %Destroy.type = facet_value %TrivialBase, (%custom_witness.b80ef6.2, %DestroyImpl.impl_witness.7c0) [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.type.6870fd.5: type = fn_type @SubobjectDestroy.WithSelf.Op.loc14_22.5 [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.30f1ee.5: %SubobjectDestroy.WithSelf.Op.type.6870fd.5 = struct_value () [concrete]
@@ -1358,8 +1219,6 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:   %Main.CheckImplsDestroy: %CheckImplsDestroy.type = import_ref Main//check_destroy_format, CheckImplsDestroy, loaded [concrete = constants.%CheckImplsDestroy]
 // CHECK:STDOUT:   %Core.import_ref.74d: @T.as_type.as.DestroyImpl.impl.%T.as_type.as.DestroyImpl.impl.Op.type (%T.as_type.as.DestroyImpl.impl.Op.type.dea) = import_ref Core//prelude/parts/destroy, loc{{\d+_\d+}}, loaded [symbolic = @T.as_type.as.DestroyImpl.impl.%T.as_type.as.DestroyImpl.impl.Op (constants.%T.as_type.as.DestroyImpl.impl.Op.6e5)]
 // CHECK:STDOUT:   %DestroyImpl.impl_witness_table.a5e = impl_witness_table (%Core.import_ref.74d), @T.as_type.as.DestroyImpl.impl [concrete]
-// CHECK:STDOUT:   %Main.import_ref.a07: %ImplsDestroy.as.DestroyImpl.impl.Op.type = import_ref Main//types, loc10_24, loaded [concrete = constants.%ImplsDestroy.as.DestroyImpl.impl.Op]
-// CHECK:STDOUT:   %DestroyImpl.impl_witness_table.9a5 = impl_witness_table (%Main.import_ref.a07), @ImplsDestroy.as.DestroyImpl.impl [concrete]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @TestTrivialBaseAndNonTrivialMember(%x.param: %TrivialBaseAndNonTrivialMember) {
@@ -1384,19 +1243,13 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT: fn @SubobjectDestroy.WithSelf.Op.loc14_22.4(%self.param: ref %struct_type.base.n.b10) {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %.loc14_22.1: ref %ImplsDestroy = struct_access %self.param, element1
-// CHECK:STDOUT:   %Destroy.facet.loc14_22.1: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.3, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc14_22.2: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc14_22.1 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %Destroy.facet.loc14_22.2: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.3, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc14_22.3: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc14_22.2 [concrete = constants.%Destroy.facet.c9e]
+// CHECK:STDOUT:   %.loc14_22.2: ref %TrivialBase = struct_access %self.param, element0
+// CHECK:STDOUT:   %Destroy.facet.loc14_22.1: %Destroy.type = facet_value constants.%TrivialBase, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.7c0) [concrete = constants.%Destroy.facet.033]
+// CHECK:STDOUT:   %.loc14_22.3: %Destroy.type = converted constants.%TrivialBase, %Destroy.facet.loc14_22.1 [concrete = constants.%Destroy.facet.033]
+// CHECK:STDOUT:   %Destroy.facet.loc14_22.2: %Destroy.type = facet_value constants.%TrivialBase, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.7c0) [concrete = constants.%Destroy.facet.033]
+// CHECK:STDOUT:   %.loc14_22.4: %Destroy.type = converted constants.%TrivialBase, %Destroy.facet.loc14_22.2 [concrete = constants.%Destroy.facet.033]
 // CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call.loc14_22.1: init %empty_tuple.type = call %SelfDestruct.specific_fn.1(%.loc14_22.1)
-// CHECK:STDOUT:   %.loc14_22.4: ref %TrivialBase = struct_access %self.param, element0
-// CHECK:STDOUT:   %Destroy.facet.loc14_22.3: %Destroy.type = facet_value constants.%TrivialBase, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.7c0) [concrete = constants.%Destroy.facet.033]
-// CHECK:STDOUT:   %.loc14_22.5: %Destroy.type = converted constants.%TrivialBase, %Destroy.facet.loc14_22.3 [concrete = constants.%Destroy.facet.033]
-// CHECK:STDOUT:   %Destroy.facet.loc14_22.4: %Destroy.type = facet_value constants.%TrivialBase, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.7c0) [concrete = constants.%Destroy.facet.033]
-// CHECK:STDOUT:   %.loc14_22.6: %Destroy.type = converted constants.%TrivialBase, %Destroy.facet.loc14_22.4 [concrete = constants.%Destroy.facet.033]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call.loc14_22.2: init %empty_tuple.type = call %SelfDestruct.specific_fn.2(%.loc14_22.4)
+// CHECK:STDOUT:   %SelfDestruct.call: init %empty_tuple.type = call %SelfDestruct.specific_fn(%.loc14_22.2)
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -1404,20 +1257,14 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %n.ref: %TrivialBaseAndNonTrivialMember.elem.9f5 = name_ref n, @TrivialBaseAndNonTrivialMember.%field_decl [concrete = @TrivialBaseAndNonTrivialMember.%field_decl]
 // CHECK:STDOUT:   %.loc14_22.1: ref %ImplsDestroy = class_element_access %self.param, element1
-// CHECK:STDOUT:   %Destroy.facet.loc14_22.1: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.3, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc14_22.2: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc14_22.1 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %Destroy.facet.loc14_22.2: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.3, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc14_22.3: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc14_22.2 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call.loc14_22.1: init %empty_tuple.type = call %SelfDestruct.specific_fn.1(%.loc14_22.1)
 // CHECK:STDOUT:   %base.ref: %TrivialBaseAndNonTrivialMember.elem.8b0 = name_ref base, @TrivialBaseAndNonTrivialMember.%.loc8 [concrete = @TrivialBaseAndNonTrivialMember.%.loc8]
-// CHECK:STDOUT:   %.loc14_22.4: ref %TrivialBase = class_element_access %self.param, element0
-// CHECK:STDOUT:   %Destroy.facet.loc14_22.3: %Destroy.type = facet_value constants.%TrivialBase, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.7c0) [concrete = constants.%Destroy.facet.033]
-// CHECK:STDOUT:   %.loc14_22.5: %Destroy.type = converted constants.%TrivialBase, %Destroy.facet.loc14_22.3 [concrete = constants.%Destroy.facet.033]
-// CHECK:STDOUT:   %Destroy.facet.loc14_22.4: %Destroy.type = facet_value constants.%TrivialBase, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.7c0) [concrete = constants.%Destroy.facet.033]
-// CHECK:STDOUT:   %.loc14_22.6: %Destroy.type = converted constants.%TrivialBase, %Destroy.facet.loc14_22.4 [concrete = constants.%Destroy.facet.033]
+// CHECK:STDOUT:   %.loc14_22.2: ref %TrivialBase = class_element_access %self.param, element0
+// CHECK:STDOUT:   %Destroy.facet.loc14_22.1: %Destroy.type = facet_value constants.%TrivialBase, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.7c0) [concrete = constants.%Destroy.facet.033]
+// CHECK:STDOUT:   %.loc14_22.3: %Destroy.type = converted constants.%TrivialBase, %Destroy.facet.loc14_22.1 [concrete = constants.%Destroy.facet.033]
+// CHECK:STDOUT:   %Destroy.facet.loc14_22.2: %Destroy.type = facet_value constants.%TrivialBase, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.7c0) [concrete = constants.%Destroy.facet.033]
+// CHECK:STDOUT:   %.loc14_22.4: %Destroy.type = converted constants.%TrivialBase, %Destroy.facet.loc14_22.2 [concrete = constants.%Destroy.facet.033]
 // CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call.loc14_22.2: init %empty_tuple.type = call %SelfDestruct.specific_fn.2(%.loc14_22.4)
+// CHECK:STDOUT:   %SelfDestruct.call: init %empty_tuple.type = call %SelfDestruct.specific_fn(%.loc14_22.2)
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -1480,16 +1327,9 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:   %T.09f: %SubobjectDestroy.type = symbolic_binding T, 0 [symbolic]
 // CHECK:STDOUT:   %T.as_type.as.DestroyImpl.impl.Op.type.dea: type = fn_type @T.as_type.as.DestroyImpl.impl.Op, @T.as_type.as.DestroyImpl.impl(%T.09f) [symbolic]
 // CHECK:STDOUT:   %T.as_type.as.DestroyImpl.impl.Op.6e5: %T.as_type.as.DestroyImpl.impl.Op.type.dea = struct_value () [symbolic]
-// CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.type.6870fd.2: type = fn_type @SubobjectDestroy.WithSelf.Op.loc10_22.2 [concrete]
-// CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.30f1ee.2: %SubobjectDestroy.WithSelf.Op.type.6870fd.2 = struct_value () [concrete]
-// CHECK:STDOUT:   %custom_witness.b80ef6.2: <witness> = custom_witness (%SubobjectDestroy.WithSelf.Op.30f1ee.2), @SubobjectDestroy [concrete]
-// CHECK:STDOUT:   %DestroyImpl.impl_witness.906: <witness> = impl_witness imports.%DestroyImpl.impl_witness_table.9a5 [concrete]
-// CHECK:STDOUT:   %ImplsDestroy.as.DestroyImpl.impl.Op.type: type = fn_type @ImplsDestroy.as.DestroyImpl.impl.Op [concrete]
-// CHECK:STDOUT:   %ImplsDestroy.as.DestroyImpl.impl.Op: %ImplsDestroy.as.DestroyImpl.impl.Op.type = struct_value () [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.type.6870fd.3: type = fn_type @SubobjectDestroy.WithSelf.Op.loc10_22.3 [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.30f1ee.3: %SubobjectDestroy.WithSelf.Op.type.6870fd.3 = struct_value () [concrete]
 // CHECK:STDOUT:   %int_2: Core.IntLiteral = int_value 2 [concrete]
-// CHECK:STDOUT:   %Destroy.facet.c9e: %Destroy.type = facet_value %ImplsDestroy, (%custom_witness.b80ef6.2, %DestroyImpl.impl_witness.906) [concrete]
 // CHECK:STDOUT:   %int_1: Core.IntLiteral = int_value 1 [concrete]
 // CHECK:STDOUT:   %int_0: Core.IntLiteral = int_value 0 [concrete]
 // CHECK:STDOUT:   %custom_witness.b80ef6.3: <witness> = custom_witness (%SubobjectDestroy.WithSelf.Op.30f1ee.3), @SubobjectDestroy [concrete]
@@ -1499,14 +1339,8 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:   %CheckImplsDestroy.specific_fn.a7c: <specific function> = specific_function %CheckImplsDestroy, @CheckImplsDestroy(%Destroy.facet.ab9) [concrete]
 // CHECK:STDOUT:   %Array.c9e: type = class_type @Array, @Array(%ImplsDestroy, %int_2) [concrete]
 // CHECK:STDOUT:   %Array.419: type = class_type @Array, @Array(%Array.c9e, %int_3) [concrete]
-// CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.type.6870fd.4: type = fn_type @SubobjectDestroy.WithSelf.Op.loc19_22.1 [concrete]
-// CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.30f1ee.4: %SubobjectDestroy.WithSelf.Op.type.6870fd.4 = struct_value () [concrete]
-// CHECK:STDOUT:   %custom_witness.b80ef6.4: <witness> = custom_witness (%SubobjectDestroy.WithSelf.Op.30f1ee.4), @SubobjectDestroy [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.type.6870fd.5: type = fn_type @SubobjectDestroy.WithSelf.Op.loc19_22.2 [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.30f1ee.5: %SubobjectDestroy.WithSelf.Op.type.6870fd.5 = struct_value () [concrete]
-// CHECK:STDOUT:   %SubobjectDestroy.facet.7bc: %SubobjectDestroy.type = facet_value %Array.c9e, (%custom_witness.b80ef6.4) [concrete]
-// CHECK:STDOUT:   %DestroyImpl.impl_witness.907: <witness> = impl_witness imports.%DestroyImpl.impl_witness_table.a5e, @T.as_type.as.DestroyImpl.impl(%SubobjectDestroy.facet.7bc) [concrete]
-// CHECK:STDOUT:   %Destroy.facet.f6b: %Destroy.type = facet_value %Array.c9e, (%custom_witness.b80ef6.4, %DestroyImpl.impl_witness.907) [concrete]
 // CHECK:STDOUT:   %custom_witness.b80ef6.5: <witness> = custom_witness (%SubobjectDestroy.WithSelf.Op.30f1ee.5), @SubobjectDestroy [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.facet.46f: %SubobjectDestroy.type = facet_value %Array.419, (%custom_witness.b80ef6.5) [concrete]
 // CHECK:STDOUT:   %DestroyImpl.impl_witness.8b0: <witness> = impl_witness imports.%DestroyImpl.impl_witness_table.a5e, @T.as_type.as.DestroyImpl.impl(%SubobjectDestroy.facet.46f) [concrete]
@@ -1518,8 +1352,6 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:   %Main.CheckImplsDestroy: %CheckImplsDestroy.type = import_ref Main//check_destroy_format, CheckImplsDestroy, loaded [concrete = constants.%CheckImplsDestroy]
 // CHECK:STDOUT:   %Core.import_ref.74d: @T.as_type.as.DestroyImpl.impl.%T.as_type.as.DestroyImpl.impl.Op.type (%T.as_type.as.DestroyImpl.impl.Op.type.dea) = import_ref Core//prelude/parts/destroy, loc{{\d+_\d+}}, loaded [symbolic = @T.as_type.as.DestroyImpl.impl.%T.as_type.as.DestroyImpl.impl.Op (constants.%T.as_type.as.DestroyImpl.impl.Op.6e5)]
 // CHECK:STDOUT:   %DestroyImpl.impl_witness_table.a5e = impl_witness_table (%Core.import_ref.74d), @T.as_type.as.DestroyImpl.impl [concrete]
-// CHECK:STDOUT:   %Main.import_ref.a07: %ImplsDestroy.as.DestroyImpl.impl.Op.type = import_ref Main//types, loc10_24, loaded [concrete = constants.%ImplsDestroy.as.DestroyImpl.impl.Op]
-// CHECK:STDOUT:   %DestroyImpl.impl_witness_table.9a5 = impl_witness_table (%Main.import_ref.a07), @ImplsDestroy.as.DestroyImpl.impl [concrete]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @TestArray(%x.param: %Array.875) {
@@ -1543,28 +1375,10 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %int_2: Core.IntLiteral = int_value 2 [concrete = constants.%int_2]
 // CHECK:STDOUT:   %.loc10_22.1: ref %ImplsDestroy = array_index %self.param, %int_2
-// CHECK:STDOUT:   %Destroy.facet.loc10_22.1: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc10_22.2: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc10_22.1 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %Destroy.facet.loc10_22.2: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc10_22.3: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc10_22.2 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call.loc10_22.1: init %empty_tuple.type = call %SelfDestruct.specific_fn.1(%.loc10_22.1)
 // CHECK:STDOUT:   %int_1: Core.IntLiteral = int_value 1 [concrete = constants.%int_1]
-// CHECK:STDOUT:   %.loc10_22.4: ref %ImplsDestroy = array_index %self.param, %int_1
-// CHECK:STDOUT:   %Destroy.facet.loc10_22.3: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc10_22.5: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc10_22.3 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %Destroy.facet.loc10_22.4: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc10_22.6: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc10_22.4 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call.loc10_22.2: init %empty_tuple.type = call %SelfDestruct.specific_fn.2(%.loc10_22.4)
+// CHECK:STDOUT:   %.loc10_22.2: ref %ImplsDestroy = array_index %self.param, %int_1
 // CHECK:STDOUT:   %int_0: Core.IntLiteral = int_value 0 [concrete = constants.%int_0]
-// CHECK:STDOUT:   %.loc10_22.7: ref %ImplsDestroy = array_index %self.param, %int_0
-// CHECK:STDOUT:   %Destroy.facet.loc10_22.5: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc10_22.8: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc10_22.5 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %Destroy.facet.loc10_22.6: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc10_22.9: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc10_22.6 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call.loc10_22.3: init %empty_tuple.type = call %SelfDestruct.specific_fn.3(%.loc10_22.7)
+// CHECK:STDOUT:   %.loc10_22.3: ref %ImplsDestroy = array_index %self.param, %int_0
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -1585,20 +1399,8 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %int_1: Core.IntLiteral = int_value 1 [concrete = constants.%int_1]
 // CHECK:STDOUT:   %.loc19_22.1: ref %ImplsDestroy = array_index %self.param, %int_1
-// CHECK:STDOUT:   %Destroy.facet.loc19_22.1: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc19_22.2: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc19_22.1 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %Destroy.facet.loc19_22.2: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc19_22.3: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc19_22.2 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call.loc19_22.1: init %empty_tuple.type = call %SelfDestruct.specific_fn.1(%.loc19_22.1)
 // CHECK:STDOUT:   %int_0: Core.IntLiteral = int_value 0 [concrete = constants.%int_0]
-// CHECK:STDOUT:   %.loc19_22.4: ref %ImplsDestroy = array_index %self.param, %int_0
-// CHECK:STDOUT:   %Destroy.facet.loc19_22.3: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc19_22.5: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc19_22.3 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %Destroy.facet.loc19_22.4: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc19_22.6: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc19_22.4 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call.loc19_22.2: init %empty_tuple.type = call %SelfDestruct.specific_fn.2(%.loc19_22.4)
+// CHECK:STDOUT:   %.loc19_22.2: ref %ImplsDestroy = array_index %self.param, %int_0
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -1606,28 +1408,10 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %int_2: Core.IntLiteral = int_value 2 [concrete = constants.%int_2]
 // CHECK:STDOUT:   %.loc19_22.1: ref %Array.c9e = array_index %self.param, %int_2
-// CHECK:STDOUT:   %Destroy.facet.loc19_22.1: %Destroy.type = facet_value constants.%Array.c9e, (constants.%custom_witness.b80ef6.4, constants.%DestroyImpl.impl_witness.907) [concrete = constants.%Destroy.facet.f6b]
-// CHECK:STDOUT:   %.loc19_22.2: %Destroy.type = converted constants.%Array.c9e, %Destroy.facet.loc19_22.1 [concrete = constants.%Destroy.facet.f6b]
-// CHECK:STDOUT:   %Destroy.facet.loc19_22.2: %Destroy.type = facet_value constants.%Array.c9e, (constants.%custom_witness.b80ef6.4, constants.%DestroyImpl.impl_witness.907) [concrete = constants.%Destroy.facet.f6b]
-// CHECK:STDOUT:   %.loc19_22.3: %Destroy.type = converted constants.%Array.c9e, %Destroy.facet.loc19_22.2 [concrete = constants.%Destroy.facet.f6b]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call.loc19_22.1: init %empty_tuple.type = call %SelfDestruct.specific_fn.1(%.loc19_22.1)
 // CHECK:STDOUT:   %int_1: Core.IntLiteral = int_value 1 [concrete = constants.%int_1]
-// CHECK:STDOUT:   %.loc19_22.4: ref %Array.c9e = array_index %self.param, %int_1
-// CHECK:STDOUT:   %Destroy.facet.loc19_22.3: %Destroy.type = facet_value constants.%Array.c9e, (constants.%custom_witness.b80ef6.4, constants.%DestroyImpl.impl_witness.907) [concrete = constants.%Destroy.facet.f6b]
-// CHECK:STDOUT:   %.loc19_22.5: %Destroy.type = converted constants.%Array.c9e, %Destroy.facet.loc19_22.3 [concrete = constants.%Destroy.facet.f6b]
-// CHECK:STDOUT:   %Destroy.facet.loc19_22.4: %Destroy.type = facet_value constants.%Array.c9e, (constants.%custom_witness.b80ef6.4, constants.%DestroyImpl.impl_witness.907) [concrete = constants.%Destroy.facet.f6b]
-// CHECK:STDOUT:   %.loc19_22.6: %Destroy.type = converted constants.%Array.c9e, %Destroy.facet.loc19_22.4 [concrete = constants.%Destroy.facet.f6b]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call.loc19_22.2: init %empty_tuple.type = call %SelfDestruct.specific_fn.2(%.loc19_22.4)
+// CHECK:STDOUT:   %.loc19_22.2: ref %Array.c9e = array_index %self.param, %int_1
 // CHECK:STDOUT:   %int_0: Core.IntLiteral = int_value 0 [concrete = constants.%int_0]
-// CHECK:STDOUT:   %.loc19_22.7: ref %Array.c9e = array_index %self.param, %int_0
-// CHECK:STDOUT:   %Destroy.facet.loc19_22.5: %Destroy.type = facet_value constants.%Array.c9e, (constants.%custom_witness.b80ef6.4, constants.%DestroyImpl.impl_witness.907) [concrete = constants.%Destroy.facet.f6b]
-// CHECK:STDOUT:   %.loc19_22.8: %Destroy.type = converted constants.%Array.c9e, %Destroy.facet.loc19_22.5 [concrete = constants.%Destroy.facet.f6b]
-// CHECK:STDOUT:   %Destroy.facet.loc19_22.6: %Destroy.type = facet_value constants.%Array.c9e, (constants.%custom_witness.b80ef6.4, constants.%DestroyImpl.impl_witness.907) [concrete = constants.%Destroy.facet.f6b]
-// CHECK:STDOUT:   %.loc19_22.9: %Destroy.type = converted constants.%Array.c9e, %Destroy.facet.loc19_22.6 [concrete = constants.%Destroy.facet.f6b]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call.loc19_22.3: init %empty_tuple.type = call %SelfDestruct.specific_fn.3(%.loc19_22.7)
+// CHECK:STDOUT:   %.loc19_22.3: ref %Array.c9e = array_index %self.param, %int_0
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -1699,39 +1483,30 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:   %T.09f: %SubobjectDestroy.type = symbolic_binding T, 0 [symbolic]
 // CHECK:STDOUT:   %T.as_type.as.DestroyImpl.impl.Op.type.dea: type = fn_type @T.as_type.as.DestroyImpl.impl.Op, @T.as_type.as.DestroyImpl.impl(%T.09f) [symbolic]
 // CHECK:STDOUT:   %T.as_type.as.DestroyImpl.impl.Op.6e5: %T.as_type.as.DestroyImpl.impl.Op.type.dea = struct_value () [symbolic]
-// CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.type.6870fd.2: type = fn_type @SubobjectDestroy.WithSelf.Op.loc13_22.2 [concrete]
-// CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.30f1ee.2: %SubobjectDestroy.WithSelf.Op.type.6870fd.2 = struct_value () [concrete]
-// CHECK:STDOUT:   %custom_witness.b80ef6.2: <witness> = custom_witness (%SubobjectDestroy.WithSelf.Op.30f1ee.2), @SubobjectDestroy [concrete]
-// CHECK:STDOUT:   %DestroyImpl.impl_witness.906: <witness> = impl_witness imports.%DestroyImpl.impl_witness_table.9a5 [concrete]
-// CHECK:STDOUT:   %ImplsDestroy.as.DestroyImpl.impl.Op.type: type = fn_type @ImplsDestroy.as.DestroyImpl.impl.Op [concrete]
-// CHECK:STDOUT:   %ImplsDestroy.as.DestroyImpl.impl.Op: %ImplsDestroy.as.DestroyImpl.impl.Op.type = struct_value () [concrete]
-// CHECK:STDOUT:   %Destroy.facet.c9e: %Destroy.type = facet_value %ImplsDestroy, (%custom_witness.b80ef6.2, %DestroyImpl.impl_witness.906) [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.type.6870fd.4: type = fn_type @SubobjectDestroy.WithSelf.Op.loc13_22.4 [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.30f1ee.4: %SubobjectDestroy.WithSelf.Op.type.6870fd.4 = struct_value () [concrete]
 // CHECK:STDOUT:   %custom_witness.b80ef6.4: <witness> = custom_witness (%SubobjectDestroy.WithSelf.Op.30f1ee.4), @SubobjectDestroy [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.facet.d2b: %SubobjectDestroy.type = facet_value %StructAdapter, (%custom_witness.b80ef6.4) [concrete]
 // CHECK:STDOUT:   %DestroyImpl.impl_witness.91a: <witness> = impl_witness imports.%DestroyImpl.impl_witness_table.a5e, @T.as_type.as.DestroyImpl.impl(%SubobjectDestroy.facet.d2b) [concrete]
-// CHECK:STDOUT:   %Destroy.facet.ca9: %Destroy.type = facet_value %StructAdapter, (%custom_witness.b80ef6.4, %DestroyImpl.impl_witness.91a) [concrete]
-// CHECK:STDOUT:   %CheckImplsDestroy.specific_fn: <specific function> = specific_function %CheckImplsDestroy, @CheckImplsDestroy(%Destroy.facet.ca9) [concrete]
+// CHECK:STDOUT:   %Destroy.facet: %Destroy.type = facet_value %StructAdapter, (%custom_witness.b80ef6.4, %DestroyImpl.impl_witness.91a) [concrete]
+// CHECK:STDOUT:   %CheckImplsDestroy.specific_fn: <specific function> = specific_function %CheckImplsDestroy, @CheckImplsDestroy(%Destroy.facet) [concrete]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: imports {
 // CHECK:STDOUT:   %Main.CheckImplsDestroy: %CheckImplsDestroy.type = import_ref Main//check_destroy_format, CheckImplsDestroy, loaded [concrete = constants.%CheckImplsDestroy]
 // CHECK:STDOUT:   %Core.import_ref.74d: @T.as_type.as.DestroyImpl.impl.%T.as_type.as.DestroyImpl.impl.Op.type (%T.as_type.as.DestroyImpl.impl.Op.type.dea) = import_ref Core//prelude/parts/destroy, loc{{\d+_\d+}}, loaded [symbolic = @T.as_type.as.DestroyImpl.impl.%T.as_type.as.DestroyImpl.impl.Op (constants.%T.as_type.as.DestroyImpl.impl.Op.6e5)]
 // CHECK:STDOUT:   %DestroyImpl.impl_witness_table.a5e = impl_witness_table (%Core.import_ref.74d), @T.as_type.as.DestroyImpl.impl [concrete]
-// CHECK:STDOUT:   %Main.import_ref.a07: %ImplsDestroy.as.DestroyImpl.impl.Op.type = import_ref Main//types, loc10_24, loaded [concrete = constants.%ImplsDestroy.as.DestroyImpl.impl.Op]
-// CHECK:STDOUT:   %DestroyImpl.impl_witness_table.9a5 = impl_witness_table (%Main.import_ref.a07), @ImplsDestroy.as.DestroyImpl.impl [concrete]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @TestNonTrivialStructAdapter(%x.param: %StructAdapter) {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %CheckImplsDestroy.ref: %CheckImplsDestroy.type = name_ref CheckImplsDestroy, imports.%Main.CheckImplsDestroy [concrete = constants.%CheckImplsDestroy]
 // CHECK:STDOUT:   %x.ref: %StructAdapter = name_ref x, %x
-// CHECK:STDOUT:   %Destroy.facet.loc13_22.1: %Destroy.type = facet_value constants.%StructAdapter, (constants.%custom_witness.b80ef6.4, constants.%DestroyImpl.impl_witness.91a) [concrete = constants.%Destroy.facet.ca9]
-// CHECK:STDOUT:   %.loc13_22.1: %Destroy.type = converted constants.%StructAdapter, %Destroy.facet.loc13_22.1 [concrete = constants.%Destroy.facet.ca9]
-// CHECK:STDOUT:   %Destroy.facet.loc13_22.2: %Destroy.type = facet_value constants.%StructAdapter, (constants.%custom_witness.b80ef6.4, constants.%DestroyImpl.impl_witness.91a) [concrete = constants.%Destroy.facet.ca9]
-// CHECK:STDOUT:   %.loc13_22.2: %Destroy.type = converted constants.%StructAdapter, %Destroy.facet.loc13_22.2 [concrete = constants.%Destroy.facet.ca9]
-// CHECK:STDOUT:   %CheckImplsDestroy.specific_fn: <specific function> = specific_function %CheckImplsDestroy.ref, @CheckImplsDestroy(constants.%Destroy.facet.ca9) [concrete = constants.%CheckImplsDestroy.specific_fn]
+// CHECK:STDOUT:   %Destroy.facet.loc13_22.1: %Destroy.type = facet_value constants.%StructAdapter, (constants.%custom_witness.b80ef6.4, constants.%DestroyImpl.impl_witness.91a) [concrete = constants.%Destroy.facet]
+// CHECK:STDOUT:   %.loc13_22.1: %Destroy.type = converted constants.%StructAdapter, %Destroy.facet.loc13_22.1 [concrete = constants.%Destroy.facet]
+// CHECK:STDOUT:   %Destroy.facet.loc13_22.2: %Destroy.type = facet_value constants.%StructAdapter, (constants.%custom_witness.b80ef6.4, constants.%DestroyImpl.impl_witness.91a) [concrete = constants.%Destroy.facet]
+// CHECK:STDOUT:   %.loc13_22.2: %Destroy.type = converted constants.%StructAdapter, %Destroy.facet.loc13_22.2 [concrete = constants.%Destroy.facet]
+// CHECK:STDOUT:   %CheckImplsDestroy.specific_fn: <specific function> = specific_function %CheckImplsDestroy.ref, @CheckImplsDestroy(constants.%Destroy.facet) [concrete = constants.%CheckImplsDestroy.specific_fn]
 // CHECK:STDOUT:   %CheckImplsDestroy.call: init %empty_tuple.type = call %CheckImplsDestroy.specific_fn(%x.ref)
 // CHECK:STDOUT:   <elided>
 // CHECK:STDOUT: }
@@ -1742,13 +1517,7 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @SubobjectDestroy.WithSelf.Op.loc13_22.3(%self.param: ref %struct_type.n.81f) {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %.loc13_22.1: ref %ImplsDestroy = struct_access %self.param, element0
-// CHECK:STDOUT:   %Destroy.facet.loc13_22.1: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc13_22.2: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc13_22.1 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %Destroy.facet.loc13_22.2: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc13_22.3: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc13_22.2 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call: init %empty_tuple.type = call %SelfDestruct.specific_fn(%.loc13_22.1)
+// CHECK:STDOUT:   %.loc13: ref %ImplsDestroy = struct_access %self.param, element0
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -1883,12 +1652,6 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:   %T.09f: %SubobjectDestroy.type = symbolic_binding T, 0 [symbolic]
 // CHECK:STDOUT:   %T.as_type.as.DestroyImpl.impl.Op.type.dea: type = fn_type @T.as_type.as.DestroyImpl.impl.Op, @T.as_type.as.DestroyImpl.impl(%T.09f) [symbolic]
 // CHECK:STDOUT:   %T.as_type.as.DestroyImpl.impl.Op.6e5: %T.as_type.as.DestroyImpl.impl.Op.type.dea = struct_value () [symbolic]
-// CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.type.6870fd.2: type = fn_type @SubobjectDestroy.WithSelf.Op.loc9_22.2 [concrete]
-// CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.30f1ee.2: %SubobjectDestroy.WithSelf.Op.type.6870fd.2 = struct_value () [concrete]
-// CHECK:STDOUT:   %custom_witness.b80ef6.2: <witness> = custom_witness (%SubobjectDestroy.WithSelf.Op.30f1ee.2), @SubobjectDestroy [concrete]
-// CHECK:STDOUT:   %DestroyImpl.impl_witness.906: <witness> = impl_witness imports.%DestroyImpl.impl_witness_table.9a5 [concrete]
-// CHECK:STDOUT:   %ImplsDestroy.as.DestroyImpl.impl.Op.type: type = fn_type @ImplsDestroy.as.DestroyImpl.impl.Op [concrete]
-// CHECK:STDOUT:   %ImplsDestroy.as.DestroyImpl.impl.Op: %ImplsDestroy.as.DestroyImpl.impl.Op.type = struct_value () [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.type.6870fd.3: type = fn_type @SubobjectDestroy.WithSelf.Op.loc9_22.3 [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.30f1ee.3: %SubobjectDestroy.WithSelf.Op.type.6870fd.3 = struct_value () [concrete]
 // CHECK:STDOUT:   %custom_witness.b80ef6.3: <witness> = custom_witness (%SubobjectDestroy.WithSelf.Op.30f1ee.3), @SubobjectDestroy [concrete]
@@ -1897,7 +1660,6 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.type.6870fd.4: type = fn_type @SubobjectDestroy.WithSelf.Op.loc9_22.4 [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.30f1ee.4: %SubobjectDestroy.WithSelf.Op.type.6870fd.4 = struct_value () [concrete]
 // CHECK:STDOUT:   %Destroy.facet.b89: %Destroy.type = facet_value %HasTrivialDestruction, (%custom_witness.b80ef6.3, %DestroyImpl.impl_witness.4ca) [concrete]
-// CHECK:STDOUT:   %Destroy.facet.c9e: %Destroy.type = facet_value %ImplsDestroy, (%custom_witness.b80ef6.2, %DestroyImpl.impl_witness.906) [concrete]
 // CHECK:STDOUT:   %custom_witness.b80ef6.4: <witness> = custom_witness (%SubobjectDestroy.WithSelf.Op.30f1ee.4), @SubobjectDestroy [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.facet.d56: %SubobjectDestroy.type = facet_value %struct_type.a.b.02c, (%custom_witness.b80ef6.4) [concrete]
 // CHECK:STDOUT:   %DestroyImpl.impl_witness.65e: <witness> = impl_witness imports.%DestroyImpl.impl_witness_table.a5e, @T.as_type.as.DestroyImpl.impl(%SubobjectDestroy.facet.d56) [concrete]
@@ -1913,14 +1675,8 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:   %CheckImplsDestroy.specific_fn.3d0: <specific function> = specific_function %CheckImplsDestroy, @CheckImplsDestroy(%Destroy.facet.afa) [concrete]
 // CHECK:STDOUT:   %struct_type.b.0cd: type = struct_type {.b: %ImplsDestroy} [concrete]
 // CHECK:STDOUT:   %struct_type.a.13f: type = struct_type {.a: %struct_type.b.0cd} [concrete]
-// CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.type.6870fd.6: type = fn_type @SubobjectDestroy.WithSelf.Op.loc28_22.1 [concrete]
-// CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.30f1ee.6: %SubobjectDestroy.WithSelf.Op.type.6870fd.6 = struct_value () [concrete]
-// CHECK:STDOUT:   %custom_witness.b80ef6.6: <witness> = custom_witness (%SubobjectDestroy.WithSelf.Op.30f1ee.6), @SubobjectDestroy [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.type.6870fd.7: type = fn_type @SubobjectDestroy.WithSelf.Op.loc28_22.2 [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.30f1ee.7: %SubobjectDestroy.WithSelf.Op.type.6870fd.7 = struct_value () [concrete]
-// CHECK:STDOUT:   %SubobjectDestroy.facet.135: %SubobjectDestroy.type = facet_value %struct_type.b.0cd, (%custom_witness.b80ef6.6) [concrete]
-// CHECK:STDOUT:   %DestroyImpl.impl_witness.436: <witness> = impl_witness imports.%DestroyImpl.impl_witness_table.a5e, @T.as_type.as.DestroyImpl.impl(%SubobjectDestroy.facet.135) [concrete]
-// CHECK:STDOUT:   %Destroy.facet.ba8: %Destroy.type = facet_value %struct_type.b.0cd, (%custom_witness.b80ef6.6, %DestroyImpl.impl_witness.436) [concrete]
 // CHECK:STDOUT:   %custom_witness.b80ef6.7: <witness> = custom_witness (%SubobjectDestroy.WithSelf.Op.30f1ee.7), @SubobjectDestroy [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.facet.985: %SubobjectDestroy.type = facet_value %struct_type.a.13f, (%custom_witness.b80ef6.7) [concrete]
 // CHECK:STDOUT:   %DestroyImpl.impl_witness.973: <witness> = impl_witness imports.%DestroyImpl.impl_witness_table.a5e, @T.as_type.as.DestroyImpl.impl(%SubobjectDestroy.facet.985) [concrete]
@@ -1932,8 +1688,6 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:   %Main.CheckImplsDestroy: %CheckImplsDestroy.type = import_ref Main//check_destroy_format, CheckImplsDestroy, loaded [concrete = constants.%CheckImplsDestroy]
 // CHECK:STDOUT:   %Core.import_ref.74d: @T.as_type.as.DestroyImpl.impl.%T.as_type.as.DestroyImpl.impl.Op.type (%T.as_type.as.DestroyImpl.impl.Op.type.dea) = import_ref Core//prelude/parts/destroy, loc{{\d+_\d+}}, loaded [symbolic = @T.as_type.as.DestroyImpl.impl.%T.as_type.as.DestroyImpl.impl.Op (constants.%T.as_type.as.DestroyImpl.impl.Op.6e5)]
 // CHECK:STDOUT:   %DestroyImpl.impl_witness_table.a5e = impl_witness_table (%Core.import_ref.74d), @T.as_type.as.DestroyImpl.impl [concrete]
-// CHECK:STDOUT:   %Main.import_ref.a07: %ImplsDestroy.as.DestroyImpl.impl.Op.type = import_ref Main//types, loc10_24, loaded [concrete = constants.%ImplsDestroy.as.DestroyImpl.impl.Op]
-// CHECK:STDOUT:   %DestroyImpl.impl_witness_table.9a5 = impl_witness_table (%Main.import_ref.a07), @ImplsDestroy.as.DestroyImpl.impl [concrete]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @TestStructWithNonTrivialFieldFirst(%x.param: %struct_type.a.b.02c) {
@@ -1963,14 +1717,8 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:   %Destroy.facet.loc9_22.2: %Destroy.type = facet_value constants.%HasTrivialDestruction, (constants.%custom_witness.b80ef6.3, constants.%DestroyImpl.impl_witness.4ca) [concrete = constants.%Destroy.facet.b89]
 // CHECK:STDOUT:   %.loc9_22.3: %Destroy.type = converted constants.%HasTrivialDestruction, %Destroy.facet.loc9_22.2 [concrete = constants.%Destroy.facet.b89]
 // CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call.loc9_22.1: init %empty_tuple.type = call %SelfDestruct.specific_fn.1(%.loc9_22.1)
+// CHECK:STDOUT:   %SelfDestruct.call: init %empty_tuple.type = call %SelfDestruct.specific_fn(%.loc9_22.1)
 // CHECK:STDOUT:   %.loc9_22.4: ref %ImplsDestroy = struct_access %self.param, element0
-// CHECK:STDOUT:   %Destroy.facet.loc9_22.3: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc9_22.5: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc9_22.3 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %Destroy.facet.loc9_22.4: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc9_22.6: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc9_22.4 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call.loc9_22.2: init %empty_tuple.type = call %SelfDestruct.specific_fn.2(%.loc9_22.4)
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -1990,19 +1738,13 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT: fn @SubobjectDestroy.WithSelf.Op.loc19(%self.param: ref %struct_type.a.b.bb2) {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %.loc19_22.1: ref %ImplsDestroy = struct_access %self.param, element1
-// CHECK:STDOUT:   %Destroy.facet.loc19_22.1: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc19_22.2: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc19_22.1 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %Destroy.facet.loc19_22.2: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc19_22.3: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc19_22.2 [concrete = constants.%Destroy.facet.c9e]
+// CHECK:STDOUT:   %.loc19_22.2: ref %HasTrivialDestruction = struct_access %self.param, element0
+// CHECK:STDOUT:   %Destroy.facet.loc19_22.1: %Destroy.type = facet_value constants.%HasTrivialDestruction, (constants.%custom_witness.b80ef6.3, constants.%DestroyImpl.impl_witness.4ca) [concrete = constants.%Destroy.facet.b89]
+// CHECK:STDOUT:   %.loc19_22.3: %Destroy.type = converted constants.%HasTrivialDestruction, %Destroy.facet.loc19_22.1 [concrete = constants.%Destroy.facet.b89]
+// CHECK:STDOUT:   %Destroy.facet.loc19_22.2: %Destroy.type = facet_value constants.%HasTrivialDestruction, (constants.%custom_witness.b80ef6.3, constants.%DestroyImpl.impl_witness.4ca) [concrete = constants.%Destroy.facet.b89]
+// CHECK:STDOUT:   %.loc19_22.4: %Destroy.type = converted constants.%HasTrivialDestruction, %Destroy.facet.loc19_22.2 [concrete = constants.%Destroy.facet.b89]
 // CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call.loc19_22.1: init %empty_tuple.type = call %SelfDestruct.specific_fn.1(%.loc19_22.1)
-// CHECK:STDOUT:   %.loc19_22.4: ref %HasTrivialDestruction = struct_access %self.param, element0
-// CHECK:STDOUT:   %Destroy.facet.loc19_22.3: %Destroy.type = facet_value constants.%HasTrivialDestruction, (constants.%custom_witness.b80ef6.3, constants.%DestroyImpl.impl_witness.4ca) [concrete = constants.%Destroy.facet.b89]
-// CHECK:STDOUT:   %.loc19_22.5: %Destroy.type = converted constants.%HasTrivialDestruction, %Destroy.facet.loc19_22.3 [concrete = constants.%Destroy.facet.b89]
-// CHECK:STDOUT:   %Destroy.facet.loc19_22.4: %Destroy.type = facet_value constants.%HasTrivialDestruction, (constants.%custom_witness.b80ef6.3, constants.%DestroyImpl.impl_witness.4ca) [concrete = constants.%Destroy.facet.b89]
-// CHECK:STDOUT:   %.loc19_22.6: %Destroy.type = converted constants.%HasTrivialDestruction, %Destroy.facet.loc19_22.4 [concrete = constants.%Destroy.facet.b89]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call.loc19_22.2: init %empty_tuple.type = call %SelfDestruct.specific_fn.2(%.loc19_22.4)
+// CHECK:STDOUT:   %SelfDestruct.call: init %empty_tuple.type = call %SelfDestruct.specific_fn(%.loc19_22.2)
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -2021,25 +1763,13 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @SubobjectDestroy.WithSelf.Op.loc28_22.1(%self.param: ref %struct_type.b.0cd) {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %.loc28_22.1: ref %ImplsDestroy = struct_access %self.param, element0
-// CHECK:STDOUT:   %Destroy.facet.loc28_22.1: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc28_22.2: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc28_22.1 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %Destroy.facet.loc28_22.2: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc28_22.3: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc28_22.2 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call: init %empty_tuple.type = call %SelfDestruct.specific_fn(%.loc28_22.1)
+// CHECK:STDOUT:   %.loc28: ref %ImplsDestroy = struct_access %self.param, element0
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @SubobjectDestroy.WithSelf.Op.loc28_22.2(%self.param: ref %struct_type.a.13f) {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %.loc28_22.1: ref %struct_type.b.0cd = struct_access %self.param, element0
-// CHECK:STDOUT:   %Destroy.facet.loc28_22.1: %Destroy.type = facet_value constants.%struct_type.b.0cd, (constants.%custom_witness.b80ef6.6, constants.%DestroyImpl.impl_witness.436) [concrete = constants.%Destroy.facet.ba8]
-// CHECK:STDOUT:   %.loc28_22.2: %Destroy.type = converted constants.%struct_type.b.0cd, %Destroy.facet.loc28_22.1 [concrete = constants.%Destroy.facet.ba8]
-// CHECK:STDOUT:   %Destroy.facet.loc28_22.2: %Destroy.type = facet_value constants.%struct_type.b.0cd, (constants.%custom_witness.b80ef6.6, constants.%DestroyImpl.impl_witness.436) [concrete = constants.%Destroy.facet.ba8]
-// CHECK:STDOUT:   %.loc28_22.3: %Destroy.type = converted constants.%struct_type.b.0cd, %Destroy.facet.loc28_22.2 [concrete = constants.%Destroy.facet.ba8]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call: init %empty_tuple.type = call %SelfDestruct.specific_fn(%.loc28_22.1)
+// CHECK:STDOUT:   %.loc28: ref %struct_type.b.0cd = struct_access %self.param, element0
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -2059,12 +1789,6 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:   %T.09f: %SubobjectDestroy.type = symbolic_binding T, 0 [symbolic]
 // CHECK:STDOUT:   %T.as_type.as.DestroyImpl.impl.Op.type.dea: type = fn_type @T.as_type.as.DestroyImpl.impl.Op, @T.as_type.as.DestroyImpl.impl(%T.09f) [symbolic]
 // CHECK:STDOUT:   %T.as_type.as.DestroyImpl.impl.Op.6e5: %T.as_type.as.DestroyImpl.impl.Op.type.dea = struct_value () [symbolic]
-// CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.type.6870fd.2: type = fn_type @SubobjectDestroy.WithSelf.Op.loc9_22.2 [concrete]
-// CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.30f1ee.2: %SubobjectDestroy.WithSelf.Op.type.6870fd.2 = struct_value () [concrete]
-// CHECK:STDOUT:   %custom_witness.b80ef6.2: <witness> = custom_witness (%SubobjectDestroy.WithSelf.Op.30f1ee.2), @SubobjectDestroy [concrete]
-// CHECK:STDOUT:   %DestroyImpl.impl_witness.906: <witness> = impl_witness imports.%DestroyImpl.impl_witness_table.9a5 [concrete]
-// CHECK:STDOUT:   %ImplsDestroy.as.DestroyImpl.impl.Op.type: type = fn_type @ImplsDestroy.as.DestroyImpl.impl.Op [concrete]
-// CHECK:STDOUT:   %ImplsDestroy.as.DestroyImpl.impl.Op: %ImplsDestroy.as.DestroyImpl.impl.Op.type = struct_value () [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.type.6870fd.3: type = fn_type @SubobjectDestroy.WithSelf.Op.loc9_22.3 [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.30f1ee.3: %SubobjectDestroy.WithSelf.Op.type.6870fd.3 = struct_value () [concrete]
 // CHECK:STDOUT:   %custom_witness.b80ef6.3: <witness> = custom_witness (%SubobjectDestroy.WithSelf.Op.30f1ee.3), @SubobjectDestroy [concrete]
@@ -2075,7 +1799,6 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:   %int_1: Core.IntLiteral = int_value 1 [concrete]
 // CHECK:STDOUT:   %Destroy.facet.b89: %Destroy.type = facet_value %HasTrivialDestruction, (%custom_witness.b80ef6.3, %DestroyImpl.impl_witness.4ca) [concrete]
 // CHECK:STDOUT:   %int_0: Core.IntLiteral = int_value 0 [concrete]
-// CHECK:STDOUT:   %Destroy.facet.c9e: %Destroy.type = facet_value %ImplsDestroy, (%custom_witness.b80ef6.2, %DestroyImpl.impl_witness.906) [concrete]
 // CHECK:STDOUT:   %custom_witness.b80ef6.4: <witness> = custom_witness (%SubobjectDestroy.WithSelf.Op.30f1ee.4), @SubobjectDestroy [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.facet.d74: %SubobjectDestroy.type = facet_value %tuple.type.cac, (%custom_witness.b80ef6.4) [concrete]
 // CHECK:STDOUT:   %DestroyImpl.impl_witness.ab0: <witness> = impl_witness imports.%DestroyImpl.impl_witness_table.a5e, @T.as_type.as.DestroyImpl.impl(%SubobjectDestroy.facet.d74) [concrete]
@@ -2095,8 +1818,6 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:   %Main.CheckImplsDestroy: %CheckImplsDestroy.type = import_ref Main//check_destroy_format, CheckImplsDestroy, loaded [concrete = constants.%CheckImplsDestroy]
 // CHECK:STDOUT:   %Core.import_ref.74d: @T.as_type.as.DestroyImpl.impl.%T.as_type.as.DestroyImpl.impl.Op.type (%T.as_type.as.DestroyImpl.impl.Op.type.dea) = import_ref Core//prelude/parts/destroy, loc{{\d+_\d+}}, loaded [symbolic = @T.as_type.as.DestroyImpl.impl.%T.as_type.as.DestroyImpl.impl.Op (constants.%T.as_type.as.DestroyImpl.impl.Op.6e5)]
 // CHECK:STDOUT:   %DestroyImpl.impl_witness_table.a5e = impl_witness_table (%Core.import_ref.74d), @T.as_type.as.DestroyImpl.impl [concrete]
-// CHECK:STDOUT:   %Main.import_ref.a07: %ImplsDestroy.as.DestroyImpl.impl.Op.type = import_ref Main//types, loc10_24, loaded [concrete = constants.%ImplsDestroy.as.DestroyImpl.impl.Op]
-// CHECK:STDOUT:   %DestroyImpl.impl_witness_table.9a5 = impl_witness_table (%Main.import_ref.a07), @ImplsDestroy.as.DestroyImpl.impl [concrete]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @TestTupleWithNonTrivialElementFirst(%x.param: %tuple.type.cac) {
@@ -2127,15 +1848,9 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:   %Destroy.facet.loc9_22.2: %Destroy.type = facet_value constants.%HasTrivialDestruction, (constants.%custom_witness.b80ef6.3, constants.%DestroyImpl.impl_witness.4ca) [concrete = constants.%Destroy.facet.b89]
 // CHECK:STDOUT:   %.loc9_22.2: %Destroy.type = converted constants.%HasTrivialDestruction, %Destroy.facet.loc9_22.2 [concrete = constants.%Destroy.facet.b89]
 // CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call.loc9_22.1: init %empty_tuple.type = call %SelfDestruct.specific_fn.1(%tuple.elem1)
+// CHECK:STDOUT:   %SelfDestruct.call: init %empty_tuple.type = call %SelfDestruct.specific_fn(%tuple.elem1)
 // CHECK:STDOUT:   %int_0: Core.IntLiteral = int_value 0 [concrete = constants.%int_0]
 // CHECK:STDOUT:   %tuple.elem0: ref %ImplsDestroy = tuple_access %self.param, element0
-// CHECK:STDOUT:   %Destroy.facet.loc9_22.3: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc9_22.3: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc9_22.3 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %Destroy.facet.loc9_22.4: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc9_22.4: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc9_22.4 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call.loc9_22.2: init %empty_tuple.type = call %SelfDestruct.specific_fn.2(%tuple.elem0)
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -2156,20 +1871,14 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %int_1: Core.IntLiteral = int_value 1 [concrete = constants.%int_1]
 // CHECK:STDOUT:   %tuple.elem1: ref %ImplsDestroy = tuple_access %self.param, element1
-// CHECK:STDOUT:   %Destroy.facet.loc18_22.1: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc18_22.1: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc18_22.1 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %Destroy.facet.loc18_22.2: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc18_22.2: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc18_22.2 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call.loc18_22.1: init %empty_tuple.type = call %SelfDestruct.specific_fn.1(%tuple.elem1)
 // CHECK:STDOUT:   %int_0: Core.IntLiteral = int_value 0 [concrete = constants.%int_0]
 // CHECK:STDOUT:   %tuple.elem0: ref %HasTrivialDestruction = tuple_access %self.param, element0
-// CHECK:STDOUT:   %Destroy.facet.loc18_22.3: %Destroy.type = facet_value constants.%HasTrivialDestruction, (constants.%custom_witness.b80ef6.3, constants.%DestroyImpl.impl_witness.4ca) [concrete = constants.%Destroy.facet.b89]
-// CHECK:STDOUT:   %.loc18_22.3: %Destroy.type = converted constants.%HasTrivialDestruction, %Destroy.facet.loc18_22.3 [concrete = constants.%Destroy.facet.b89]
-// CHECK:STDOUT:   %Destroy.facet.loc18_22.4: %Destroy.type = facet_value constants.%HasTrivialDestruction, (constants.%custom_witness.b80ef6.3, constants.%DestroyImpl.impl_witness.4ca) [concrete = constants.%Destroy.facet.b89]
-// CHECK:STDOUT:   %.loc18_22.4: %Destroy.type = converted constants.%HasTrivialDestruction, %Destroy.facet.loc18_22.4 [concrete = constants.%Destroy.facet.b89]
+// CHECK:STDOUT:   %Destroy.facet.loc18_22.1: %Destroy.type = facet_value constants.%HasTrivialDestruction, (constants.%custom_witness.b80ef6.3, constants.%DestroyImpl.impl_witness.4ca) [concrete = constants.%Destroy.facet.b89]
+// CHECK:STDOUT:   %.loc18_22.1: %Destroy.type = converted constants.%HasTrivialDestruction, %Destroy.facet.loc18_22.1 [concrete = constants.%Destroy.facet.b89]
+// CHECK:STDOUT:   %Destroy.facet.loc18_22.2: %Destroy.type = facet_value constants.%HasTrivialDestruction, (constants.%custom_witness.b80ef6.3, constants.%DestroyImpl.impl_witness.4ca) [concrete = constants.%Destroy.facet.b89]
+// CHECK:STDOUT:   %.loc18_22.2: %Destroy.type = converted constants.%HasTrivialDestruction, %Destroy.facet.loc18_22.2 [concrete = constants.%Destroy.facet.b89]
 // CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call.loc18_22.2: init %empty_tuple.type = call %SelfDestruct.specific_fn.2(%tuple.elem0)
+// CHECK:STDOUT:   %SelfDestruct.call: init %empty_tuple.type = call %SelfDestruct.specific_fn(%tuple.elem0)
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -2189,46 +1898,31 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:   %T.09f: %SubobjectDestroy.type = symbolic_binding T, 0 [symbolic]
 // CHECK:STDOUT:   %T.as_type.as.DestroyImpl.impl.Op.type.dea: type = fn_type @T.as_type.as.DestroyImpl.impl.Op, @T.as_type.as.DestroyImpl.impl(%T.09f) [symbolic]
 // CHECK:STDOUT:   %T.as_type.as.DestroyImpl.impl.Op.6e5: %T.as_type.as.DestroyImpl.impl.Op.type.dea = struct_value () [symbolic]
-// CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.type.6870fd.2: type = fn_type @SubobjectDestroy.WithSelf.Op.loc9_22.2 [concrete]
-// CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.30f1ee.2: %SubobjectDestroy.WithSelf.Op.type.6870fd.2 = struct_value () [concrete]
-// CHECK:STDOUT:   %custom_witness.b80ef6.2: <witness> = custom_witness (%SubobjectDestroy.WithSelf.Op.30f1ee.2), @SubobjectDestroy [concrete]
-// CHECK:STDOUT:   %DestroyImpl.impl_witness.906: <witness> = impl_witness imports.%DestroyImpl.impl_witness_table.9a5 [concrete]
-// CHECK:STDOUT:   %ImplsDestroy.as.DestroyImpl.impl.Op.type: type = fn_type @ImplsDestroy.as.DestroyImpl.impl.Op [concrete]
-// CHECK:STDOUT:   %ImplsDestroy.as.DestroyImpl.impl.Op: %ImplsDestroy.as.DestroyImpl.impl.Op.type = struct_value () [concrete]
-// CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.type.6870fd.3: type = fn_type @SubobjectDestroy.WithSelf.Op.loc9_22.3 [concrete]
-// CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.30f1ee.3: %SubobjectDestroy.WithSelf.Op.type.6870fd.3 = struct_value () [concrete]
 // CHECK:STDOUT:   %int_0: Core.IntLiteral = int_value 0 [concrete]
-// CHECK:STDOUT:   %Destroy.facet.c9e: %Destroy.type = facet_value %ImplsDestroy, (%custom_witness.b80ef6.2, %DestroyImpl.impl_witness.906) [concrete]
-// CHECK:STDOUT:   %custom_witness.b80ef6.3: <witness> = custom_witness (%SubobjectDestroy.WithSelf.Op.30f1ee.3), @SubobjectDestroy [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.type.6870fd.4: type = fn_type @SubobjectDestroy.WithSelf.Op.loc9_22.4 [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.30f1ee.4: %SubobjectDestroy.WithSelf.Op.type.6870fd.4 = struct_value () [concrete]
-// CHECK:STDOUT:   %SubobjectDestroy.facet.5c3: %SubobjectDestroy.type = facet_value %tuple.type.159, (%custom_witness.b80ef6.3) [concrete]
-// CHECK:STDOUT:   %DestroyImpl.impl_witness.aa8: <witness> = impl_witness imports.%DestroyImpl.impl_witness_table.a5e, @T.as_type.as.DestroyImpl.impl(%SubobjectDestroy.facet.5c3) [concrete]
-// CHECK:STDOUT:   %Destroy.facet.93a: %Destroy.type = facet_value %tuple.type.159, (%custom_witness.b80ef6.3, %DestroyImpl.impl_witness.aa8) [concrete]
 // CHECK:STDOUT:   %custom_witness.b80ef6.4: <witness> = custom_witness (%SubobjectDestroy.WithSelf.Op.30f1ee.4), @SubobjectDestroy [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.facet.778: %SubobjectDestroy.type = facet_value %tuple.type.efa, (%custom_witness.b80ef6.4) [concrete]
 // CHECK:STDOUT:   %DestroyImpl.impl_witness.a9f: <witness> = impl_witness imports.%DestroyImpl.impl_witness_table.a5e, @T.as_type.as.DestroyImpl.impl(%SubobjectDestroy.facet.778) [concrete]
-// CHECK:STDOUT:   %Destroy.facet.c23: %Destroy.type = facet_value %tuple.type.efa, (%custom_witness.b80ef6.4, %DestroyImpl.impl_witness.a9f) [concrete]
-// CHECK:STDOUT:   %CheckImplsDestroy.specific_fn: <specific function> = specific_function %CheckImplsDestroy, @CheckImplsDestroy(%Destroy.facet.c23) [concrete]
+// CHECK:STDOUT:   %Destroy.facet: %Destroy.type = facet_value %tuple.type.efa, (%custom_witness.b80ef6.4, %DestroyImpl.impl_witness.a9f) [concrete]
+// CHECK:STDOUT:   %CheckImplsDestroy.specific_fn: <specific function> = specific_function %CheckImplsDestroy, @CheckImplsDestroy(%Destroy.facet) [concrete]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: imports {
 // CHECK:STDOUT:   %Main.CheckImplsDestroy: %CheckImplsDestroy.type = import_ref Main//check_destroy_format, CheckImplsDestroy, loaded [concrete = constants.%CheckImplsDestroy]
 // CHECK:STDOUT:   %Core.import_ref.74d: @T.as_type.as.DestroyImpl.impl.%T.as_type.as.DestroyImpl.impl.Op.type (%T.as_type.as.DestroyImpl.impl.Op.type.dea) = import_ref Core//prelude/parts/destroy, loc{{\d+_\d+}}, loaded [symbolic = @T.as_type.as.DestroyImpl.impl.%T.as_type.as.DestroyImpl.impl.Op (constants.%T.as_type.as.DestroyImpl.impl.Op.6e5)]
 // CHECK:STDOUT:   %DestroyImpl.impl_witness_table.a5e = impl_witness_table (%Core.import_ref.74d), @T.as_type.as.DestroyImpl.impl [concrete]
-// CHECK:STDOUT:   %Main.import_ref.a07: %ImplsDestroy.as.DestroyImpl.impl.Op.type = import_ref Main//types, loc10_24, loaded [concrete = constants.%ImplsDestroy.as.DestroyImpl.impl.Op]
-// CHECK:STDOUT:   %DestroyImpl.impl_witness_table.9a5 = impl_witness_table (%Main.import_ref.a07), @ImplsDestroy.as.DestroyImpl.impl [concrete]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @TestTupleWithNestedNonTrivial(%x.param: %tuple.type.efa) {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %CheckImplsDestroy.ref: %CheckImplsDestroy.type = name_ref CheckImplsDestroy, imports.%Main.CheckImplsDestroy [concrete = constants.%CheckImplsDestroy]
 // CHECK:STDOUT:   %x.ref: %tuple.type.efa = name_ref x, %x
-// CHECK:STDOUT:   %Destroy.facet.loc9_22.1: %Destroy.type = facet_value constants.%tuple.type.efa, (constants.%custom_witness.b80ef6.4, constants.%DestroyImpl.impl_witness.a9f) [concrete = constants.%Destroy.facet.c23]
-// CHECK:STDOUT:   %.loc9_22.1: %Destroy.type = converted constants.%tuple.type.efa, %Destroy.facet.loc9_22.1 [concrete = constants.%Destroy.facet.c23]
-// CHECK:STDOUT:   %Destroy.facet.loc9_22.2: %Destroy.type = facet_value constants.%tuple.type.efa, (constants.%custom_witness.b80ef6.4, constants.%DestroyImpl.impl_witness.a9f) [concrete = constants.%Destroy.facet.c23]
-// CHECK:STDOUT:   %.loc9_22.2: %Destroy.type = converted constants.%tuple.type.efa, %Destroy.facet.loc9_22.2 [concrete = constants.%Destroy.facet.c23]
-// CHECK:STDOUT:   %CheckImplsDestroy.specific_fn: <specific function> = specific_function %CheckImplsDestroy.ref, @CheckImplsDestroy(constants.%Destroy.facet.c23) [concrete = constants.%CheckImplsDestroy.specific_fn]
+// CHECK:STDOUT:   %Destroy.facet.loc9_22.1: %Destroy.type = facet_value constants.%tuple.type.efa, (constants.%custom_witness.b80ef6.4, constants.%DestroyImpl.impl_witness.a9f) [concrete = constants.%Destroy.facet]
+// CHECK:STDOUT:   %.loc9_22.1: %Destroy.type = converted constants.%tuple.type.efa, %Destroy.facet.loc9_22.1 [concrete = constants.%Destroy.facet]
+// CHECK:STDOUT:   %Destroy.facet.loc9_22.2: %Destroy.type = facet_value constants.%tuple.type.efa, (constants.%custom_witness.b80ef6.4, constants.%DestroyImpl.impl_witness.a9f) [concrete = constants.%Destroy.facet]
+// CHECK:STDOUT:   %.loc9_22.2: %Destroy.type = converted constants.%tuple.type.efa, %Destroy.facet.loc9_22.2 [concrete = constants.%Destroy.facet]
+// CHECK:STDOUT:   %CheckImplsDestroy.specific_fn: <specific function> = specific_function %CheckImplsDestroy.ref, @CheckImplsDestroy(constants.%Destroy.facet) [concrete = constants.%CheckImplsDestroy.specific_fn]
 // CHECK:STDOUT:   %CheckImplsDestroy.call: init %empty_tuple.type = call %CheckImplsDestroy.specific_fn(%x.ref)
 // CHECK:STDOUT:   <elided>
 // CHECK:STDOUT: }
@@ -2241,12 +1935,6 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %int_0: Core.IntLiteral = int_value 0 [concrete = constants.%int_0]
 // CHECK:STDOUT:   %tuple.elem0: ref %ImplsDestroy = tuple_access %self.param, element0
-// CHECK:STDOUT:   %Destroy.facet.loc9_22.1: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc9_22.1: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc9_22.1 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %Destroy.facet.loc9_22.2: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc9_22.2: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc9_22.2 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call: init %empty_tuple.type = call %SelfDestruct.specific_fn(%tuple.elem0)
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -2254,12 +1942,6 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT: !entry:
 // CHECK:STDOUT:   %int_0: Core.IntLiteral = int_value 0 [concrete = constants.%int_0]
 // CHECK:STDOUT:   %tuple.elem0: ref %tuple.type.159 = tuple_access %self.param, element0
-// CHECK:STDOUT:   %Destroy.facet.loc9_22.1: %Destroy.type = facet_value constants.%tuple.type.159, (constants.%custom_witness.b80ef6.3, constants.%DestroyImpl.impl_witness.aa8) [concrete = constants.%Destroy.facet.93a]
-// CHECK:STDOUT:   %.loc9_22.1: %Destroy.type = converted constants.%tuple.type.159, %Destroy.facet.loc9_22.1 [concrete = constants.%Destroy.facet.93a]
-// CHECK:STDOUT:   %Destroy.facet.loc9_22.2: %Destroy.type = facet_value constants.%tuple.type.159, (constants.%custom_witness.b80ef6.3, constants.%DestroyImpl.impl_witness.aa8) [concrete = constants.%Destroy.facet.93a]
-// CHECK:STDOUT:   %.loc9_22.2: %Destroy.type = converted constants.%tuple.type.159, %Destroy.facet.loc9_22.2 [concrete = constants.%Destroy.facet.93a]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call: init %empty_tuple.type = call %SelfDestruct.specific_fn(%tuple.elem0)
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -2280,12 +1962,6 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:   %T.09f: %SubobjectDestroy.type = symbolic_binding T, 0 [symbolic]
 // CHECK:STDOUT:   %T.as_type.as.DestroyImpl.impl.Op.type.dea: type = fn_type @T.as_type.as.DestroyImpl.impl.Op, @T.as_type.as.DestroyImpl.impl(%T.09f) [symbolic]
 // CHECK:STDOUT:   %T.as_type.as.DestroyImpl.impl.Op.6e5: %T.as_type.as.DestroyImpl.impl.Op.type.dea = struct_value () [symbolic]
-// CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.type.6870fd.2: type = fn_type @SubobjectDestroy.WithSelf.Op.loc13_22.2 [concrete]
-// CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.30f1ee.2: %SubobjectDestroy.WithSelf.Op.type.6870fd.2 = struct_value () [concrete]
-// CHECK:STDOUT:   %custom_witness.b80ef6.2: <witness> = custom_witness (%SubobjectDestroy.WithSelf.Op.30f1ee.2), @SubobjectDestroy [concrete]
-// CHECK:STDOUT:   %DestroyImpl.impl_witness.906: <witness> = impl_witness imports.%DestroyImpl.impl_witness_table.9a5 [concrete]
-// CHECK:STDOUT:   %ImplsDestroy.as.DestroyImpl.impl.Op.type: type = fn_type @ImplsDestroy.as.DestroyImpl.impl.Op [concrete]
-// CHECK:STDOUT:   %ImplsDestroy.as.DestroyImpl.impl.Op: %ImplsDestroy.as.DestroyImpl.impl.Op.type = struct_value () [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.type.6870fd.3: type = fn_type @SubobjectDestroy.WithSelf.Op.loc13_22.3 [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.30f1ee.3: %SubobjectDestroy.WithSelf.Op.type.6870fd.3 = struct_value () [concrete]
 // CHECK:STDOUT:   %custom_witness.b80ef6.3: <witness> = custom_witness (%SubobjectDestroy.WithSelf.Op.30f1ee.3), @SubobjectDestroy [concrete]
@@ -2294,7 +1970,6 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:   %int_1: Core.IntLiteral = int_value 1 [concrete]
 // CHECK:STDOUT:   %Destroy.facet.b89: %Destroy.type = facet_value %HasTrivialDestruction, (%custom_witness.b80ef6.3, %DestroyImpl.impl_witness.4ca) [concrete]
 // CHECK:STDOUT:   %int_0: Core.IntLiteral = int_value 0 [concrete]
-// CHECK:STDOUT:   %Destroy.facet.c9e: %Destroy.type = facet_value %ImplsDestroy, (%custom_witness.b80ef6.2, %DestroyImpl.impl_witness.906) [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.type.6870fd.5: type = fn_type @SubobjectDestroy.WithSelf.Op.loc13_22.5 [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.30f1ee.5: %SubobjectDestroy.WithSelf.Op.type.6870fd.5 = struct_value () [concrete]
 // CHECK:STDOUT:   %custom_witness.b80ef6.5: <witness> = custom_witness (%SubobjectDestroy.WithSelf.Op.30f1ee.5), @SubobjectDestroy [concrete]
@@ -2308,8 +1983,6 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:   %Main.CheckImplsDestroy: %CheckImplsDestroy.type = import_ref Main//check_destroy_format, CheckImplsDestroy, loaded [concrete = constants.%CheckImplsDestroy]
 // CHECK:STDOUT:   %Core.import_ref.74d: @T.as_type.as.DestroyImpl.impl.%T.as_type.as.DestroyImpl.impl.Op.type (%T.as_type.as.DestroyImpl.impl.Op.type.dea) = import_ref Core//prelude/parts/destroy, loc{{\d+_\d+}}, loaded [symbolic = @T.as_type.as.DestroyImpl.impl.%T.as_type.as.DestroyImpl.impl.Op (constants.%T.as_type.as.DestroyImpl.impl.Op.6e5)]
 // CHECK:STDOUT:   %DestroyImpl.impl_witness_table.a5e = impl_witness_table (%Core.import_ref.74d), @T.as_type.as.DestroyImpl.impl [concrete]
-// CHECK:STDOUT:   %Main.import_ref.a07: %ImplsDestroy.as.DestroyImpl.impl.Op.type = import_ref Main//types, loc10_24, loaded [concrete = constants.%ImplsDestroy.as.DestroyImpl.impl.Op]
-// CHECK:STDOUT:   %DestroyImpl.impl_witness_table.9a5 = impl_witness_table (%Main.import_ref.a07), @ImplsDestroy.as.DestroyImpl.impl [concrete]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @TestNonTrivialTupleAdapter(%x.param: %NonTrivialTupleAdapter) {
@@ -2340,15 +2013,9 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:   %Destroy.facet.loc13_22.2: %Destroy.type = facet_value constants.%HasTrivialDestruction, (constants.%custom_witness.b80ef6.3, constants.%DestroyImpl.impl_witness.4ca) [concrete = constants.%Destroy.facet.b89]
 // CHECK:STDOUT:   %.loc13_22.2: %Destroy.type = converted constants.%HasTrivialDestruction, %Destroy.facet.loc13_22.2 [concrete = constants.%Destroy.facet.b89]
 // CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call.loc13_22.1: init %empty_tuple.type = call %SelfDestruct.specific_fn.1(%tuple.elem1)
+// CHECK:STDOUT:   %SelfDestruct.call: init %empty_tuple.type = call %SelfDestruct.specific_fn(%tuple.elem1)
 // CHECK:STDOUT:   %int_0: Core.IntLiteral = int_value 0 [concrete = constants.%int_0]
 // CHECK:STDOUT:   %tuple.elem0: ref %ImplsDestroy = tuple_access %self.param, element0
-// CHECK:STDOUT:   %Destroy.facet.loc13_22.3: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc13_22.3: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc13_22.3 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %Destroy.facet.loc13_22.4: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc13_22.4: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc13_22.4 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call.loc13_22.2: init %empty_tuple.type = call %SelfDestruct.specific_fn.2(%tuple.elem0)
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -2571,30 +2238,21 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:   %Destroy.type: type = facet_type <@Destroy> [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.type: type = facet_type <@SubobjectDestroy> [concrete]
 // CHECK:STDOUT:   %.68c: type = partial_type %BaseClassWithNonTrivialMember [concrete]
-// CHECK:STDOUT:   %T.09f: %SubobjectDestroy.type = symbolic_binding T, 0 [symbolic]
-// CHECK:STDOUT:   %T.as_type.as.DestroyImpl.impl.Op.type.dea: type = fn_type @T.as_type.as.DestroyImpl.impl.Op, @T.as_type.as.DestroyImpl.impl(%T.09f) [symbolic]
+// CHECK:STDOUT:   %T: %SubobjectDestroy.type = symbolic_binding T, 0 [symbolic]
+// CHECK:STDOUT:   %T.as_type.as.DestroyImpl.impl.Op.type.dea: type = fn_type @T.as_type.as.DestroyImpl.impl.Op, @T.as_type.as.DestroyImpl.impl(%T) [symbolic]
 // CHECK:STDOUT:   %T.as_type.as.DestroyImpl.impl.Op.6e5: %T.as_type.as.DestroyImpl.impl.Op.type.dea = struct_value () [symbolic]
-// CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.type.6870fd.2: type = fn_type @SubobjectDestroy.WithSelf.Op.loc13_25.2 [concrete]
-// CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.30f1ee.2: %SubobjectDestroy.WithSelf.Op.type.6870fd.2 = struct_value () [concrete]
-// CHECK:STDOUT:   %custom_witness.b80ef6.2: <witness> = custom_witness (%SubobjectDestroy.WithSelf.Op.30f1ee.2), @SubobjectDestroy [concrete]
-// CHECK:STDOUT:   %DestroyImpl.impl_witness.906: <witness> = impl_witness imports.%DestroyImpl.impl_witness_table.9a5 [concrete]
-// CHECK:STDOUT:   %ImplsDestroy.as.DestroyImpl.impl.Op.type: type = fn_type @ImplsDestroy.as.DestroyImpl.impl.Op [concrete]
-// CHECK:STDOUT:   %ImplsDestroy.as.DestroyImpl.impl.Op: %ImplsDestroy.as.DestroyImpl.impl.Op.type = struct_value () [concrete]
-// CHECK:STDOUT:   %Destroy.facet.c9e: %Destroy.type = facet_value %ImplsDestroy, (%custom_witness.b80ef6.2, %DestroyImpl.impl_witness.906) [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.type.6870fd.4: type = fn_type @SubobjectDestroy.WithSelf.Op.loc13_25.4 [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.WithSelf.Op.30f1ee.4: %SubobjectDestroy.WithSelf.Op.type.6870fd.4 = struct_value () [concrete]
 // CHECK:STDOUT:   %custom_witness.b80ef6.4: <witness> = custom_witness (%SubobjectDestroy.WithSelf.Op.30f1ee.4), @SubobjectDestroy [concrete]
 // CHECK:STDOUT:   %SubobjectDestroy.facet.823: %SubobjectDestroy.type = facet_value %.68c, (%custom_witness.b80ef6.4) [concrete]
 // CHECK:STDOUT:   %DestroyImpl.impl_witness.dc5: <witness> = impl_witness imports.%DestroyImpl.impl_witness_table.a5e, @T.as_type.as.DestroyImpl.impl(%SubobjectDestroy.facet.823) [concrete]
-// CHECK:STDOUT:   %Destroy.facet.15d: %Destroy.type = facet_value %.68c, (%custom_witness.b80ef6.4, %DestroyImpl.impl_witness.dc5) [concrete]
+// CHECK:STDOUT:   %Destroy.facet: %Destroy.type = facet_value %.68c, (%custom_witness.b80ef6.4, %DestroyImpl.impl_witness.dc5) [concrete]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: imports {
 // CHECK:STDOUT:   %Main.CheckTypeImplsDestroy: %CheckTypeImplsDestroy.type = import_ref Main//check_destroy_format, CheckTypeImplsDestroy, loaded [concrete = constants.%CheckTypeImplsDestroy]
 // CHECK:STDOUT:   %Core.import_ref.74d: @T.as_type.as.DestroyImpl.impl.%T.as_type.as.DestroyImpl.impl.Op.type (%T.as_type.as.DestroyImpl.impl.Op.type.dea) = import_ref Core//prelude/parts/destroy, loc{{\d+_\d+}}, loaded [symbolic = @T.as_type.as.DestroyImpl.impl.%T.as_type.as.DestroyImpl.impl.Op (constants.%T.as_type.as.DestroyImpl.impl.Op.6e5)]
 // CHECK:STDOUT:   %DestroyImpl.impl_witness_table.a5e = impl_witness_table (%Core.import_ref.74d), @T.as_type.as.DestroyImpl.impl [concrete]
-// CHECK:STDOUT:   %Main.import_ref.a07: %ImplsDestroy.as.DestroyImpl.impl.Op.type = import_ref Main//types, loc10_24, loaded [concrete = constants.%ImplsDestroy.as.DestroyImpl.impl.Op]
-// CHECK:STDOUT:   %DestroyImpl.impl_witness_table.9a5 = impl_witness_table (%Main.import_ref.a07), @ImplsDestroy.as.DestroyImpl.impl [concrete]
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @TestPartialNonTrivialMemberBase() {
@@ -2602,8 +2260,8 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:   %CheckTypeImplsDestroy.ref: %CheckTypeImplsDestroy.type = name_ref CheckTypeImplsDestroy, imports.%Main.CheckTypeImplsDestroy [concrete = constants.%CheckTypeImplsDestroy]
 // CHECK:STDOUT:   %BaseClassWithNonTrivialMember.ref: type = name_ref BaseClassWithNonTrivialMember, file.%BaseClassWithNonTrivialMember.decl [concrete = constants.%BaseClassWithNonTrivialMember]
 // CHECK:STDOUT:   %.loc13_25.1: type = partial_type %BaseClassWithNonTrivialMember.ref [concrete = constants.%.68c]
-// CHECK:STDOUT:   %Destroy.facet: %Destroy.type = facet_value %.loc13_25.1, (constants.%custom_witness.b80ef6.4, constants.%DestroyImpl.impl_witness.dc5) [concrete = constants.%Destroy.facet.15d]
-// CHECK:STDOUT:   %.loc13_25.2: %Destroy.type = converted %.loc13_25.1, %Destroy.facet [concrete = constants.%Destroy.facet.15d]
+// CHECK:STDOUT:   %Destroy.facet: %Destroy.type = facet_value %.loc13_25.1, (constants.%custom_witness.b80ef6.4, constants.%DestroyImpl.impl_witness.dc5) [concrete = constants.%Destroy.facet]
+// CHECK:STDOUT:   %.loc13_25.2: %Destroy.type = converted %.loc13_25.1, %Destroy.facet [concrete = constants.%Destroy.facet]
 // CHECK:STDOUT:   %CheckTypeImplsDestroy.call: init %empty_tuple.type = call %CheckTypeImplsDestroy.ref(%.loc13_25.2)
 // CHECK:STDOUT:   <elided>
 // CHECK:STDOUT: }
@@ -2614,13 +2272,7 @@ fn TestPartialNonTrivialBase() {
 // CHECK:STDOUT:
 // CHECK:STDOUT: fn @SubobjectDestroy.WithSelf.Op.loc13_25.3(%self.param: ref %struct_type.n.81f) {
 // CHECK:STDOUT: !entry:
-// CHECK:STDOUT:   %.loc13_25.1: ref %ImplsDestroy = struct_access %self.param, element0
-// CHECK:STDOUT:   %Destroy.facet.loc13_25.1: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc13_25.2: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc13_25.1 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %Destroy.facet.loc13_25.2: %Destroy.type = facet_value constants.%ImplsDestroy, (constants.%custom_witness.b80ef6.2, constants.%DestroyImpl.impl_witness.906) [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   %.loc13_25.3: %Destroy.type = converted constants.%ImplsDestroy, %Destroy.facet.loc13_25.2 [concrete = constants.%Destroy.facet.c9e]
-// CHECK:STDOUT:   <elided>
-// CHECK:STDOUT:   %SelfDestruct.call: init %empty_tuple.type = call %SelfDestruct.specific_fn(%.loc13_25.1)
+// CHECK:STDOUT:   %.loc13: ref %ImplsDestroy = struct_access %self.param, element0
 // CHECK:STDOUT:   return
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

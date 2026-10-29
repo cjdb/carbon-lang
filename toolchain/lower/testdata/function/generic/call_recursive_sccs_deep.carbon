@@ -112,10 +112,10 @@ fn M() {
 // CHECK:STDOUT:   %A.call.loc82 = call ptr @_CA.Main.417c9c4a651ab31b(ptr %.loc82_5, i32 0), !dbg !32
 // CHECK:STDOUT:   %.loc83_5 = load ptr, ptr %ptr_f64.var, align 8, !dbg !33
 // CHECK:STDOUT:   %A.call.loc83 = call ptr @_CA.Main.417c9c4a651ab31b(ptr %.loc83_5, i32 0), !dbg !34
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.b18855c76072615b(ptr %ptr_f64.var), !dbg !18
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.4f29d15a20894e9b(ptr %ptr_i32.var), !dbg !14
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.2b38c2ca9f7f1a94(ptr %m.var), !dbg !12
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.f127f30143696d51(ptr %n.var), !dbg !10
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.f0e74f2919077245(ptr %ptr_f64.var), !dbg !18
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.5da679f5f4cb5255(ptr %ptr_i32.var), !dbg !14
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.a589b24ebbe3a809(ptr %m.var), !dbg !12
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.9a03059f269926ed(ptr %n.var), !dbg !10
 // CHECK:STDOUT:   ret void, !dbg !39
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -147,22 +147,22 @@ fn M() {
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.b18855c76072615b(ptr %t) #0 !dbg !105 {
+// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.f0e74f2919077245(ptr %t) #0 !dbg !105 {
 // CHECK:STDOUT:   ret void, !dbg !110
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.4f29d15a20894e9b(ptr %t) #0 !dbg !112 {
+// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.5da679f5f4cb5255(ptr %t) #0 !dbg !112 {
 // CHECK:STDOUT:   ret void, !dbg !117
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.2b38c2ca9f7f1a94(ptr %t) #0 !dbg !119 {
+// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.a589b24ebbe3a809(ptr %t) #0 !dbg !119 {
 // CHECK:STDOUT:   ret void, !dbg !124
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.f127f30143696d51(ptr %t) #0 !dbg !126 {
+// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.9a03059f269926ed(ptr %t) #0 !dbg !126 {
 // CHECK:STDOUT:   ret void, !dbg !131
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

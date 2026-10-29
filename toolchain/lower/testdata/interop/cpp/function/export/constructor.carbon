@@ -79,7 +79,7 @@ void f() {
 // CHECK:STDOUT: ; Function Attrs: alwaysinline nounwind
 // CHECK:STDOUT: define weak_odr void @"_C__destroy_thunk:thunk.OneArg.Main"(ptr %self) #4 !dbg !15 {
 // CHECK:STDOUT: entry:
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.f5db22251d2a7ef4(ptr %self), !dbg !17
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.8064c9d4c1626cca(ptr %self), !dbg !17
 // CHECK:STDOUT:   ret void, !dbg !17
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -92,7 +92,7 @@ void f() {
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.f5db22251d2a7ef4(ptr %t) #5 !dbg !25 {
+// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.8064c9d4c1626cca(ptr %t) #5 !dbg !25 {
 // CHECK:STDOUT:   ret void, !dbg !30
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

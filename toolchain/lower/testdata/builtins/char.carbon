@@ -30,7 +30,7 @@ fn Example() -> char {
 // CHECK:STDOUT:   call void @llvm.lifetime.start.p0(ptr %c.var), !dbg !12
 // CHECK:STDOUT:   store i8 97, ptr %c.var, align 1, !dbg !12
 // CHECK:STDOUT:   %.loc6 = load i8, ptr %c.var, align 1, !dbg !14
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.00174ca91d483df7(ptr %c.var), !dbg !12
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.05644598fcbbfecc(ptr %c.var), !dbg !12
 // CHECK:STDOUT:   ret i8 %.loc6, !dbg !17
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -38,7 +38,7 @@ fn Example() -> char {
 // CHECK:STDOUT: declare void @llvm.lifetime.start.p0(ptr captures(none)) #1
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.00174ca91d483df7(ptr %t) #0 !dbg !19 {
+// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.05644598fcbbfecc(ptr %t) #0 !dbg !19 {
 // CHECK:STDOUT:   ret void, !dbg !24
 // CHECK:STDOUT: }
 // CHECK:STDOUT:

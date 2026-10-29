@@ -90,7 +90,6 @@ fn ConvertToValue(b: Cpp.IntB) {
 // CHECK:STDOUT:   %a.var = alloca [4 x i8], align 4, !dbg !29
 // CHECK:STDOUT:   call void @llvm.lifetime.start.p0(ptr %a.var), !dbg !29
 // CHECK:STDOUT:   call void @_ZNK1Bcv1AEv.carbon_thunk._(ptr %b, ptr %a.var), !dbg !29
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.e885b4b34ded440e(ptr %a.var), !dbg !29
 // CHECK:STDOUT:   ret void, !dbg !32
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -99,10 +98,10 @@ fn ConvertToValue(b: Cpp.IntB) {
 // CHECK:STDOUT: entry:
 // CHECK:STDOUT:   %this.addr = alloca ptr, align 8
 // CHECK:STDOUT:   %return.addr = alloca ptr, align 8
-// CHECK:STDOUT:   store ptr %this, ptr %this.addr, align 8, !tbaa !53
-// CHECK:STDOUT:   store ptr %return, ptr %return.addr, align 8, !tbaa !55
-// CHECK:STDOUT:   %0 = load ptr, ptr %return.addr, align 8, !tbaa !55
-// CHECK:STDOUT:   %1 = load ptr, ptr %this.addr, align 8, !tbaa !53, !nonnull !57
+// CHECK:STDOUT:   store ptr %this, ptr %this.addr, align 8, !tbaa !46
+// CHECK:STDOUT:   store ptr %return, ptr %return.addr, align 8, !tbaa !48
+// CHECK:STDOUT:   %0 = load ptr, ptr %return.addr, align 8, !tbaa !48
+// CHECK:STDOUT:   %1 = load ptr, ptr %this.addr, align 8, !tbaa !46, !nonnull !50
 // CHECK:STDOUT:   call void @_ZNK1Bcv1AEv(ptr dead_on_unwind writable sret(%struct.A) align 4 %0, ptr noundef nonnull align 1 dereferenceable(1) %1)
 // CHECK:STDOUT:   ret void
 // CHECK:STDOUT: }
@@ -116,24 +115,16 @@ fn ConvertToValue(b: Cpp.IntB) {
 // CHECK:STDOUT:   %.loc20_25.1.temp = alloca [4 x i8], align 4, !dbg !37
 // CHECK:STDOUT:   call void @llvm.lifetime.start.p0(ptr %.loc20_25.1.temp), !dbg !37
 // CHECK:STDOUT:   call void @_ZNK1Bcv1AEv.carbon_thunk._(ptr %b, ptr %.loc20_25.1.temp), !dbg !37
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.e885b4b34ded440e(ptr %.loc20_25.1.temp), !dbg !37
 // CHECK:STDOUT:   ret void, !dbg !40
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
 // CHECK:STDOUT: declare void @llvm.lifetime.start.p0(ptr captures(none)) #3
 // CHECK:STDOUT:
-// CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.e885b4b34ded440e(ptr %t) #0 !dbg !42 {
-// CHECK:STDOUT:   call void @_ZN1AD1Ev(ptr %t), !dbg !46
-// CHECK:STDOUT:   ret void, !dbg !47
-// CHECK:STDOUT: }
-// CHECK:STDOUT:
 // CHECK:STDOUT: declare void @_ZNK1Bcv1AEv(ptr dead_on_unwind writable sret(%struct.A) align 4, ptr noundef nonnull align 1 dereferenceable(1)) #4
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; uselistorder directives
 // CHECK:STDOUT: uselistorder ptr @llvm.lifetime.start.p0, { 1, 0 }
-// CHECK:STDOUT: uselistorder ptr @_CSelfDestruct.Core.e885b4b34ded440e, { 1, 0 }
 // CHECK:STDOUT:
 // CHECK:STDOUT: attributes #0 = { nounwind }
 // CHECK:STDOUT: attributes #1 = { alwaysinline mustprogress uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -142,12 +133,11 @@ fn ConvertToValue(b: Cpp.IntB) {
 // CHECK:STDOUT: attributes #4 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 // CHECK:STDOUT:
 // CHECK:STDOUT: !llvm.dbg.cu = !{!19}
-// CHECK:STDOUT: !llvm.module.flags = !{!60, !61, !62, !2, !3}
-// CHECK:STDOUT: !llvm.errno.tbaa = !{!64}
+// CHECK:STDOUT: !llvm.module.flags = !{!53, !54, !55, !2, !3}
+// CHECK:STDOUT: !llvm.errno.tbaa = !{!57}
 // CHECK:STDOUT:
 // CHECK:STDOUT: !2 = !{i32 7, !"Dwarf Version", i32 5}
 // CHECK:STDOUT: !3 = !{i32 2, !"Debug Info Version", i32 3}
-// CHECK:STDOUT: !10 = !DIFile(filename: "min_prelude/parts/destroy.carbon", directory: "")
 // CHECK:STDOUT: !18 = !DIFile(filename: "class_to_class.carbon", directory: "")
 // CHECK:STDOUT: !19 = distinct !DICompileUnit(language: DW_LANG_C_plus_plus, file: !18, producer: "carbon", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug)
 // CHECK:STDOUT: !21 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: null, size: 64)
@@ -163,25 +153,20 @@ fn ConvertToValue(b: Cpp.IntB) {
 // CHECK:STDOUT: !37 = !DILocation(line: 20, column: 25, scope: !34)
 // CHECK:STDOUT: !40 = !DILocation(line: 19, column: 1, scope: !34)
 // CHECK:STDOUT: !41 = !{!35}
-// CHECK:STDOUT: !42 = distinct !DISubprogram(name: "SelfDestruct", linkageName: "_CSelfDestruct.Core.e885b4b34ded440e", scope: null, file: !10, line: 32, type: !23, spFlags: DISPFlagDefinition, unit: !19, retainedNodes: !48)
-// CHECK:STDOUT: !43 = !DILocalVariable(arg: 1, scope: !42, type: !21)
-// CHECK:STDOUT: !46 = !DILocation(line: 34, column: 5, scope: !42)
-// CHECK:STDOUT: !47 = !DILocation(line: 32, column: 1, scope: !42)
-// CHECK:STDOUT: !48 = !{!43}
-// CHECK:STDOUT: !49 = !{!"Simple C++ TBAA"}
-// CHECK:STDOUT: !50 = !{!"omnipotent char", !49, i64 0}
-// CHECK:STDOUT: !51 = !{!"any pointer", !50, i64 0}
-// CHECK:STDOUT: !52 = !{!"p1 _ZTS1B", !51, i64 0}
-// CHECK:STDOUT: !53 = !{!52, !52, i64 0}
-// CHECK:STDOUT: !54 = !{!"p1 _ZTS1A", !51, i64 0}
-// CHECK:STDOUT: !55 = !{!54, !54, i64 0}
-// CHECK:STDOUT: !57 = !{}
-// CHECK:STDOUT: !58 = !{!"int", !50, i64 0}
-// CHECK:STDOUT: !60 = !{i32 8, !"PIC Level", i32 2}
-// CHECK:STDOUT: !61 = !{i32 7, !"PIE Level", i32 2}
-// CHECK:STDOUT: !62 = !{i32 7, !"uwtable", i32 2}
-// CHECK:STDOUT: !63 = !{!"__libc_errno", !58, i64 0}
-// CHECK:STDOUT: !64 = !{!63, !58, i64 0}
+// CHECK:STDOUT: !42 = !{!"Simple C++ TBAA"}
+// CHECK:STDOUT: !43 = !{!"omnipotent char", !42, i64 0}
+// CHECK:STDOUT: !44 = !{!"any pointer", !43, i64 0}
+// CHECK:STDOUT: !45 = !{!"p1 _ZTS1B", !44, i64 0}
+// CHECK:STDOUT: !46 = !{!45, !45, i64 0}
+// CHECK:STDOUT: !47 = !{!"p1 _ZTS1A", !44, i64 0}
+// CHECK:STDOUT: !48 = !{!47, !47, i64 0}
+// CHECK:STDOUT: !50 = !{}
+// CHECK:STDOUT: !51 = !{!"int", !43, i64 0}
+// CHECK:STDOUT: !53 = !{i32 8, !"PIC Level", i32 2}
+// CHECK:STDOUT: !54 = !{i32 7, !"PIE Level", i32 2}
+// CHECK:STDOUT: !55 = !{i32 7, !"uwtable", i32 2}
+// CHECK:STDOUT: !56 = !{!"__libc_errno", !51, i64 0}
+// CHECK:STDOUT: !57 = !{!56, !51, i64 0}
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; ---
 // CHECK:STDOUT: ; ModuleID = 'class_to_enum.carbon'
@@ -190,17 +175,17 @@ fn ConvertToValue(b: Cpp.IntB) {
 // CHECK:STDOUT: target triple = "x86_64-unknown-linux-gnu"
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define void @_CConvertToVar.Main(ptr %b) #0 !dbg !68 {
+// CHECK:STDOUT: define void @_CConvertToVar.Main(ptr %b) #0 !dbg !61 {
 // CHECK:STDOUT: entry:
-// CHECK:STDOUT:   %s.var = alloca i16, align 2, !dbg !71
-// CHECK:STDOUT:   %i.var = alloca i16, align 2, !dbg !74
-// CHECK:STDOUT:   call void @llvm.lifetime.start.p0(ptr %s.var), !dbg !71
-// CHECK:STDOUT:   call void @_ZNK5EnumBcv1SEv.carbon_thunk._(ptr %b, ptr %s.var), !dbg !71
-// CHECK:STDOUT:   call void @llvm.lifetime.start.p0(ptr %i.var), !dbg !74
-// CHECK:STDOUT:   call void @_ZNK5EnumBcv1IEv.carbon_thunk._(ptr %b, ptr %i.var), !dbg !74
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.b6485bbba53783ee(ptr %i.var), !dbg !74
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.e9921dfc7dd957f8(ptr %s.var), !dbg !71
-// CHECK:STDOUT:   ret void, !dbg !79
+// CHECK:STDOUT:   %s.var = alloca i16, align 2, !dbg !64
+// CHECK:STDOUT:   %i.var = alloca i16, align 2, !dbg !67
+// CHECK:STDOUT:   call void @llvm.lifetime.start.p0(ptr %s.var), !dbg !64
+// CHECK:STDOUT:   call void @_ZNK5EnumBcv1SEv.carbon_thunk._(ptr %b, ptr %s.var), !dbg !64
+// CHECK:STDOUT:   call void @llvm.lifetime.start.p0(ptr %i.var), !dbg !67
+// CHECK:STDOUT:   call void @_ZNK5EnumBcv1IEv.carbon_thunk._(ptr %b, ptr %i.var), !dbg !67
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.fe51de29b15faf00(ptr %i.var), !dbg !67
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.9e89a35679b92e9b(ptr %s.var), !dbg !64
+// CHECK:STDOUT:   ret void, !dbg !72
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: alwaysinline mustprogress uwtable
@@ -208,12 +193,12 @@ fn ConvertToValue(b: Cpp.IntB) {
 // CHECK:STDOUT: entry:
 // CHECK:STDOUT:   %this.addr = alloca ptr, align 8
 // CHECK:STDOUT:   %return.addr = alloca ptr, align 8
-// CHECK:STDOUT:   store ptr %this, ptr %this.addr, align 8, !tbaa !107
-// CHECK:STDOUT:   store ptr %return, ptr %return.addr, align 8, !tbaa !108
-// CHECK:STDOUT:   %0 = load ptr, ptr %return.addr, align 8, !tbaa !108
-// CHECK:STDOUT:   %1 = load ptr, ptr %this.addr, align 8, !tbaa !107, !nonnull !57
+// CHECK:STDOUT:   store ptr %this, ptr %this.addr, align 8, !tbaa !100
+// CHECK:STDOUT:   store ptr %return, ptr %return.addr, align 8, !tbaa !101
+// CHECK:STDOUT:   %0 = load ptr, ptr %return.addr, align 8, !tbaa !101
+// CHECK:STDOUT:   %1 = load ptr, ptr %this.addr, align 8, !tbaa !100, !nonnull !50
 // CHECK:STDOUT:   %call = call noundef signext i16 @_ZNK5EnumBcv1SEv(ptr noundef nonnull align 1 dereferenceable(1) %1)
-// CHECK:STDOUT:   store i16 %call, ptr %0, align 2, !tbaa !111
+// CHECK:STDOUT:   store i16 %call, ptr %0, align 2, !tbaa !104
 // CHECK:STDOUT:   ret void
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -222,42 +207,42 @@ fn ConvertToValue(b: Cpp.IntB) {
 // CHECK:STDOUT: entry:
 // CHECK:STDOUT:   %this.addr = alloca ptr, align 8
 // CHECK:STDOUT:   %return.addr = alloca ptr, align 8
-// CHECK:STDOUT:   store ptr %this, ptr %this.addr, align 8, !tbaa !107
-// CHECK:STDOUT:   store ptr %return, ptr %return.addr, align 8, !tbaa !108
-// CHECK:STDOUT:   %0 = load ptr, ptr %return.addr, align 8, !tbaa !108
-// CHECK:STDOUT:   %1 = load ptr, ptr %this.addr, align 8, !tbaa !107, !nonnull !57
+// CHECK:STDOUT:   store ptr %this, ptr %this.addr, align 8, !tbaa !100
+// CHECK:STDOUT:   store ptr %return, ptr %return.addr, align 8, !tbaa !101
+// CHECK:STDOUT:   %0 = load ptr, ptr %return.addr, align 8, !tbaa !101
+// CHECK:STDOUT:   %1 = load ptr, ptr %this.addr, align 8, !tbaa !100, !nonnull !50
 // CHECK:STDOUT:   %call = call noundef signext i16 @_ZNK5EnumBcv1IEv(ptr noundef nonnull align 1 dereferenceable(1) %1)
-// CHECK:STDOUT:   store i16 %call, ptr %0, align 2, !tbaa !113
+// CHECK:STDOUT:   store i16 %call, ptr %0, align 2, !tbaa !106
 // CHECK:STDOUT:   ret void
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define void @_CConvertToValue.Main(ptr %b) #0 !dbg !81 {
+// CHECK:STDOUT: define void @_CConvertToValue.Main(ptr %b) #0 !dbg !74 {
 // CHECK:STDOUT: entry:
-// CHECK:STDOUT:   %.loc20_25.1.temp = alloca i16, align 2, !dbg !84
-// CHECK:STDOUT:   %.loc21_25.1.temp = alloca i16, align 2, !dbg !87
-// CHECK:STDOUT:   call void @llvm.lifetime.start.p0(ptr %.loc20_25.1.temp), !dbg !84
-// CHECK:STDOUT:   call void @_ZNK5EnumBcv1SEv.carbon_thunk._(ptr %b, ptr %.loc20_25.1.temp), !dbg !84
-// CHECK:STDOUT:   %.loc20_25.5 = load i16, ptr %.loc20_25.1.temp, align 2, !dbg !84
-// CHECK:STDOUT:   call void @llvm.lifetime.start.p0(ptr %.loc21_25.1.temp), !dbg !87
-// CHECK:STDOUT:   call void @_ZNK5EnumBcv1IEv.carbon_thunk._(ptr %b, ptr %.loc21_25.1.temp), !dbg !87
-// CHECK:STDOUT:   %.loc21_25.5 = load i16, ptr %.loc21_25.1.temp, align 2, !dbg !87
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.b6485bbba53783ee(ptr %.loc21_25.1.temp), !dbg !87
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.e9921dfc7dd957f8(ptr %.loc20_25.1.temp), !dbg !84
-// CHECK:STDOUT:   ret void, !dbg !90
+// CHECK:STDOUT:   %.loc20_25.1.temp = alloca i16, align 2, !dbg !77
+// CHECK:STDOUT:   %.loc21_25.1.temp = alloca i16, align 2, !dbg !80
+// CHECK:STDOUT:   call void @llvm.lifetime.start.p0(ptr %.loc20_25.1.temp), !dbg !77
+// CHECK:STDOUT:   call void @_ZNK5EnumBcv1SEv.carbon_thunk._(ptr %b, ptr %.loc20_25.1.temp), !dbg !77
+// CHECK:STDOUT:   %.loc20_25.5 = load i16, ptr %.loc20_25.1.temp, align 2, !dbg !77
+// CHECK:STDOUT:   call void @llvm.lifetime.start.p0(ptr %.loc21_25.1.temp), !dbg !80
+// CHECK:STDOUT:   call void @_ZNK5EnumBcv1IEv.carbon_thunk._(ptr %b, ptr %.loc21_25.1.temp), !dbg !80
+// CHECK:STDOUT:   %.loc21_25.5 = load i16, ptr %.loc21_25.1.temp, align 2, !dbg !80
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.fe51de29b15faf00(ptr %.loc21_25.1.temp), !dbg !80
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.9e89a35679b92e9b(ptr %.loc20_25.1.temp), !dbg !77
+// CHECK:STDOUT:   ret void, !dbg !83
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
 // CHECK:STDOUT: declare void @llvm.lifetime.start.p0(ptr captures(none)) #2
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.b6485bbba53783ee(ptr %t) #0 !dbg !92 {
-// CHECK:STDOUT:   ret void, !dbg !97
+// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.fe51de29b15faf00(ptr %t) #0 !dbg !85 {
+// CHECK:STDOUT:   ret void, !dbg !90
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.e9921dfc7dd957f8(ptr %t) #0 !dbg !99 {
-// CHECK:STDOUT:   ret void, !dbg !104
+// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.9e89a35679b92e9b(ptr %t) #0 !dbg !92 {
+// CHECK:STDOUT:   ret void, !dbg !97
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: declare noundef signext i16 @_ZNK5EnumBcv1SEv(ptr noundef nonnull align 1 dereferenceable(1)) #3
@@ -266,17 +251,17 @@ fn ConvertToValue(b: Cpp.IntB) {
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; uselistorder directives
 // CHECK:STDOUT: uselistorder ptr @llvm.lifetime.start.p0, { 3, 2, 1, 0 }
-// CHECK:STDOUT: uselistorder ptr @_CSelfDestruct.Core.b6485bbba53783ee, { 1, 0 }
-// CHECK:STDOUT: uselistorder ptr @_CSelfDestruct.Core.e9921dfc7dd957f8, { 1, 0 }
+// CHECK:STDOUT: uselistorder ptr @_CSelfDestruct.Core.fe51de29b15faf00, { 1, 0 }
+// CHECK:STDOUT: uselistorder ptr @_CSelfDestruct.Core.9e89a35679b92e9b, { 1, 0 }
 // CHECK:STDOUT:
 // CHECK:STDOUT: attributes #0 = { nounwind }
 // CHECK:STDOUT: attributes #1 = { alwaysinline mustprogress uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 // CHECK:STDOUT: attributes #2 = { nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
 // CHECK:STDOUT: attributes #3 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 // CHECK:STDOUT:
-// CHECK:STDOUT: !llvm.dbg.cu = !{!66}
-// CHECK:STDOUT: !llvm.module.flags = !{!60, !61, !62, !2, !3}
-// CHECK:STDOUT: !llvm.errno.tbaa = !{!64}
+// CHECK:STDOUT: !llvm.dbg.cu = !{!59}
+// CHECK:STDOUT: !llvm.module.flags = !{!53, !54, !55, !2, !3}
+// CHECK:STDOUT: !llvm.errno.tbaa = !{!57}
 // CHECK:STDOUT:
 // CHECK:STDOUT: !2 = !{i32 7, !"Dwarf Version", i32 5}
 // CHECK:STDOUT: !3 = !{i32 2, !"Debug Info Version", i32 3}
@@ -284,48 +269,48 @@ fn ConvertToValue(b: Cpp.IntB) {
 // CHECK:STDOUT: !21 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: null, size: 64)
 // CHECK:STDOUT: !22 = !{null, !21}
 // CHECK:STDOUT: !23 = !DISubroutineType(types: !22)
-// CHECK:STDOUT: !49 = !{!"Simple C++ TBAA"}
-// CHECK:STDOUT: !50 = !{!"omnipotent char", !49, i64 0}
-// CHECK:STDOUT: !51 = !{!"any pointer", !50, i64 0}
-// CHECK:STDOUT: !57 = !{}
-// CHECK:STDOUT: !58 = !{!"int", !50, i64 0}
-// CHECK:STDOUT: !60 = !{i32 8, !"PIC Level", i32 2}
-// CHECK:STDOUT: !61 = !{i32 7, !"PIE Level", i32 2}
-// CHECK:STDOUT: !62 = !{i32 7, !"uwtable", i32 2}
-// CHECK:STDOUT: !63 = !{!"__libc_errno", !58, i64 0}
-// CHECK:STDOUT: !64 = !{!63, !58, i64 0}
-// CHECK:STDOUT: !65 = !DIFile(filename: "class_to_enum.carbon", directory: "")
-// CHECK:STDOUT: !66 = distinct !DICompileUnit(language: DW_LANG_C_plus_plus, file: !65, producer: "carbon", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug)
-// CHECK:STDOUT: !67 = !DIBasicType(name: "int", size: 16, encoding: DW_ATE_signed)
-// CHECK:STDOUT: !68 = distinct !DISubprogram(name: "ConvertToVar", linkageName: "_CConvertToVar.Main", scope: null, file: !65, line: 14, type: !23, spFlags: DISPFlagDefinition, unit: !66, retainedNodes: !80)
-// CHECK:STDOUT: !69 = !DILocalVariable(arg: 1, scope: !68, type: !21)
-// CHECK:STDOUT: !71 = !DILocation(line: 15, column: 3, scope: !68)
-// CHECK:STDOUT: !74 = !DILocation(line: 16, column: 3, scope: !68)
-// CHECK:STDOUT: !77 = !{null, !67}
-// CHECK:STDOUT: !78 = !DISubroutineType(types: !77)
-// CHECK:STDOUT: !79 = !DILocation(line: 14, column: 1, scope: !68)
-// CHECK:STDOUT: !80 = !{!69}
-// CHECK:STDOUT: !81 = distinct !DISubprogram(name: "ConvertToValue", linkageName: "_CConvertToValue.Main", scope: null, file: !65, line: 19, type: !23, spFlags: DISPFlagDefinition, unit: !66, retainedNodes: !91)
-// CHECK:STDOUT: !82 = !DILocalVariable(arg: 1, scope: !81, type: !21)
-// CHECK:STDOUT: !84 = !DILocation(line: 20, column: 25, scope: !81)
-// CHECK:STDOUT: !87 = !DILocation(line: 21, column: 25, scope: !81)
-// CHECK:STDOUT: !90 = !DILocation(line: 19, column: 1, scope: !81)
-// CHECK:STDOUT: !91 = !{!82}
-// CHECK:STDOUT: !92 = distinct !DISubprogram(name: "SelfDestruct", linkageName: "_CSelfDestruct.Core.b6485bbba53783ee", scope: null, file: !10, line: 32, type: !78, spFlags: DISPFlagDefinition, unit: !66, retainedNodes: !98)
-// CHECK:STDOUT: !93 = !DILocalVariable(arg: 1, scope: !92, type: !67)
+// CHECK:STDOUT: !42 = !{!"Simple C++ TBAA"}
+// CHECK:STDOUT: !43 = !{!"omnipotent char", !42, i64 0}
+// CHECK:STDOUT: !44 = !{!"any pointer", !43, i64 0}
+// CHECK:STDOUT: !50 = !{}
+// CHECK:STDOUT: !51 = !{!"int", !43, i64 0}
+// CHECK:STDOUT: !53 = !{i32 8, !"PIC Level", i32 2}
+// CHECK:STDOUT: !54 = !{i32 7, !"PIE Level", i32 2}
+// CHECK:STDOUT: !55 = !{i32 7, !"uwtable", i32 2}
+// CHECK:STDOUT: !56 = !{!"__libc_errno", !51, i64 0}
+// CHECK:STDOUT: !57 = !{!56, !51, i64 0}
+// CHECK:STDOUT: !58 = !DIFile(filename: "class_to_enum.carbon", directory: "")
+// CHECK:STDOUT: !59 = distinct !DICompileUnit(language: DW_LANG_C_plus_plus, file: !58, producer: "carbon", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug)
+// CHECK:STDOUT: !60 = !DIBasicType(name: "int", size: 16, encoding: DW_ATE_signed)
+// CHECK:STDOUT: !61 = distinct !DISubprogram(name: "ConvertToVar", linkageName: "_CConvertToVar.Main", scope: null, file: !58, line: 14, type: !23, spFlags: DISPFlagDefinition, unit: !59, retainedNodes: !73)
+// CHECK:STDOUT: !62 = !DILocalVariable(arg: 1, scope: !61, type: !21)
+// CHECK:STDOUT: !64 = !DILocation(line: 15, column: 3, scope: !61)
+// CHECK:STDOUT: !67 = !DILocation(line: 16, column: 3, scope: !61)
+// CHECK:STDOUT: !70 = !{null, !60}
+// CHECK:STDOUT: !71 = !DISubroutineType(types: !70)
+// CHECK:STDOUT: !72 = !DILocation(line: 14, column: 1, scope: !61)
+// CHECK:STDOUT: !73 = !{!62}
+// CHECK:STDOUT: !74 = distinct !DISubprogram(name: "ConvertToValue", linkageName: "_CConvertToValue.Main", scope: null, file: !58, line: 19, type: !23, spFlags: DISPFlagDefinition, unit: !59, retainedNodes: !84)
+// CHECK:STDOUT: !75 = !DILocalVariable(arg: 1, scope: !74, type: !21)
+// CHECK:STDOUT: !77 = !DILocation(line: 20, column: 25, scope: !74)
+// CHECK:STDOUT: !80 = !DILocation(line: 21, column: 25, scope: !74)
+// CHECK:STDOUT: !83 = !DILocation(line: 19, column: 1, scope: !74)
+// CHECK:STDOUT: !84 = !{!75}
+// CHECK:STDOUT: !85 = distinct !DISubprogram(name: "SelfDestruct", linkageName: "_CSelfDestruct.Core.fe51de29b15faf00", scope: null, file: !10, line: 32, type: !71, spFlags: DISPFlagDefinition, unit: !59, retainedNodes: !91)
+// CHECK:STDOUT: !86 = !DILocalVariable(arg: 1, scope: !85, type: !60)
+// CHECK:STDOUT: !90 = !DILocation(line: 32, column: 1, scope: !85)
+// CHECK:STDOUT: !91 = !{!86}
+// CHECK:STDOUT: !92 = distinct !DISubprogram(name: "SelfDestruct", linkageName: "_CSelfDestruct.Core.9e89a35679b92e9b", scope: null, file: !10, line: 32, type: !71, spFlags: DISPFlagDefinition, unit: !59, retainedNodes: !98)
+// CHECK:STDOUT: !93 = !DILocalVariable(arg: 1, scope: !92, type: !60)
 // CHECK:STDOUT: !97 = !DILocation(line: 32, column: 1, scope: !92)
 // CHECK:STDOUT: !98 = !{!93}
-// CHECK:STDOUT: !99 = distinct !DISubprogram(name: "SelfDestruct", linkageName: "_CSelfDestruct.Core.e9921dfc7dd957f8", scope: null, file: !10, line: 32, type: !78, spFlags: DISPFlagDefinition, unit: !66, retainedNodes: !105)
-// CHECK:STDOUT: !100 = !DILocalVariable(arg: 1, scope: !99, type: !67)
-// CHECK:STDOUT: !104 = !DILocation(line: 32, column: 1, scope: !99)
-// CHECK:STDOUT: !105 = !{!100}
-// CHECK:STDOUT: !106 = !{!"p1 _ZTS5EnumB", !51, i64 0}
-// CHECK:STDOUT: !107 = !{!106, !106, i64 0}
-// CHECK:STDOUT: !108 = !{!51, !51, i64 0}
-// CHECK:STDOUT: !109 = !{!"_ZTS1S", !50, i64 0}
-// CHECK:STDOUT: !111 = !{!109, !109, i64 0}
-// CHECK:STDOUT: !112 = !{!"_ZTS1I", !50, i64 0}
-// CHECK:STDOUT: !113 = !{!112, !112, i64 0}
+// CHECK:STDOUT: !99 = !{!"p1 _ZTS5EnumB", !44, i64 0}
+// CHECK:STDOUT: !100 = !{!99, !99, i64 0}
+// CHECK:STDOUT: !101 = !{!44, !44, i64 0}
+// CHECK:STDOUT: !102 = !{!"_ZTS1S", !43, i64 0}
+// CHECK:STDOUT: !104 = !{!102, !102, i64 0}
+// CHECK:STDOUT: !105 = !{!"_ZTS1I", !43, i64 0}
+// CHECK:STDOUT: !106 = !{!105, !105, i64 0}
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; ---
 // CHECK:STDOUT: ; ModuleID = 'class_to_int.carbon'
@@ -334,39 +319,39 @@ fn ConvertToValue(b: Cpp.IntB) {
 // CHECK:STDOUT: target triple = "x86_64-unknown-linux-gnu"
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define void @_CConvertToVar.Main(ptr %b) #0 !dbg !118 {
+// CHECK:STDOUT: define void @_CConvertToVar.Main(ptr %b) #0 !dbg !111 {
 // CHECK:STDOUT: entry:
-// CHECK:STDOUT:   %a.var = alloca i32, align 4, !dbg !121
-// CHECK:STDOUT:   call void @llvm.lifetime.start.p0(ptr %a.var), !dbg !121
-// CHECK:STDOUT:   %__carbon_thunk.call = call i32 @_ZNK4IntBcviEv.carbon_thunk._(ptr %b), !dbg !121
-// CHECK:STDOUT:   store i32 %__carbon_thunk.call, ptr %a.var, align 4, !dbg !121
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.f127f30143696d51(ptr %a.var), !dbg !121
-// CHECK:STDOUT:   ret void, !dbg !126
+// CHECK:STDOUT:   %a.var = alloca i32, align 4, !dbg !114
+// CHECK:STDOUT:   call void @llvm.lifetime.start.p0(ptr %a.var), !dbg !114
+// CHECK:STDOUT:   %__carbon_thunk.call = call i32 @_ZNK4IntBcviEv.carbon_thunk._(ptr %b), !dbg !114
+// CHECK:STDOUT:   store i32 %__carbon_thunk.call, ptr %a.var, align 4, !dbg !114
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.9a03059f269926ed(ptr %a.var), !dbg !114
+// CHECK:STDOUT:   ret void, !dbg !119
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: alwaysinline mustprogress uwtable
 // CHECK:STDOUT: define internal noundef i32 @_ZNK4IntBcviEv.carbon_thunk._(ptr noundef nonnull align 1 dereferenceable(1) %this) #1 {
 // CHECK:STDOUT: entry:
 // CHECK:STDOUT:   %this.addr = alloca ptr, align 8
-// CHECK:STDOUT:   store ptr %this, ptr %this.addr, align 8, !tbaa !144
-// CHECK:STDOUT:   %0 = load ptr, ptr %this.addr, align 8, !tbaa !144, !nonnull !57
+// CHECK:STDOUT:   store ptr %this, ptr %this.addr, align 8, !tbaa !137
+// CHECK:STDOUT:   %0 = load ptr, ptr %this.addr, align 8, !tbaa !137, !nonnull !50
 // CHECK:STDOUT:   %call = call noundef i32 @_ZNK4IntBcviEv(ptr noundef nonnull align 1 dereferenceable(1) %0)
 // CHECK:STDOUT:   ret i32 %call
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define void @_CConvertToValue.Main(ptr %b) #0 !dbg !128 {
+// CHECK:STDOUT: define void @_CConvertToValue.Main(ptr %b) #0 !dbg !121 {
 // CHECK:STDOUT: entry:
-// CHECK:STDOUT:   %__carbon_thunk.call = call i32 @_ZNK4IntBcviEv.carbon_thunk._(ptr %b), !dbg !131
-// CHECK:STDOUT:   ret void, !dbg !134
+// CHECK:STDOUT:   %__carbon_thunk.call = call i32 @_ZNK4IntBcviEv.carbon_thunk._(ptr %b), !dbg !124
+// CHECK:STDOUT:   ret void, !dbg !127
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
 // CHECK:STDOUT: declare void @llvm.lifetime.start.p0(ptr captures(none)) #2
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.f127f30143696d51(ptr %t) #0 !dbg !136 {
-// CHECK:STDOUT:   ret void, !dbg !141
+// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.9a03059f269926ed(ptr %t) #0 !dbg !129 {
+// CHECK:STDOUT:   ret void, !dbg !134
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: declare noundef i32 @_ZNK4IntBcviEv(ptr noundef nonnull align 1 dereferenceable(1)) #3
@@ -376,9 +361,9 @@ fn ConvertToValue(b: Cpp.IntB) {
 // CHECK:STDOUT: attributes #2 = { nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
 // CHECK:STDOUT: attributes #3 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 // CHECK:STDOUT:
-// CHECK:STDOUT: !llvm.dbg.cu = !{!115}
-// CHECK:STDOUT: !llvm.module.flags = !{!60, !61, !62, !2, !3}
-// CHECK:STDOUT: !llvm.errno.tbaa = !{!64}
+// CHECK:STDOUT: !llvm.dbg.cu = !{!108}
+// CHECK:STDOUT: !llvm.module.flags = !{!53, !54, !55, !2, !3}
+// CHECK:STDOUT: !llvm.errno.tbaa = !{!57}
 // CHECK:STDOUT:
 // CHECK:STDOUT: !2 = !{i32 7, !"Dwarf Version", i32 5}
 // CHECK:STDOUT: !3 = !{i32 2, !"Debug Info Version", i32 3}
@@ -387,34 +372,34 @@ fn ConvertToValue(b: Cpp.IntB) {
 // CHECK:STDOUT: !21 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: null, size: 64)
 // CHECK:STDOUT: !22 = !{null, !21}
 // CHECK:STDOUT: !23 = !DISubroutineType(types: !22)
-// CHECK:STDOUT: !49 = !{!"Simple C++ TBAA"}
-// CHECK:STDOUT: !50 = !{!"omnipotent char", !49, i64 0}
-// CHECK:STDOUT: !51 = !{!"any pointer", !50, i64 0}
-// CHECK:STDOUT: !57 = !{}
-// CHECK:STDOUT: !58 = !{!"int", !50, i64 0}
-// CHECK:STDOUT: !60 = !{i32 8, !"PIC Level", i32 2}
-// CHECK:STDOUT: !61 = !{i32 7, !"PIE Level", i32 2}
-// CHECK:STDOUT: !62 = !{i32 7, !"uwtable", i32 2}
-// CHECK:STDOUT: !63 = !{!"__libc_errno", !58, i64 0}
-// CHECK:STDOUT: !64 = !{!63, !58, i64 0}
-// CHECK:STDOUT: !114 = !DIFile(filename: "class_to_int.carbon", directory: "")
-// CHECK:STDOUT: !115 = distinct !DICompileUnit(language: DW_LANG_C_plus_plus, file: !114, producer: "carbon", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug)
-// CHECK:STDOUT: !118 = distinct !DISubprogram(name: "ConvertToVar", linkageName: "_CConvertToVar.Main", scope: null, file: !114, line: 11, type: !23, spFlags: DISPFlagDefinition, unit: !115, retainedNodes: !127)
-// CHECK:STDOUT: !119 = !DILocalVariable(arg: 1, scope: !118, type: !21)
-// CHECK:STDOUT: !121 = !DILocation(line: 12, column: 3, scope: !118)
-// CHECK:STDOUT: !124 = !{null, !20}
-// CHECK:STDOUT: !125 = !DISubroutineType(types: !124)
-// CHECK:STDOUT: !126 = !DILocation(line: 11, column: 1, scope: !118)
-// CHECK:STDOUT: !127 = !{!119}
-// CHECK:STDOUT: !128 = distinct !DISubprogram(name: "ConvertToValue", linkageName: "_CConvertToValue.Main", scope: null, file: !114, line: 15, type: !23, spFlags: DISPFlagDefinition, unit: !115, retainedNodes: !135)
-// CHECK:STDOUT: !129 = !DILocalVariable(arg: 1, scope: !128, type: !21)
-// CHECK:STDOUT: !131 = !DILocation(line: 16, column: 27, scope: !128)
-// CHECK:STDOUT: !134 = !DILocation(line: 15, column: 1, scope: !128)
-// CHECK:STDOUT: !135 = !{!129}
-// CHECK:STDOUT: !136 = distinct !DISubprogram(name: "SelfDestruct", linkageName: "_CSelfDestruct.Core.f127f30143696d51", scope: null, file: !10, line: 32, type: !125, spFlags: DISPFlagDefinition, unit: !115, retainedNodes: !142)
-// CHECK:STDOUT: !137 = !DILocalVariable(arg: 1, scope: !136, type: !20)
-// CHECK:STDOUT: !141 = !DILocation(line: 32, column: 1, scope: !136)
-// CHECK:STDOUT: !142 = !{!137}
-// CHECK:STDOUT: !143 = !{!"p1 _ZTS4IntB", !51, i64 0}
-// CHECK:STDOUT: !144 = !{!143, !143, i64 0}
+// CHECK:STDOUT: !42 = !{!"Simple C++ TBAA"}
+// CHECK:STDOUT: !43 = !{!"omnipotent char", !42, i64 0}
+// CHECK:STDOUT: !44 = !{!"any pointer", !43, i64 0}
+// CHECK:STDOUT: !50 = !{}
+// CHECK:STDOUT: !51 = !{!"int", !43, i64 0}
+// CHECK:STDOUT: !53 = !{i32 8, !"PIC Level", i32 2}
+// CHECK:STDOUT: !54 = !{i32 7, !"PIE Level", i32 2}
+// CHECK:STDOUT: !55 = !{i32 7, !"uwtable", i32 2}
+// CHECK:STDOUT: !56 = !{!"__libc_errno", !51, i64 0}
+// CHECK:STDOUT: !57 = !{!56, !51, i64 0}
+// CHECK:STDOUT: !107 = !DIFile(filename: "class_to_int.carbon", directory: "")
+// CHECK:STDOUT: !108 = distinct !DICompileUnit(language: DW_LANG_C_plus_plus, file: !107, producer: "carbon", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug)
+// CHECK:STDOUT: !111 = distinct !DISubprogram(name: "ConvertToVar", linkageName: "_CConvertToVar.Main", scope: null, file: !107, line: 11, type: !23, spFlags: DISPFlagDefinition, unit: !108, retainedNodes: !120)
+// CHECK:STDOUT: !112 = !DILocalVariable(arg: 1, scope: !111, type: !21)
+// CHECK:STDOUT: !114 = !DILocation(line: 12, column: 3, scope: !111)
+// CHECK:STDOUT: !117 = !{null, !20}
+// CHECK:STDOUT: !118 = !DISubroutineType(types: !117)
+// CHECK:STDOUT: !119 = !DILocation(line: 11, column: 1, scope: !111)
+// CHECK:STDOUT: !120 = !{!112}
+// CHECK:STDOUT: !121 = distinct !DISubprogram(name: "ConvertToValue", linkageName: "_CConvertToValue.Main", scope: null, file: !107, line: 15, type: !23, spFlags: DISPFlagDefinition, unit: !108, retainedNodes: !128)
+// CHECK:STDOUT: !122 = !DILocalVariable(arg: 1, scope: !121, type: !21)
+// CHECK:STDOUT: !124 = !DILocation(line: 16, column: 27, scope: !121)
+// CHECK:STDOUT: !127 = !DILocation(line: 15, column: 1, scope: !121)
+// CHECK:STDOUT: !128 = !{!122}
+// CHECK:STDOUT: !129 = distinct !DISubprogram(name: "SelfDestruct", linkageName: "_CSelfDestruct.Core.9a03059f269926ed", scope: null, file: !10, line: 32, type: !118, spFlags: DISPFlagDefinition, unit: !108, retainedNodes: !135)
+// CHECK:STDOUT: !130 = !DILocalVariable(arg: 1, scope: !129, type: !20)
+// CHECK:STDOUT: !134 = !DILocation(line: 32, column: 1, scope: !129)
+// CHECK:STDOUT: !135 = !{!130}
+// CHECK:STDOUT: !136 = !{!"p1 _ZTS4IntB", !44, i64 0}
+// CHECK:STDOUT: !137 = !{!136, !136, i64 0}
 // CHECK:STDOUT:

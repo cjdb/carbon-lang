@@ -77,7 +77,7 @@ fn Use(ref n: i32) -> i32 {
 // CHECK:STDOUT:   store i32 %.loc8_36.6, ptr %tuple2, align 4, !dbg !15
 // CHECK:STDOUT:   %IdFromGeneric.call = call i1 @_CIdFromGeneric.Main.1ac5a6b0e5910c46(i1 true), !dbg !21
 // CHECK:STDOUT:   %Id.call = call i32 @_CId.Main.2fad9574e050607e(i32 %n), !dbg !27
-// CHECK:STDOUT:   call void @_CSelfDestruct.Core.ffbc82e0019b7bf2(ptr %.loc8_36.3.temp), !dbg !15
+// CHECK:STDOUT:   call void @_CSelfDestruct.Core.33678554fe5e73e8(ptr %.loc8_36.3.temp), !dbg !15
 // CHECK:STDOUT:   ret i32 %Id.call, !dbg !30
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
@@ -108,7 +108,7 @@ fn Use(ref n: i32) -> i32 {
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
 // CHECK:STDOUT: ; Function Attrs: nounwind
-// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.ffbc82e0019b7bf2(ptr %t) #0 !dbg !56 {
+// CHECK:STDOUT: define linkonce_odr void @_CSelfDestruct.Core.33678554fe5e73e8(ptr %t) #0 !dbg !56 {
 // CHECK:STDOUT:   ret void, !dbg !61
 // CHECK:STDOUT: }
 // CHECK:STDOUT:
