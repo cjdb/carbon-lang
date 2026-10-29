@@ -438,16 +438,12 @@ library "[[@TEST_NAME]]";
 import library "check_destroy_format";
 import Cpp library "cpp_types.h";
 
-// CHECK:STDERR: fail_todo_class_cpp_carbon_cpp.carbon:[[@LINE+12]]:36: error: attempt to use a deleted function [CppInteropParseError]
+// CHECK:STDERR: fail_todo_class_cpp_carbon_cpp.carbon:[[@LINE+8]]:36: error: attempt to use a deleted function [CppInteropParseError]
 // CHECK:STDERR: included from: fail_todo_class_cpp_carbon_cpp.carbon:[[@LINE-3]]:10 [InCppInclude]
 // CHECK:STDERR: ./cpp_types.h:3:3: note: '~DeletedDestructor' has been explicitly marked deleted here [CppInteropParseNote]
-// CHECK:STDERR: min_prelude/parts/destroy.carbon:32:1-39: note: while deducing parameters of generic declared here [DeductionGenericHere]
-// CHECK:STDERR:
-// CHECK:STDERR: fail_todo_class_cpp_carbon_cpp.carbon:[[@LINE+7]]:1-36: error: cannot convert type `CarbonHoldsDeletedDestructor` into type implementing `Core.Destroy` [ConversionFailureTypeToFacet]
-// CHECK:STDERR: min_prelude/parts/destroy.carbon:32:1-39: note: while deducing parameters of generic declared here [DeductionGenericHere]
 // CHECK:STDERR:
 // CHECK:STDERR: fail_todo_class_cpp_carbon_cpp.carbon:[[@LINE+4]]:36: error: attempt to use a deleted function [CppInteropParseError]
-// CHECK:STDERR: included from: fail_todo_class_cpp_carbon_cpp.carbon:[[@LINE-11]]:10 [InCppInclude]
+// CHECK:STDERR: included from: fail_todo_class_cpp_carbon_cpp.carbon:[[@LINE-7]]:10 [InCppInclude]
 // CHECK:STDERR: ./cpp_types.h:3:3: note: '~DeletedDestructor' has been explicitly marked deleted here [CppInteropParseNote]
 // CHECK:STDERR:
 class CarbonHoldsDeletedDestructor {

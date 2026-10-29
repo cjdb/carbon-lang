@@ -42,6 +42,9 @@ impl forall [T: SubobjectDestroy] T as DestroyImpl {
 
 fn SelfDestruct[T: DestroyImpl](unused ref t: T) {}
 
+// TODO: rename to `TrivialDestroy` when `require impls` adds a witness table entry.
+interface TrivialDestroyImpl {}
+
 // --- fail_poison_custom_witness.carbon
 
 library "[[@TEST_NAME]]";

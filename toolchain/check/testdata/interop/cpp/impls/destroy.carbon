@@ -77,10 +77,9 @@ class Derived {
 
 fn DestroyClassWithProtectedBaseDestructor() {
   //@dump-sem-ir-begin
-  // CHECK:STDERR: fail_todo_destroy_protected_base_destructor.carbon:[[@LINE+5]]:3-23: error: cannot access protected member `<C++ destructor>` of type `Cpp.ProtectedDestructor` [ClassInvalidMemberAccess]
+  // CHECK:STDERR: fail_todo_destroy_protected_base_destructor.carbon:[[@LINE+4]]:3-23: error: cannot access protected member `<C++ destructor>` of type `Cpp.ProtectedDestructor` [ClassInvalidMemberAccess]
   // CHECK:STDERR: included from: fail_todo_destroy_protected_base_destructor.carbon:[[@LINE-9]]:10 [InCppInclude]
   // CHECK:STDERR: ./types.h:33:3: note: declared here [ClassMemberDeclaration]
-  // CHECK:STDERR: min_prelude/parts/destroy.carbon:32:1-39: note: while deducing parameters of generic declared here [DeductionGenericHere]
   // CHECK:STDERR:
   var unused a: Derived = {.base = {}};
   //@dump-sem-ir-end
@@ -99,10 +98,9 @@ class Derived {
 fn DestroyClassWithPrivateBaseDestructor() {
   //@dump-sem-ir-begin
   // TODO: We should not allow this, as the destructor of the base class is private.
-  // CHECK:STDERR: fail_destroy_private_base_destructor.carbon:[[@LINE+5]]:3-23: error: cannot access private member `<C++ destructor>` of type `Cpp.PrivateDestructor` [ClassInvalidMemberAccess]
+  // CHECK:STDERR: fail_destroy_private_base_destructor.carbon:[[@LINE+4]]:3-23: error: cannot access private member `<C++ destructor>` of type `Cpp.PrivateDestructor` [ClassInvalidMemberAccess]
   // CHECK:STDERR: included from: fail_destroy_private_base_destructor.carbon:[[@LINE-10]]:10 [InCppInclude]
   // CHECK:STDERR: ./types.h:28:3: note: declared here [ClassMemberDeclaration]
-  // CHECK:STDERR: min_prelude/parts/destroy.carbon:32:1-39: note: while deducing parameters of generic declared here [DeductionGenericHere]
   // CHECK:STDERR:
   var unused a: Derived = {.base = {}};
   //@dump-sem-ir-end
@@ -126,31 +124,25 @@ fn AmbiguousDestroy() {
 }
 
 fn DeletedDestroy() {
-  // CHECK:STDERR: fail_destroy_nondestroyable.carbon:[[@LINE+8]]:3: error: attempt to use a deleted function [CppInteropParseError]
+  // CHECK:STDERR: fail_destroy_nondestroyable.carbon:[[@LINE+4]]:3: error: attempt to use a deleted function [CppInteropParseError]
   // CHECK:STDERR: included from: fail_destroy_nondestroyable.carbon:[[@LINE-15]]:10 [InCppInclude]
   // CHECK:STDERR: ./types.h:23:3: note: '~DeletedDestructor' has been explicitly marked deleted here [CppInteropParseNote]
-  // CHECK:STDERR: min_prelude/parts/destroy.carbon:32:1-39: note: while deducing parameters of generic declared here [DeductionGenericHere]
-  // CHECK:STDERR:
-  // CHECK:STDERR: fail_destroy_nondestroyable.carbon:[[@LINE+3]]:3-37: error: cannot convert type `Cpp.DeletedDestructor` into type implementing `Core.Destroy` [ConversionFailureTypeToFacet]
-  // CHECK:STDERR: min_prelude/parts/destroy.carbon:32:1-39: note: while deducing parameters of generic declared here [DeductionGenericHere]
   // CHECK:STDERR:
   var unused a: Cpp.DeletedDestructor = {};
 }
 
 fn PrivateDestroy() {
-  // CHECK:STDERR: fail_destroy_nondestroyable.carbon:[[@LINE+5]]:3-37: error: cannot access private member `<C++ destructor>` of type `Cpp.PrivateDestructor` [ClassInvalidMemberAccess]
-  // CHECK:STDERR: included from: fail_destroy_nondestroyable.carbon:[[@LINE-27]]:10 [InCppInclude]
+  // CHECK:STDERR: fail_destroy_nondestroyable.carbon:[[@LINE+4]]:3-37: error: cannot access private member `<C++ destructor>` of type `Cpp.PrivateDestructor` [ClassInvalidMemberAccess]
+  // CHECK:STDERR: included from: fail_destroy_nondestroyable.carbon:[[@LINE-23]]:10 [InCppInclude]
   // CHECK:STDERR: ./types.h:28:3: note: declared here [ClassMemberDeclaration]
-  // CHECK:STDERR: min_prelude/parts/destroy.carbon:32:1-39: note: while deducing parameters of generic declared here [DeductionGenericHere]
   // CHECK:STDERR:
   var unused a: Cpp.PrivateDestructor = {};
 }
 
 fn ProtectedDestroy() {
-  // CHECK:STDERR: fail_destroy_nondestroyable.carbon:[[@LINE+5]]:3-39: error: cannot access protected member `<C++ destructor>` of type `Cpp.ProtectedDestructor` [ClassInvalidMemberAccess]
-  // CHECK:STDERR: included from: fail_destroy_nondestroyable.carbon:[[@LINE-36]]:10 [InCppInclude]
+  // CHECK:STDERR: fail_destroy_nondestroyable.carbon:[[@LINE+4]]:3-39: error: cannot access protected member `<C++ destructor>` of type `Cpp.ProtectedDestructor` [ClassInvalidMemberAccess]
+  // CHECK:STDERR: included from: fail_destroy_nondestroyable.carbon:[[@LINE-31]]:10 [InCppInclude]
   // CHECK:STDERR: ./types.h:33:3: note: declared here [ClassMemberDeclaration]
-  // CHECK:STDERR: min_prelude/parts/destroy.carbon:32:1-39: note: while deducing parameters of generic declared here [DeductionGenericHere]
   // CHECK:STDERR:
   var unused a: Cpp.ProtectedDestructor = {};
 }
@@ -188,13 +180,9 @@ class AdaptNoDestroy {
 fn Make() -> AdaptNoDestroy;
 
 fn F() {
-  // CHECK:STDERR: fail_no_destroy.carbon:[[@LINE+8]]:3: error: attempt to use a deleted function [CppInteropParseError]
+  // CHECK:STDERR: fail_no_destroy.carbon:[[@LINE+4]]:3: error: attempt to use a deleted function [CppInteropParseError]
   // CHECK:STDERR: included from: fail_no_destroy.carbon:[[@LINE-10]]:10 [InCppInclude]
   // CHECK:STDERR: ./types.h:23:3: note: '~DeletedDestructor' has been explicitly marked deleted here [CppInteropParseNote]
-  // CHECK:STDERR: min_prelude/parts/destroy.carbon:32:1-39: note: while deducing parameters of generic declared here [DeductionGenericHere]
-  // CHECK:STDERR:
-  // CHECK:STDERR: fail_no_destroy.carbon:[[@LINE+3]]:3-23: error: cannot convert type `AdaptNoDestroy` into type implementing `Core.Destroy` [ConversionFailureTypeToFacet]
-  // CHECK:STDERR: min_prelude/parts/destroy.carbon:32:1-39: note: while deducing parameters of generic declared here [DeductionGenericHere]
   // CHECK:STDERR:
   var _: AdaptNoDestroy = Make();
 }
