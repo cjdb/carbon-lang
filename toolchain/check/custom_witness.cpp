@@ -645,7 +645,10 @@ static auto DestroyStructFields(
     auto member_id = PerformMemberAccess(context, loc_id, callee_self_param_id,
                                          struct_fields[i].name_id);
     auto self_destruct_call = BuildSelfDestructCall(context, member_id);
-    DiscardExpr(context, self_destruct_call);
+    if (self_destruct_call != SemIR::InstId::None &&
+        self_destruct_call != SemIR::ErrorInst::InstId) {
+      DiscardExpr(context, self_destruct_call);
+    }
   }
 }
 
