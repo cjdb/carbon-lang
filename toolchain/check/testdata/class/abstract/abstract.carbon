@@ -152,7 +152,7 @@ fn F() {
   // CHECK:STDERR: fail_abstract_let_temporary_struct_literal.carbon:[[@LINE+5]]:28-29: error: initialization of abstract class `Abstract` [AbstractTypeInInit]
   // CHECK:STDERR:
   // CHECK:STDERR: fail_abstract_let_temporary_struct_literal.carbon:[[@LINE+3]]:28-29: error: cannot convert type `Abstract` into type implementing `Core.Destroy` [ConversionFailureTypeToFacet]
-  // CHECK:STDERR: {{.*}}/prelude/destroy.carbon:36:1-39: note: while deducing parameters of generic declared here [DeductionGenericHere]
+  // CHECK:STDERR: {{.*}}/prelude/destroy.carbon:35:1-39: note: while deducing parameters of generic declared here [DeductionGenericHere]
   // CHECK:STDERR:
   let unused l: Abstract = {};
 }
@@ -171,7 +171,7 @@ fn F() {
   // TODO: support destroying classes that derive from abstract types.
   //
   // CHECK:STDERR: fail_todo_abstract_let_temporary.carbon:[[@LINE+3]]:28-50: error: cannot convert type `Derived` into type implementing `Core.Destroy` [ConversionFailureTypeToFacet]
-  // CHECK:STDERR: {{.*}}/prelude/destroy.carbon:36:1-39: note: while deducing parameters of generic declared here [DeductionGenericHere]
+  // CHECK:STDERR: {{.*}}/prelude/destroy.carbon:35:1-39: note: while deducing parameters of generic declared here [DeductionGenericHere]
   // CHECK:STDERR:
   let unused l: Abstract = {.base = {}} as Derived;
 }
